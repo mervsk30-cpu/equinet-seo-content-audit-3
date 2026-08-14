@@ -1,0 +1,3157 @@
+{
+ "meta": {
+  "generated": "2026-08-14",
+  "baseline": "2026-07-14",
+  "country": "Singapore (Google SG)",
+  "site": "https://www.equinetacademy.com",
+  "clickup": {
+   "listId": "901814205053",
+   "listName": "all-courses-iqa (SEO Content View)",
+   "viewUrl": "https://app.clickup.com/90181914545/v/li/901814205053",
+   "teamId": "90181914545"
+  },
+  "sources": "Ahrefs (organic keywords, Keywords Explorer, SERP overview) pulled 2026-08-14; previous ranks = Ahrefs 2026-07-14 comparison; ClickUp SEO Content View parent tasks fetched 2026-08-14."
+ },
+ "courses": [
+  {
+   "id": "seo",
+   "name": "WSQ SEO, AEO, GEO Course",
+   "url": "https://www.equinetacademy.com/course/seo-training-course-singapore/",
+   "clickupParentId": "86evuuea2",
+   "clickupParentName": "WSQ SEO, AEO, GEO"
+  },
+  {
+   "id": "cseos",
+   "name": "Certified SEO Specialist (CSEOS) 2.0",
+   "url": "https://www.equinetacademy.com/course/certified-seo-specialist-programme/",
+   "clickupParentId": "86ew9e5t6",
+   "clickupParentName": "Certified SEO Specialist (CSEOS) 2.0"
+  },
+  {
+   "id": "dmhub",
+   "name": "Digital Marketing Courses (Hub Page)",
+   "url": "https://www.equinetacademy.com/digital-marketing-courses/",
+   "clickupParentId": "86evuudeg",
+   "clickupParentName": "WSQ Digital Marketing Foundations (Fundamentals)"
+  },
+  {
+   "id": "dmf",
+   "name": "WSQ Digital Marketing Foundations (Fundamentals)",
+   "url": "https://www.equinetacademy.com/course/digital-marketing-foundations-fundamentals-course/",
+   "clickupParentId": "86evuudeg",
+   "clickupParentName": "WSQ Digital Marketing Foundations (Fundamentals)"
+  },
+  {
+   "id": "smm",
+   "name": "WSQ Social Media Marketing Strategy & Optimisation",
+   "url": "https://www.equinetacademy.com/course/social-media-marketing-training-course/",
+   "clickupParentId": "86evunvj9",
+   "clickupParentName": "WSQ Social Media Marketing Strategy & Optimisation"
+  },
+  {
+   "id": "tiktok",
+   "name": "WSQ TikTok Marketing",
+   "url": "https://www.equinetacademy.com/course/tiktok-marketing/",
+   "clickupParentId": "86evuuh78",
+   "clickupParentName": "WSQ TikTok Marketing"
+  },
+  {
+   "id": "meta",
+   "name": "WSQ Meta Marketing (Facebook & Instagram)",
+   "url": "https://www.equinetacademy.com/course/facebook-instagram-marketing-course/",
+   "clickupParentId": "86evuufyt",
+   "clickupParentName": "WSQ Meta Marketing (Facebook and Instagram)"
+  },
+  {
+   "id": "gads",
+   "name": "WSQ Google Ads Strategy & Optimisation",
+   "url": "https://www.equinetacademy.com/course/google-ads-strategy-and-optimisation-course/",
+   "clickupParentId": "86evuugjk",
+   "clickupParentName": "WSQ Google Ads Strategy and Optimisation"
+  },
+  {
+   "id": "ga4",
+   "name": "WSQ Digital Marketing Analytics & Optimisation (GA4)",
+   "url": "https://www.equinetacademy.com/course/digital-web-analytics-google-analytics-training-course/",
+   "clickupParentId": "86ewz31jq",
+   "clickupParentName": "WSQ Digital Marketing Analytics & Optimisation (Google Analytics 4) Course"
+  },
+  {
+   "id": "content",
+   "name": "WSQ Digital Content Creation & Content Marketing Strategy",
+   "url": "https://www.equinetacademy.com/course/content-marketing-course/",
+   "clickupParentId": "86evuue40",
+   "clickupParentName": "WSQ Digital Content Creation & Content Marketing Strategy Course"
+  },
+  {
+   "id": "dcc",
+   "name": "WSQ Digital Content Creation for Content Creators",
+   "url": "https://www.equinetacademy.com/course/digital-content-creation-course/",
+   "clickupParentId": "86evv6udp",
+   "clickupParentName": "WSQ Digital Content Creation For Content Creators"
+  },
+  {
+   "id": "copy",
+   "name": "WSQ Digital Copywriting & Content Writing",
+   "url": "https://www.equinetacademy.com/course/copywriting-course/",
+   "clickupParentId": "86evv5bwr",
+   "clickupParentName": "WSQ Digital Copywriting and Content Writing Course"
+  },
+  {
+   "id": "ecom",
+   "name": "Ecommerce Strategy Course",
+   "url": "https://www.equinetacademy.com/course/ecommerce-strategy-course/",
+   "clickupParentId": "86ey3acx0",
+   "clickupParentName": "Ecommerce Strategy"
+  },
+  {
+   "id": "shopee",
+   "name": "WSQ Ecommerce Marketplaces (Shopee & Lazada)",
+   "url": "https://www.equinetacademy.com/course/ecommerce-marketplaces-shopee-lazada-course/",
+   "clickupParentId": "86evv9b7w",
+   "clickupParentName": "WSQ Ecommerce Marketplaces (Shopee & Lazada)"
+  },
+  {
+   "id": "uxui",
+   "name": "WSQ UX/UI Design Essentials",
+   "url": "https://www.equinetacademy.com/course/wsq-user-experience-user-interface-ux-ui-design-essentials/",
+   "clickupParentId": "86evw9x34",
+   "clickupParentName": "WSQ User Experience & User Interface (UX UI) Design Essentials"
+  },
+  {
+   "id": "auxui",
+   "name": "WSQ Advanced UX/UI Design",
+   "url": "https://www.equinetacademy.com/course/advanced-ux-ui-design-course/",
+   "clickupParentId": "86evw9n2c",
+   "clickupParentName": "WSQ Advanced UX UI Design"
+  },
+  {
+   "id": "wp",
+   "name": "WSQ WordPress Website Creation",
+   "url": "https://www.equinetacademy.com/course/wordpress-website-landing-page-creation-course-singapore/",
+   "clickupParentId": "86ey7p18b",
+   "clickupParentName": "WordPress Website & Landing Page Creation Course"
+  },
+  {
+   "id": "clpds",
+   "name": "Certified Landing Page & Web Design Specialist (CLPDS)",
+   "url": "https://www.equinetacademy.com/course/certified-landing-page-design-specialist-clpds/",
+   "clickupParentId": "86ew9e60a",
+   "clickupParentName": "Certified Landing Page & Web Design Specialist (CLPWDS)"
+  },
+  {
+   "id": "canva",
+   "name": "WSQ Canva Design",
+   "url": "https://www.equinetacademy.com/course/canva-design-course/",
+   "clickupParentId": "86evwarrf",
+   "clickupParentName": "WSQ Canva Design"
+  },
+  {
+   "id": "dx",
+   "name": "WSQ AI-Driven Digital Transformation",
+   "url": "https://www.equinetacademy.com/course/digital-transformation-course/",
+   "clickupParentId": "86evw9q3d",
+   "clickupParentName": "WSQ AI-Driven Digital Transformation"
+  },
+  {
+   "id": "aidm",
+   "name": "WSQ AI in Digital Marketing",
+   "url": "https://www.equinetacademy.com/course/ai-in-digital-marketing/",
+   "clickupParentId": "86evuudfn",
+   "clickupParentName": "WSQ AI in Digital Marketing"
+  },
+  {
+   "id": "genai",
+   "name": "Generative AI Applications Course",
+   "url": "https://www.equinetacademy.com/course/generative-ai-chatgpt-gemini-and-popular-ai-tools-course/",
+   "clickupParentId": "86ew9p1wf",
+   "clickupParentName": "Generative AI Applications (ChatGPT, Claude, and Mainstream AI Tools) for Productivity & Business"
+  },
+  {
+   "id": "aiess",
+   "name": "AI Essentials Course",
+   "url": "https://www.equinetacademy.com/course/ai-and-machine-learning-course/",
+   "clickupParentId": "86extf6xw",
+   "clickupParentName": "AI Essentials"
+  },
+  {
+   "id": "agentic",
+   "name": "Agentic AI Course",
+   "url": "https://www.equinetacademy.com/course/agentic-ai-course/",
+   "clickupParentId": "86ew9qa2a",
+   "clickupParentName": "Agentic AI"
+  },
+  {
+   "id": "prompt",
+   "name": "Prompt Engineering Course",
+   "url": "https://www.equinetacademy.com/course/prompt-engineering-course/",
+   "clickupParentId": "86ew9p1v0",
+   "clickupParentName": "Prompt Engineering"
+  },
+  {
+   "id": "pbi",
+   "name": "WSQ Power BI Course",
+   "url": "https://www.equinetacademy.com/course/power-bi-course/",
+   "clickupParentId": "86evw9w8x",
+   "clickupParentName": "WSQ Power BI"
+  },
+  {
+   "id": "tableau",
+   "name": "Tableau Data Visualisation & Dashboarding",
+   "url": "https://www.equinetacademy.com/course/tableau-data-visualisation-and-dashboarding-course/",
+   "clickupParentId": "86ew9xv65",
+   "clickupParentName": "Tableau Data Visualisation & Dashboarding"
+  },
+  {
+   "id": "da",
+   "name": "Data Analytics & Data Literacy Essentials",
+   "url": "https://www.equinetacademy.com/course/data-analytics-and-data-literacy-essentials-course/",
+   "clickupParentId": "86ew9xr2k",
+   "clickupParentName": "Data Analytics and Data Literacy Essentials"
+  },
+  {
+   "id": "cyber",
+   "name": "Cybersecurity Awareness & Essentials",
+   "url": "https://www.equinetacademy.com/course/cybersecurity-awareness-essentials-for-workplace-employees-business-owners-course/",
+   "clickupParentId": "86ew9y01r",
+   "clickupParentName": "Cybersecurity Awareness & Essentials For Workplace Employees & Business Owners"
+  },
+  {
+   "id": "video",
+   "name": "Video Creation & Video Editing (Digital Storytelling)",
+   "url": "https://www.equinetacademy.com/course/video-creation-video-editing-digital-storytelling-course/",
+   "clickupParentId": "86evw9xfz",
+   "clickupParentName": "Video Creation & Video Editing (Digital Storytelling)"
+  },
+  {
+   "id": "photo",
+   "name": "Mirrorless & DSLR Photography Essentials",
+   "url": "https://www.equinetacademy.com/course/mirrorless-dslr-photography-essentials-course/",
+   "clickupParentId": "86ew9yyeh",
+   "clickupParentName": "Mirrorless & DSLR Photography Essentials Course"
+  },
+  {
+   "id": "pubspeak",
+   "name": "Public Speaking Course",
+   "url": "https://www.equinetacademy.com/course/public-speaking-course/",
+   "clickupParentId": "86evw9whf",
+   "clickupParentName": "Public Speaking"
+  },
+  {
+   "id": "entre",
+   "name": "Entrepreneurship Course",
+   "url": "https://www.equinetacademy.com/course/entrepreneurship-course/",
+   "clickupParentId": "86evw9q9e",
+   "clickupParentName": "Entrepreneurship"
+  },
+  {
+   "id": "figma",
+   "name": "WSQ What The Figma (WTF)",
+   "url": "https://www.equinetacademy.com/course/what-the-figma-wtf/",
+   "clickupParentId": "86evw9xj7",
+   "clickupParentName": "WSQ What The Figma (WTF)"
+  },
+  {
+   "id": "email",
+   "name": "WSQ Email Marketing & Marketing Automation",
+   "url": "https://www.equinetacademy.com/course/email-marketing-and-marketing-automation-course/",
+   "clickupParentId": "86evuueg8",
+   "clickupParentName": "WSQ Email Marketing & Marketing Automation"
+  }
+ ],
+ "keywords": [
+  {
+   "id": "kw-01",
+   "kw": "seo course singapore",
+   "courseId": "seo",
+   "primary": true,
+   "vol": 250,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Transactional / Commercial / Local",
+   "rank": 5,
+   "prevRank": 5,
+   "rankUrl": "https://www.equinetacademy.com/course/seo-training-course-singapore/",
+   "competitor": {
+    "name": "asktraining.com.sg",
+    "url": "https://asktraining.com.sg/digital-marketing-courses/wsq-search-engine-optimisation-course/",
+    "pos": 2,
+    "dr": 36
+   },
+   "gap": "page1-to-top3",
+   "coveredBy": null,
+   "cannibal": "Low-medium: legacy /course/seo-training-course/ still live with near-identical targeting ('WSQ Search Engine Optimisation (SEO) Strategy Course') — verify canonical/redirect. /course/advanced-seo-course/ and CSEOS 2.0 target adjacent intents.",
+   "opportunity": "KD 0 with rank 5 — Ask Training (DR 36) holds #2 with a weaker profile; on-page refresh + internal links can realistically win top 3.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 5
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 5
+    }
+   ]
+  },
+  {
+   "id": "kw-02",
+   "kw": "seo training singapore",
+   "courseId": "seo",
+   "primary": false,
+   "vol": 150,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Transactional / Commercial / Local",
+   "rank": 2,
+   "prevRank": 3,
+   "rankUrl": "https://www.equinetacademy.com/course/seo-training-course-singapore/",
+   "competitor": {
+    "name": "asktraining.com.sg",
+    "url": "https://asktraining.com.sg/digital-marketing-courses/search-engine-optimisation/",
+    "pos": 3,
+    "dr": 36
+   },
+   "gap": "top3-to-1",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Already #2 and improving (was #3). #1 within reach with fresh content + review schema.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 3
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 2
+    }
+   ]
+  },
+  {
+   "id": "kw-03",
+   "kw": "seo course",
+   "courseId": "seo",
+   "primary": false,
+   "vol": 150,
+   "kd": 8,
+   "cpc": null,
+   "intent": "Commercial / Informational",
+   "rank": 6,
+   "prevRank": 8,
+   "rankUrl": "https://www.equinetacademy.com/course/seo-training-course-singapore/",
+   "competitor": null,
+   "gap": "page1-to-top3",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Improved 8→6; consolidate gains with content depth (AEO/GEO sections match new title).",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 8
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 6
+    }
+   ]
+  },
+  {
+   "id": "kw-04",
+   "kw": "seo training course",
+   "courseId": "seo",
+   "primary": false,
+   "vol": 150,
+   "kd": 18,
+   "cpc": null,
+   "intent": "Transactional / Commercial",
+   "rank": 7,
+   "prevRank": 6,
+   "rankUrl": "https://www.equinetacademy.com/course/seo-training-course-singapore/",
+   "competitor": null,
+   "gap": "page1-to-top3",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Slipped 6→7 — watch; strengthen internal anchors from SEO blog cluster.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 6
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 7
+    }
+   ]
+  },
+  {
+   "id": "kw-05",
+   "kw": "seo courses singapore",
+   "courseId": "seo",
+   "primary": false,
+   "vol": 40,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Transactional / Commercial / Local",
+   "rank": 1,
+   "prevRank": 3,
+   "rankUrl": "https://www.equinetacademy.com/course/seo-training-course-singapore/",
+   "competitor": null,
+   "gap": "defend",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Reached #1 (was #3). Defend with rank monitoring.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 3
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 1
+    }
+   ]
+  },
+  {
+   "id": "kw-06",
+   "kw": "seo certification",
+   "courseId": "cseos",
+   "primary": true,
+   "vol": 70,
+   "kd": 39,
+   "cpc": null,
+   "intent": "Commercial / Informational",
+   "rank": 1,
+   "prevRank": 1,
+   "rankUrl": "https://www.equinetacademy.com/course/certified-seo-specialist-programme/",
+   "competitor": null,
+   "gap": "defend",
+   "coveredBy": null,
+   "cannibal": "Low: WSQ SEO course page targets course intent; keep certification intent on CSEOS.",
+   "opportunity": "Ranking #1. Maintain freshness; add FAQ schema to hold the position against Coursera/HubSpot.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 1
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 1
+    }
+   ]
+  },
+  {
+   "id": "kw-07",
+   "kw": "digital marketing course",
+   "courseId": "dmhub",
+   "primary": true,
+   "vol": 700,
+   "kd": 10,
+   "cpc": null,
+   "intent": "Commercial / Informational",
+   "rank": 10,
+   "prevRank": 1,
+   "rankUrl": "https://www.equinetacademy.com/digital-marketing-courses/",
+   "competitor": {
+    "name": "academy.smu.edu.sg",
+    "url": "https://academy.smu.edu.sg/courses/professional-certificate-digital-marketing",
+    "pos": 2,
+    "dr": 79
+   },
+   "gap": "recover-decline",
+   "coveredBy": null,
+   "cannibal": "HIGH: blog 'How to Do Digital Marketing: A Beginner's Guide' has also ranked #1 for this keyword; multiple pages (hub, foundations course, CDMS programme, blog guide) target overlapping intent.",
+   "opportunity": "CRITICAL DECLINE: #1 → #10 in one month on the highest-value keyword (700/mo). Diagnose: cannibalisation with blog guide + content freshness. Recovery = biggest single traffic win available.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 1
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 10
+    }
+   ]
+  },
+  {
+   "id": "kw-08",
+   "kw": "digital marketing course singapore",
+   "courseId": "dmhub",
+   "primary": true,
+   "vol": 600,
+   "kd": 7,
+   "cpc": null,
+   "intent": "Commercial / Informational / Local",
+   "rank": 13,
+   "prevRank": 11,
+   "rankUrl": "https://www.equinetacademy.com/digital-marketing-courses/",
+   "competitor": {
+    "name": "academy.smu.edu.sg",
+    "url": "https://academy.smu.edu.sg/courses/professional-certificate-digital-marketing",
+    "pos": 2,
+    "dr": 79
+   },
+   "gap": "page2-to-page1",
+   "coveredBy": null,
+   "cannibal": "HIGH: same cluster as 'digital marketing course'.",
+   "opportunity": "Page 2 (#13) on a 600/mo KD 7 keyword. SMU (#2) and Ask Training (#4) rank with standard course pages — hub page consolidation + backlinks can return this to page 1.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 11
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 13
+    }
+   ]
+  },
+  {
+   "id": "kw-09",
+   "kw": "digital marketing courses singapore",
+   "courseId": "dmhub",
+   "primary": false,
+   "vol": 300,
+   "kd": 2,
+   "cpc": null,
+   "intent": "Commercial / Informational / Local",
+   "rank": 11,
+   "prevRank": 1,
+   "rankUrl": "https://www.equinetacademy.com/digital-marketing-courses/",
+   "competitor": null,
+   "gap": "recover-decline",
+   "coveredBy": null,
+   "cannibal": "HIGH: same cluster.",
+   "opportunity": "Dropped #1 → #11. Same recovery cluster as 'digital marketing course'.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 1
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 11
+    }
+   ]
+  },
+  {
+   "id": "kw-10",
+   "kw": "wsq diploma in digital marketing",
+   "courseId": "dmhub",
+   "primary": false,
+   "vol": 150,
+   "kd": 6,
+   "cpc": null,
+   "intent": "Commercial / Branded",
+   "rank": 3,
+   "prevRank": 3,
+   "rankUrl": "https://www.equinetacademy.com/digital-marketing-courses/",
+   "competitor": null,
+   "gap": "top3-to-1",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Stable #3; low effort to defend.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 3
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 3
+    }
+   ]
+  },
+  {
+   "id": "kw-11",
+   "kw": "digital marketing course skillsfuture",
+   "courseId": "dmhub",
+   "primary": false,
+   "vol": 150,
+   "kd": 6,
+   "cpc": null,
+   "intent": "Commercial / Branded",
+   "rank": 8,
+   "prevRank": 5,
+   "rankUrl": "https://www.equinetacademy.com/digital-marketing-courses/",
+   "competitor": null,
+   "gap": "recover-decline",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Slipped 5→8; add a dedicated SkillsFuture funding section on the hub.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 5
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 8
+    }
+   ]
+  },
+  {
+   "id": "kw-12",
+   "kw": "best digital marketing course singapore",
+   "courseId": "dmhub",
+   "primary": false,
+   "vol": 70,
+   "kd": 6,
+   "cpc": null,
+   "intent": "Commercial / Local",
+   "rank": 2,
+   "prevRank": 2,
+   "rankUrl": "https://www.equinetacademy.com/digital-marketing-courses/",
+   "competitor": null,
+   "gap": "defend",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Stable #2. Defend.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 2
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 2
+    }
+   ]
+  },
+  {
+   "id": "kw-13",
+   "kw": "marketing courses singapore",
+   "courseId": "dmhub",
+   "primary": false,
+   "vol": 150,
+   "kd": 17,
+   "cpc": null,
+   "intent": "Transactional / Commercial / Local",
+   "rank": 8,
+   "prevRank": 8,
+   "rankUrl": "https://www.equinetacademy.com/digital-marketing-courses/",
+   "competitor": null,
+   "gap": "page1-to-top3",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Stable #8; broader head term — supporting content + links.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 8
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 8
+    }
+   ]
+  },
+  {
+   "id": "kw-14",
+   "kw": "fundamentals of digital marketing",
+   "courseId": "dmf",
+   "primary": true,
+   "vol": 60,
+   "kd": 3,
+   "cpc": null,
+   "intent": "Informational / Branded",
+   "rank": 9,
+   "prevRank": 4,
+   "rankUrl": "https://www.equinetacademy.com/course/digital-marketing-foundations-fundamentals-course/",
+   "competitor": null,
+   "gap": "recover-decline",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Dropped 4→9. Refresh course page content; re-add fundamentals FAQ.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 4
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 9
+    }
+   ]
+  },
+  {
+   "id": "kw-15",
+   "kw": "digital marketing fundamentals",
+   "courseId": "dmf",
+   "primary": false,
+   "vol": 20,
+   "kd": 23,
+   "cpc": null,
+   "intent": "Commercial / Informational",
+   "rank": 6,
+   "prevRank": 3,
+   "rankUrl": "https://www.equinetacademy.com/course/digital-marketing-foundations-fundamentals-course/",
+   "competitor": null,
+   "gap": "recover-decline",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Dropped 3→6 — same refresh.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 3
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 6
+    }
+   ]
+  },
+  {
+   "id": "kw-16",
+   "kw": "wsq digital marketing course",
+   "courseId": "dmf",
+   "primary": false,
+   "vol": 100,
+   "kd": null,
+   "cpc": null,
+   "intent": "Commercial / Branded",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": null,
+   "gap": "competitor-gap",
+   "coveredBy": "https://www.equinetacademy.com/course/digital-marketing-strategy-course/ ranks #3 for 'wsq digital marketing'",
+   "cannibal": "Medium: strategy course page captures the WSQ modifier instead of foundations/hub.",
+   "opportunity": "Not ranking for the exact phrase (100/mo). Assign to hub or foundations page and align title tags.",
+   "history": []
+  },
+  {
+   "id": "kw-17",
+   "kw": "social media course",
+   "courseId": "smm",
+   "primary": true,
+   "vol": 150,
+   "kd": 10,
+   "cpc": null,
+   "intent": "Commercial / Informational",
+   "rank": 6,
+   "prevRank": 6,
+   "rankUrl": "https://www.equinetacademy.com/course/social-media-marketing-training-course/",
+   "competitor": {
+    "name": "academy.smu.edu.sg",
+    "url": "https://academy.smu.edu.sg/courses/digital-marketing-social-media-marketing",
+    "pos": 2,
+    "dr": 79
+   },
+   "gap": "page1-to-top3",
+   "coveredBy": null,
+   "cannibal": "Medium: blog 'Winning 6-Step Social Media Marketing Strategy' also surfaces for this keyword — align internal links to the course page.",
+   "opportunity": "Stable #6, KD 10. SMU #2 / Ask Training #4; optimised title + review schema + blog internal links can reach top 3.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 6
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 6
+    }
+   ]
+  },
+  {
+   "id": "kw-18",
+   "kw": "social media courses singapore",
+   "courseId": "smm",
+   "primary": false,
+   "vol": 100,
+   "kd": 1,
+   "cpc": null,
+   "intent": "Commercial / Local",
+   "rank": 7,
+   "prevRank": 7,
+   "rankUrl": "https://www.equinetacademy.com/course/social-media-marketing-training-course/",
+   "competitor": null,
+   "gap": "page1-to-top3",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Stable #7; same cluster.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 7
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 7
+    }
+   ]
+  },
+  {
+   "id": "kw-19",
+   "kw": "social media marketing course singapore",
+   "courseId": "smm",
+   "primary": false,
+   "vol": 30,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Transactional / Commercial / Local",
+   "rank": 3,
+   "prevRank": 7,
+   "rankUrl": "https://www.equinetacademy.com/course/social-media-marketing-training-course/",
+   "competitor": null,
+   "gap": "top3-to-1",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Improved 7→3 — momentum; push to #1.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 7
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 3
+    }
+   ]
+  },
+  {
+   "id": "kw-20",
+   "kw": "social media marketing course",
+   "courseId": "smm",
+   "primary": false,
+   "vol": 150,
+   "kd": 25,
+   "cpc": null,
+   "intent": "Commercial / Informational",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": {
+    "name": "academy.smu.edu.sg",
+    "url": "https://academy.smu.edu.sg/courses/digital-marketing-social-media-marketing",
+    "pos": 2,
+    "dr": 79
+   },
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Competitors rank, Equinet doesn't (150/mo). Fold exact phrase into course page H1/meta.",
+   "history": []
+  },
+  {
+   "id": "kw-21",
+   "kw": "tiktok course singapore",
+   "courseId": "tiktok",
+   "primary": true,
+   "vol": 100,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Transactional / Commercial / Local",
+   "rank": 6,
+   "prevRank": 6,
+   "rankUrl": "https://www.equinetacademy.com/course/tiktok-marketing/",
+   "competitor": {
+    "name": "academy.smu.edu.sg",
+    "url": "https://academy.smu.edu.sg/courses/tiktok-marketing-and-ads-business",
+    "pos": 1,
+    "dr": 79
+   },
+   "gap": "page1-to-top3",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Stable #6, KD 0. SMU #1, BELLS #2, Ask Training #4 — striking distance (existing ClickUp task covers this).",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 6
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 6
+    }
+   ]
+  },
+  {
+   "id": "kw-22",
+   "kw": "tiktok course",
+   "courseId": "tiktok",
+   "primary": false,
+   "vol": 80,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Transactional / Commercial / Branded",
+   "rank": 9,
+   "prevRank": 8,
+   "rankUrl": "https://www.equinetacademy.com/course/tiktok-marketing/",
+   "competitor": null,
+   "gap": "page1-to-top3",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Slipped 8→9; same optimisation cluster.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 8
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 9
+    }
+   ]
+  },
+  {
+   "id": "kw-23",
+   "kw": "tiktok marketing course",
+   "courseId": "tiktok",
+   "primary": false,
+   "vol": 150,
+   "kd": null,
+   "cpc": null,
+   "intent": "Commercial",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": {
+    "name": "asktraining.com.sg",
+    "url": "https://asktraining.com.sg/digital-marketing-courses/tiktok-marketing/",
+    "pos": 4,
+    "dr": 36
+   },
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "150/mo variant not captured — add exact phrase to title/H1.",
+   "history": []
+  },
+  {
+   "id": "kw-24",
+   "kw": "facebook marketing course",
+   "courseId": "meta",
+   "primary": true,
+   "vol": 90,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Commercial / Informational",
+   "rank": 4,
+   "prevRank": 4,
+   "rankUrl": "https://www.equinetacademy.com/course/facebook-instagram-marketing-course/",
+   "competitor": null,
+   "gap": "page1-to-top3",
+   "coveredBy": null,
+   "cannibal": "Low: blog 'Beginner's Guide to Facebook Marketing' targets informational intent — good internal-link source.",
+   "opportunity": "Stable #4, KD 0 — top 3 achievable with refreshed title/meta + FAQ.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 4
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 4
+    }
+   ]
+  },
+  {
+   "id": "kw-25",
+   "kw": "facebook ads course",
+   "courseId": "meta",
+   "primary": false,
+   "vol": 70,
+   "kd": 26,
+   "cpc": null,
+   "intent": "Commercial / Branded",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": null,
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Not ranking (70/mo). Add 'Facebook Ads' module section on Meta Marketing page.",
+   "history": []
+  },
+  {
+   "id": "kw-26",
+   "kw": "google ads course",
+   "courseId": "gads",
+   "primary": true,
+   "vol": 200,
+   "kd": 12,
+   "cpc": null,
+   "intent": "Commercial / Informational / Branded",
+   "rank": 8,
+   "prevRank": 8,
+   "rankUrl": "https://www.equinetacademy.com/course/google-ads-strategy-and-optimisation-course/",
+   "competitor": {
+    "name": "asktraining.com.sg",
+    "url": "https://asktraining.com.sg/digital-marketing-courses/wsq-google-ads-course/",
+    "pos": 5,
+    "dr": 36
+   },
+   "gap": "page1-to-top3",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Stable #8. Skillshop/Google own top spots (navigational) but Ask Training #5 proves a local WSQ page can sit top 5.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 8
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 8
+    }
+   ]
+  },
+  {
+   "id": "kw-27",
+   "kw": "google ads course singapore",
+   "courseId": "gads",
+   "primary": false,
+   "vol": 150,
+   "kd": null,
+   "cpc": null,
+   "intent": "Commercial / Local",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": {
+    "name": "asktraining.com.sg",
+    "url": "https://asktraining.com.sg/digital-marketing-courses/wsq-google-ads-course/",
+    "pos": 5,
+    "dr": 36
+   },
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "150/mo local variant not captured — add 'Singapore' to title tag and on-page copy.",
+   "history": []
+  },
+  {
+   "id": "kw-28",
+   "kw": "google analytics course singapore",
+   "courseId": "ga4",
+   "primary": true,
+   "vol": 70,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Transactional / Commercial / Local",
+   "rank": 4,
+   "prevRank": 3,
+   "rankUrl": "https://www.equinetacademy.com/course/digital-web-analytics-google-analytics-training-course/",
+   "competitor": {
+    "name": "sutd.edu.sg",
+    "url": "https://www.sutd.edu.sg/academy-course/google-analytics-mastery-the-data-driven-approach-to-digital-marketing/",
+    "pos": 1,
+    "dr": 74
+   },
+   "gap": "page1-to-top3",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "#4 (was #3). SUTD #1, Ask Training #2, OOm #3 — refresh + GA4 keyword alignment to reclaim top 3.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 3
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 4
+    }
+   ]
+  },
+  {
+   "id": "kw-29",
+   "kw": "ga4 course",
+   "courseId": "ga4",
+   "primary": false,
+   "vol": 100,
+   "kd": null,
+   "cpc": null,
+   "intent": "Commercial",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": null,
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": "Low: blog 'GA4 Certification' covers certification intent — internal link, don't duplicate.",
+   "opportunity": "100/mo not captured — add explicit 'GA4 course' phrasing on the analytics course page.",
+   "history": []
+  },
+  {
+   "id": "kw-30",
+   "kw": "ga4 certification",
+   "courseId": "ga4",
+   "primary": false,
+   "vol": 20,
+   "kd": 56,
+   "cpc": null,
+   "intent": "Commercial / Branded",
+   "rank": 6,
+   "prevRank": 4,
+   "rankUrl": "https://www.equinetacademy.com/blog/ga4-certification-what-it-is-and-why-it-matters/",
+   "competitor": null,
+   "gap": "page1-to-top3",
+   "coveredBy": "Blog article (not course page)",
+   "cannibal": null,
+   "opportunity": "Blog ranks #6 (was #4). Optimise article + strengthen internal link to GA4 course.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 4
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 6
+    }
+   ]
+  },
+  {
+   "id": "kw-31",
+   "kw": "content marketing singapore",
+   "courseId": "content",
+   "primary": true,
+   "vol": 300,
+   "kd": 2,
+   "cpc": null,
+   "intent": "Commercial / Informational",
+   "rank": 5,
+   "prevRank": 5,
+   "rankUrl": "https://www.equinetacademy.com/course/content-marketing-course/",
+   "competitor": {
+    "name": "academy.smu.edu.sg",
+    "url": "https://academy.smu.edu.sg/courses/content-marketing-and-search-engine-optimisation-seo",
+    "pos": 8,
+    "dr": 79
+   },
+   "gap": "page1-to-top3",
+   "coveredBy": null,
+   "cannibal": "Low-medium: strong blog cluster (what-is-content-marketing, content pillars) targets informational variants — keep intents separated.",
+   "opportunity": "#5 on 300/mo KD 2. SERP is mixed-intent (jobs, agencies) — the only course result above Equinet is none; top-3 realistic with stronger relevance signals.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 5
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 5
+    }
+   ]
+  },
+  {
+   "id": "kw-32",
+   "kw": "content marketing course",
+   "courseId": "content",
+   "primary": false,
+   "vol": 150,
+   "kd": 35,
+   "cpc": null,
+   "intent": "Commercial / Informational",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": {
+    "name": "academy.hubspot.com",
+    "url": "https://academy.hubspot.com/courses/content-marketing",
+    "pos": 1,
+    "dr": 93
+   },
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Global players (HubSpot, Coursera) + SUSS/SMU own this SERP. Long-term: build authority; short-term: target 'content marketing course singapore' (70/mo).",
+   "history": []
+  },
+  {
+   "id": "kw-33",
+   "kw": "content creation course",
+   "courseId": "dcc",
+   "primary": true,
+   "vol": 250,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Transactional / Commercial / Local",
+   "rank": 2,
+   "prevRank": 4,
+   "rankUrl": "https://www.equinetacademy.com/course/digital-content-creation-course/",
+   "competitor": null,
+   "gap": "top3-to-1",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Improved 4→2, KD 0 — #1 within reach; add review schema + internal links.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 4
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 2
+    }
+   ]
+  },
+  {
+   "id": "kw-34",
+   "kw": "digital content creation",
+   "courseId": "dcc",
+   "primary": false,
+   "vol": 100,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Commercial / Informational",
+   "rank": 8,
+   "prevRank": 6,
+   "rankUrl": "https://www.equinetacademy.com/course/digital-content-creation-course/",
+   "competitor": null,
+   "gap": "page1-to-top3",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Slipped 6→8; refresh copy.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 6
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 8
+    }
+   ]
+  },
+  {
+   "id": "kw-35",
+   "kw": "copywriting courses singapore",
+   "courseId": "copy",
+   "primary": true,
+   "vol": 40,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Transactional / Commercial / Local",
+   "rank": 3,
+   "prevRank": 4,
+   "rankUrl": "https://www.equinetacademy.com/course/copywriting-course/",
+   "competitor": null,
+   "gap": "top3-to-1",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Improved 4→3; push to #1 (KD 0).",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 4
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 3
+    }
+   ]
+  },
+  {
+   "id": "kw-36",
+   "kw": "copywriting course",
+   "courseId": "copy",
+   "primary": false,
+   "vol": 60,
+   "kd": 15,
+   "cpc": null,
+   "intent": "Transactional / Commercial / Local",
+   "rank": 9,
+   "prevRank": 7,
+   "rankUrl": "https://www.equinetacademy.com/course/copywriting-course/",
+   "competitor": null,
+   "gap": "recover-decline",
+   "coveredBy": null,
+   "cannibal": "Low: blog 'Copywriting vs Content Writing' is complementary — internal link source.",
+   "opportunity": "Slipped 7→9; refresh content + internal links from copywriting blog.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 7
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 9
+    }
+   ]
+  },
+  {
+   "id": "kw-37",
+   "kw": "copywriting courses",
+   "courseId": "copy",
+   "primary": false,
+   "vol": 70,
+   "kd": 13,
+   "cpc": null,
+   "intent": "Commercial / Informational",
+   "rank": 8,
+   "prevRank": null,
+   "rankUrl": "https://www.equinetacademy.com/course/copywriting-course/",
+   "competitor": null,
+   "gap": "new-ranking",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "New ranking at #8 — consolidate.",
+   "history": [
+    {
+     "date": "2026-08-14",
+     "rank": 8
+    }
+   ]
+  },
+  {
+   "id": "kw-38",
+   "kw": "copywriting course singapore",
+   "courseId": "copy",
+   "primary": false,
+   "vol": 10,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Transactional / Commercial / Local",
+   "rank": 2,
+   "prevRank": 7,
+   "rankUrl": "https://www.equinetacademy.com/course/copywriting-course/",
+   "competitor": null,
+   "gap": "top3-to-1",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Improved 7→2.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 7
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 2
+    }
+   ]
+  },
+  {
+   "id": "kw-39",
+   "kw": "ecommerce course singapore",
+   "courseId": "ecom",
+   "primary": true,
+   "vol": 150,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Commercial / Informational / Local",
+   "rank": 3,
+   "prevRank": 4,
+   "rankUrl": "https://www.equinetacademy.com/course/ecommerce-strategy-course/",
+   "competitor": {
+    "name": "tertiarycourses.com.sg",
+    "url": "https://www.tertiarycourses.com.sg/ecommerce-training-courses.html",
+    "pos": 1,
+    "dr": 40
+   },
+   "gap": "top3-to-1",
+   "coveredBy": null,
+   "cannibal": "Low-medium: /ecommerce-courses/ hub also ranks for 'ecommerce courses' — keep hub for plural/category, course page for exact.",
+   "opportunity": "Improved 4→3, KD 0. Tertiary Courses #1 (DR 40) is beatable — content depth + reviews to take #1.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 4
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 3
+    }
+   ]
+  },
+  {
+   "id": "kw-40",
+   "kw": "ecommerce course",
+   "courseId": "ecom",
+   "primary": false,
+   "vol": 60,
+   "kd": 19,
+   "cpc": null,
+   "intent": "Transactional / Commercial",
+   "rank": 5,
+   "prevRank": 5,
+   "rankUrl": "https://www.equinetacademy.com/course/ecommerce-strategy-course/",
+   "competitor": null,
+   "gap": "page1-to-top3",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Stable #5.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 5
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 5
+    }
+   ]
+  },
+  {
+   "id": "kw-41",
+   "kw": "shopee lazada",
+   "courseId": "shopee",
+   "primary": true,
+   "vol": 40,
+   "kd": 66,
+   "cpc": null,
+   "intent": "Commercial / Branded",
+   "rank": 7,
+   "prevRank": null,
+   "rankUrl": "https://www.equinetacademy.com/course/ecommerce-marketplaces-shopee-lazada-course/",
+   "competitor": null,
+   "gap": "new-ranking",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "New ranking #7 on a branded head term — expand marketplace-seller content.",
+   "history": [
+    {
+     "date": "2026-08-14",
+     "rank": 7
+    }
+   ]
+  },
+  {
+   "id": "kw-42",
+   "kw": "ux ui",
+   "courseId": "uxui",
+   "primary": true,
+   "vol": 100,
+   "kd": 43,
+   "cpc": null,
+   "intent": "Commercial / Informational",
+   "rank": 5,
+   "prevRank": 4,
+   "rankUrl": "https://www.equinetacademy.com/course/wsq-user-experience-user-interface-ux-ui-design-essentials/",
+   "competitor": {
+    "name": "academy.smu.edu.sg",
+    "url": "https://academy.smu.edu.sg/courses/ui-ux-course",
+    "pos": 2,
+    "dr": 79
+   },
+   "gap": "page1-to-top3",
+   "coveredBy": null,
+   "cannibal": "HIGH: Essentials, Advanced UX/UI, CUXD and the /user-experience-ux-design-creative-courses/ hub all rank for overlapping UX keywords — consolidate targeting before further optimisation.",
+   "opportunity": "#5 (was #4) on the head term. Fix cluster cannibalisation first, then push.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 4
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 5
+    }
+   ]
+  },
+  {
+   "id": "kw-43",
+   "kw": "ux courses singapore",
+   "courseId": "uxui",
+   "primary": false,
+   "vol": 100,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Transactional / Commercial / Local",
+   "rank": 9,
+   "prevRank": 9,
+   "rankUrl": "https://www.equinetacademy.com/course/wsq-user-experience-user-interface-ux-ui-design-essentials/",
+   "competitor": null,
+   "gap": "page1-to-top3",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Stable #9, KD 0 — good striking-distance target.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 9
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 9
+    }
+   ]
+  },
+  {
+   "id": "kw-44",
+   "kw": "ui ux course singapore",
+   "courseId": "uxui",
+   "primary": false,
+   "vol": 90,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Commercial / Local",
+   "rank": 8,
+   "prevRank": 8,
+   "rankUrl": "https://www.equinetacademy.com/course/wsq-user-experience-user-interface-ux-ui-design-essentials/",
+   "competitor": null,
+   "gap": "page1-to-top3",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Stable #8, KD 0.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 8
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 8
+    }
+   ]
+  },
+  {
+   "id": "kw-45",
+   "kw": "ux design course singapore",
+   "courseId": "uxui",
+   "primary": false,
+   "vol": 60,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Transactional / Commercial / Local",
+   "rank": 7,
+   "prevRank": 8,
+   "rankUrl": "https://www.equinetacademy.com/course/wsq-user-experience-user-interface-ux-ui-design-essentials/",
+   "competitor": null,
+   "gap": "page1-to-top3",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Improved 8→7.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 8
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 7
+    }
+   ]
+  },
+  {
+   "id": "kw-46",
+   "kw": "ui ux design course",
+   "courseId": "auxui",
+   "primary": true,
+   "vol": 80,
+   "kd": 20,
+   "cpc": null,
+   "intent": "Commercial / Informational",
+   "rank": 7,
+   "prevRank": null,
+   "rankUrl": "https://www.equinetacademy.com/course/advanced-ux-ui-design-course/",
+   "competitor": {
+    "name": "academy.smu.edu.sg",
+    "url": "https://academy.smu.edu.sg/courses/ui-ux-course",
+    "pos": 2,
+    "dr": 79
+   },
+   "gap": "new-ranking",
+   "coveredBy": null,
+   "cannibal": "HIGH: Advanced page ranking for a generic course keyword the Essentials page should own.",
+   "opportunity": "New at #7 — but on the wrong page for the intent (beginners land on Advanced). Resolve with the UX cluster consolidation.",
+   "history": [
+    {
+     "date": "2026-08-14",
+     "rank": 7
+    }
+   ]
+  },
+  {
+   "id": "kw-47",
+   "kw": "ux ui course",
+   "courseId": "auxui",
+   "primary": false,
+   "vol": 30,
+   "kd": 33,
+   "cpc": null,
+   "intent": "Transactional / Commercial",
+   "rank": 3,
+   "prevRank": 4,
+   "rankUrl": "https://www.equinetacademy.com/course/advanced-ux-ui-design-course/",
+   "competitor": null,
+   "gap": "top3-to-1",
+   "coveredBy": null,
+   "cannibal": "Same UX cluster overlap.",
+   "opportunity": "Improved 4→3.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 4
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 3
+    }
+   ]
+  },
+  {
+   "id": "kw-48",
+   "kw": "wordpress course",
+   "courseId": "wp",
+   "primary": true,
+   "vol": 90,
+   "kd": 15,
+   "cpc": null,
+   "intent": "Commercial / Branded",
+   "rank": 2,
+   "prevRank": 1,
+   "rankUrl": "https://www.equinetacademy.com/course/wordpress-website-landing-page-creation-course-singapore/",
+   "competitor": {
+    "name": "learn.wordpress.org",
+    "url": "https://learn.wordpress.org/courses/",
+    "pos": 1,
+    "dr": 97
+   },
+   "gap": "defend",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "#2 behind learn.wordpress.org (navigational, DR 97) — #2 is effectively #1 for commercial intent. Defend.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 1
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 2
+    }
+   ]
+  },
+  {
+   "id": "kw-49",
+   "kw": "wordpress training singapore",
+   "courseId": "wp",
+   "primary": false,
+   "vol": 100,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Transactional / Commercial / Local",
+   "rank": 5,
+   "prevRank": 6,
+   "rankUrl": "https://www.equinetacademy.com/course/wordpress-website-landing-page-creation-course-singapore/",
+   "competitor": null,
+   "gap": "page1-to-top3",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Improved 6→5, KD 0 — top 3 realistic.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 6
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 5
+    }
+   ]
+  },
+  {
+   "id": "kw-50",
+   "kw": "wordpress course singapore",
+   "courseId": "wp",
+   "primary": false,
+   "vol": 50,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Transactional / Commercial / Local",
+   "rank": 3,
+   "prevRank": 5,
+   "rankUrl": "https://www.equinetacademy.com/course/wordpress-website-landing-page-creation-course-singapore/",
+   "competitor": null,
+   "gap": "top3-to-1",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Improved 5→3.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 5
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 3
+    }
+   ]
+  },
+  {
+   "id": "kw-51",
+   "kw": "web design course singapore",
+   "courseId": "clpds",
+   "primary": true,
+   "vol": 150,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Commercial / Local",
+   "rank": 10,
+   "prevRank": 12,
+   "rankUrl": "https://www.equinetacademy.com/course/certified-landing-page-design-specialist-clpds/",
+   "competitor": {
+    "name": "tertiarycourses.com.sg",
+    "url": "https://www.tertiarycourses.com.sg/web-design-courses.html",
+    "pos": 1,
+    "dr": 40
+   },
+   "gap": "page1-to-top3",
+   "coveredBy": null,
+   "cannibal": "Medium: CLPDS, WSQ Landing Page Design and WordPress course all touch web-design intent — pick CLPDS as the target page.",
+   "opportunity": "Improved 12→10 on 150/mo KD 0. Competitors are DR 35-40 — a dedicated 'web design course' content block + internal links can reach top 5.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 12
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 10
+    }
+   ]
+  },
+  {
+   "id": "kw-52",
+   "kw": "website design course singapore",
+   "courseId": "clpds",
+   "primary": false,
+   "vol": 100,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Transactional / Commercial / Local",
+   "rank": 10,
+   "prevRank": 8,
+   "rankUrl": "https://www.equinetacademy.com/course/certified-landing-page-design-specialist-clpds/",
+   "competitor": null,
+   "gap": "recover-decline",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Slipped 8→10 — same cluster.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 8
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 10
+    }
+   ]
+  },
+  {
+   "id": "kw-53",
+   "kw": "canva course",
+   "courseId": "canva",
+   "primary": true,
+   "vol": 60,
+   "kd": 20,
+   "cpc": null,
+   "intent": "Informational / Branded",
+   "rank": 6,
+   "prevRank": 6,
+   "rankUrl": "https://www.equinetacademy.com/course/canva-design-course/",
+   "competitor": null,
+   "gap": "page1-to-top3",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Stable #6. Supporting Canva guide (already a ClickUp task) + internal link should lift it.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 6
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 6
+    }
+   ]
+  },
+  {
+   "id": "kw-54",
+   "kw": "canva course singapore",
+   "courseId": "canva",
+   "primary": false,
+   "vol": 100,
+   "kd": null,
+   "cpc": null,
+   "intent": "Commercial / Local",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": null,
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "100/mo local variant not captured — add 'Singapore' phrasing to title/H1.",
+   "history": []
+  },
+  {
+   "id": "kw-55",
+   "kw": "digital transformation courses",
+   "courseId": "dx",
+   "primary": true,
+   "vol": 100,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Commercial / Informational",
+   "rank": 3,
+   "prevRank": 7,
+   "rankUrl": "https://www.equinetacademy.com/course/digital-transformation-course/",
+   "competitor": {
+    "name": "ntuclearninghub.com",
+    "url": "https://www.ntuclearninghub.com/digital-transformation",
+    "pos": 1,
+    "dr": 62
+   },
+   "gap": "top3-to-1",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Improved 7→3 — strong momentum; NTUC #1.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 7
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 3
+    }
+   ]
+  },
+  {
+   "id": "kw-56",
+   "kw": "digital transformation course",
+   "courseId": "dx",
+   "primary": false,
+   "vol": 60,
+   "kd": 2,
+   "cpc": null,
+   "intent": "Commercial / Informational",
+   "rank": 6,
+   "prevRank": 9,
+   "rankUrl": "https://www.equinetacademy.com/course/digital-transformation-course/",
+   "competitor": null,
+   "gap": "page1-to-top3",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Improved 9→6.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 9
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 6
+    }
+   ]
+  },
+  {
+   "id": "kw-57",
+   "kw": "digital transformation course singapore",
+   "courseId": "dx",
+   "primary": false,
+   "vol": 150,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Commercial / Local",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": {
+    "name": "ntuclearninghub.com",
+    "url": "https://www.ntuclearninghub.com/digital-transformation",
+    "pos": 1,
+    "dr": 62
+   },
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Largest DX variant (150/mo, KD 0) not captured — add exact local phrasing.",
+   "history": []
+  },
+  {
+   "id": "kw-58",
+   "kw": "ai marketing course",
+   "courseId": "aidm",
+   "primary": true,
+   "vol": 50,
+   "kd": null,
+   "cpc": null,
+   "intent": "Commercial",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": null,
+   "gap": "no-visibility",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Page only ranks for branded terms. Optimise for 'AI marketing course' / 'AI in digital marketing course'.",
+   "history": []
+  },
+  {
+   "id": "kw-59",
+   "kw": "generative ai course singapore",
+   "courseId": "genai",
+   "primary": true,
+   "vol": 400,
+   "kd": 7,
+   "cpc": null,
+   "intent": "Commercial / Local",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": {
+    "name": "academy.smu.edu.sg",
+    "url": "https://academy.smu.edu.sg/generative-ai-courses",
+    "pos": 1,
+    "dr": 79
+   },
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "400/mo KD 7 and no Equinet visibility. SMU #1, Vertical Institute #2 (DR 40), Heicoders #4 (DR 43) — mid-DR sites rank, so Equinet (DR 41) can compete with an optimised page.",
+   "history": []
+  },
+  {
+   "id": "kw-60",
+   "kw": "chatgpt course singapore",
+   "courseId": "genai",
+   "primary": false,
+   "vol": 150,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Commercial / Branded / Local",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": null,
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "150/mo KD 0 — add ChatGPT-focused section/FAQ on the GenAI course page.",
+   "history": []
+  },
+  {
+   "id": "kw-61",
+   "kw": "ai course singapore",
+   "courseId": "aiess",
+   "primary": true,
+   "vol": 1700,
+   "kd": 26,
+   "cpc": null,
+   "intent": "Commercial / Informational / Local",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": {
+    "name": "academy.smu.edu.sg",
+    "url": "https://academy.smu.edu.sg/ai-courses-singapore",
+    "pos": 3,
+    "dr": 79
+   },
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "Highest-volume opportunity (1,700/mo). SERP is directory/institution-heavy; realistic path = optimise AI Essentials page + AI hub/supporting content + backlinks. Long-term play.",
+   "history": []
+  },
+  {
+   "id": "kw-62",
+   "kw": "agentic ai course",
+   "courseId": "agentic",
+   "primary": true,
+   "vol": 200,
+   "kd": 6,
+   "cpc": null,
+   "intent": "Commercial / Informational",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": {
+    "name": "tertiarycourses.com.sg",
+    "url": "https://www.tertiarycourses.com.sg/wsq-agentic-ai-courses.html",
+    "pos": 4,
+    "dr": 40
+   },
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "200/mo KD 6, growing fast. Tertiary Courses #4 shows local providers can rank. Existing ClickUp cluster task covers this.",
+   "history": []
+  },
+  {
+   "id": "kw-63",
+   "kw": "prompt engineering course singapore",
+   "courseId": "prompt",
+   "primary": true,
+   "vol": 300,
+   "kd": null,
+   "cpc": null,
+   "intent": "Commercial / Local",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": null,
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "300/mo, no visibility. Optimise course page (title/H1/meta with 'Singapore', SkillsFuture section).",
+   "history": []
+  },
+  {
+   "id": "kw-64",
+   "kw": "prompt engineering course",
+   "courseId": "prompt",
+   "primary": false,
+   "vol": 350,
+   "kd": 18,
+   "cpc": null,
+   "intent": "Commercial / Informational",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": null,
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "350/mo global-intent variant — same page.",
+   "history": []
+  },
+  {
+   "id": "kw-65",
+   "kw": "power bi course singapore",
+   "courseId": "pbi",
+   "primary": true,
+   "vol": 350,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Transactional / Commercial / Local",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": {
+    "name": "ntuclearninghub.com",
+    "url": "https://www.ntuclearninghub.com/-/course/analyzing-and-visualizing-data-with-power-bi-sf",
+    "pos": 3,
+    "dr": 62
+   },
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "350/mo KD 0 with zero visibility — biggest quick-win gap. JCI (DR 7!) ranks #6; an optimised WSQ Power BI page should enter top 10 fast.",
+   "history": []
+  },
+  {
+   "id": "kw-66",
+   "kw": "power bi course",
+   "courseId": "pbi",
+   "primary": false,
+   "vol": 500,
+   "kd": 47,
+   "cpc": null,
+   "intent": "Commercial / Branded",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": null,
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "500/mo KD 47 — secondary target once SG variant ranks.",
+   "history": []
+  },
+  {
+   "id": "kw-67",
+   "kw": "tableau course singapore",
+   "courseId": "tableau",
+   "primary": true,
+   "vol": 150,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Informational / Commercial",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": {
+    "name": "asktraining.com.sg",
+    "url": "https://asktraining.com.sg/microsoft-excel-courses/data-visualisation-and-storytelling-with-tableau/",
+    "pos": 2,
+    "dr": 36
+   },
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "150/mo KD 0, no visibility. JCI (DR 7) ranks #8 — highly winnable.",
+   "history": []
+  },
+  {
+   "id": "kw-68",
+   "kw": "data analytics course singapore",
+   "courseId": "da",
+   "primary": true,
+   "vol": 200,
+   "kd": 52,
+   "cpc": null,
+   "intent": "Commercial / Local",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": {
+    "name": "scale.nus.edu.sg",
+    "url": "https://scale.nus.edu.sg/programmes/lifelonglearning/data-analytics",
+    "pos": 2,
+    "dr": 86
+   },
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "200/mo KD 52 — institution-heavy SERP. Long-term: supporting content + internal links; short-term: target long-tails ('data analytics course for beginners singapore').",
+   "history": []
+  },
+  {
+   "id": "kw-69",
+   "kw": "business analytics course singapore",
+   "courseId": "da",
+   "primary": false,
+   "vol": 150,
+   "kd": 2,
+   "cpc": null,
+   "intent": "Transactional / Commercial / Local",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": null,
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "150/mo KD 2 — map to Business Analytics / Data Analytics pages.",
+   "history": []
+  },
+  {
+   "id": "kw-70",
+   "kw": "cybersecurity course singapore",
+   "courseId": "cyber",
+   "primary": true,
+   "vol": 500,
+   "kd": 2,
+   "cpc": null,
+   "intent": "Transactional / Commercial / Local",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": {
+    "name": "iss.nus.edu.sg",
+    "url": "https://www.iss.nus.edu.sg/executive-education/discipline/detail/cybersecurity",
+    "pos": 2,
+    "dr": 86
+   },
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": "Low: 4 cybersecurity blog posts exist (internship, act, degree) — internal-link assets, different intent.",
+   "opportunity": "500/mo KD 2 with zero course-page visibility. CFCI (DR 27) ranks #8 — a focused optimisation + internal links from the 4 cyber blog posts can break top 10.",
+   "history": []
+  },
+  {
+   "id": "kw-71",
+   "kw": "cybersecurity awareness training",
+   "courseId": "cyber",
+   "primary": false,
+   "vol": 150,
+   "kd": null,
+   "cpc": null,
+   "intent": "Commercial",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": null,
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "150/mo exact-match to the course's positioning — add to title/meta.",
+   "history": []
+  },
+  {
+   "id": "kw-72",
+   "kw": "video editing course singapore",
+   "courseId": "video",
+   "primary": true,
+   "vol": 250,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Transactional / Commercial / Local",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": {
+    "name": "asktraining.com.sg",
+    "url": "https://asktraining.com.sg/media-production-courses/video-production/",
+    "pos": 3,
+    "dr": 36
+   },
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "250/mo KD 0, no visibility. Hustle (DR 13) and Coursemology (DR 36) rank — very winnable for DR 41.",
+   "history": []
+  },
+  {
+   "id": "kw-73",
+   "kw": "videography course singapore",
+   "courseId": "video",
+   "primary": false,
+   "vol": 60,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Transactional / Commercial / Local",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": null,
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "60/mo KD 0 — same cluster (videography essentials course).",
+   "history": []
+  },
+  {
+   "id": "kw-74",
+   "kw": "photography course singapore",
+   "courseId": "photo",
+   "primary": true,
+   "vol": 200,
+   "kd": 4,
+   "cpc": null,
+   "intent": "Transactional / Commercial / Local",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": null,
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "200/mo KD 4, no visibility despite 6+ photography courses. Optimise essentials page or create a photography category hub.",
+   "history": []
+  },
+  {
+   "id": "kw-75",
+   "kw": "public speaking course singapore",
+   "courseId": "pubspeak",
+   "primary": true,
+   "vol": 300,
+   "kd": 11,
+   "cpc": null,
+   "intent": "Transactional / Commercial / Local",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": null,
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "300/mo KD 11 — no visibility. On-page optimisation first.",
+   "history": []
+  },
+  {
+   "id": "kw-76",
+   "kw": "entrepreneurship course singapore",
+   "courseId": "entre",
+   "primary": true,
+   "vol": 150,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Transactional / Commercial / Local",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": null,
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": "Low: entrepreneurship blog posts exist — internal-link assets.",
+   "opportunity": "150/mo KD 0 — optimise course page + internal links from 3 entrepreneurship blog posts.",
+   "history": []
+  },
+  {
+   "id": "kw-77",
+   "kw": "figma course singapore",
+   "courseId": "figma",
+   "primary": true,
+   "vol": 60,
+   "kd": null,
+   "cpc": null,
+   "intent": "Commercial / Local",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": null,
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "60/mo — align WTF course title with 'Figma course Singapore'.",
+   "history": []
+  },
+  {
+   "id": "kw-78",
+   "kw": "email marketing course singapore",
+   "courseId": "email",
+   "primary": true,
+   "vol": 90,
+   "kd": null,
+   "cpc": null,
+   "intent": "Commercial / Local",
+   "rank": null,
+   "prevRank": null,
+   "rankUrl": null,
+   "competitor": null,
+   "gap": "competitor-gap",
+   "coveredBy": null,
+   "cannibal": null,
+   "opportunity": "90/mo — optimise course page title/H1.",
+   "history": []
+  },
+  {
+   "id": "kw-79",
+   "kw": "sales courses singapore",
+   "courseId": "entre",
+   "primary": false,
+   "vol": 150,
+   "kd": 0,
+   "cpc": null,
+   "intent": "Transactional / Commercial / Local",
+   "rank": 5,
+   "prevRank": 7,
+   "rankUrl": "https://www.equinetacademy.com/sales-courses-singapore/",
+   "competitor": null,
+   "gap": "page1-to-top3",
+   "coveredBy": "Sales category hub page",
+   "cannibal": null,
+   "opportunity": "Hub improved 7→5 (KD 0) — internal links + hub content to reach top 3.",
+   "history": [
+    {
+     "date": "2026-07-14",
+     "rank": 7
+    },
+    {
+     "date": "2026-08-14",
+     "rank": 5
+    }
+   ]
+  }
+ ],
+ "content": [
+  {
+   "courseId": "dmhub",
+   "kw": "digital marketing course",
+   "vol": 700,
+   "kd": 10,
+   "intent": "Commercial",
+   "existing": [
+    {
+     "title": "How to Do Digital Marketing: A Beginner's Guide",
+     "url": "https://www.equinetacademy.com/blog/how-to-do-digital-marketing-a-beginners-guide/"
+    },
+    {
+     "title": "What is Digital Marketing? Digital Marketing Strategy",
+     "url": "https://www.equinetacademy.com/blog/what-is-digital-marketing-digital-marketing-strategy/"
+    }
+   ],
+   "risk": "High",
+   "rec": "Optimise Existing Article",
+   "newTopic": null,
+   "targetUrl": "https://www.equinetacademy.com/digital-marketing-courses/",
+   "link": "Re-point 'digital marketing course'-anchored internal links from both articles to the hub page; keep articles focused on informational how-to intent.",
+   "reason": "Hub dropped #1→#10 while the beginner's-guide article competes for the same commercial keyword. De-optimise the article for course intent instead of creating anything new.",
+   "status": "Live",
+   "id": "ct-01"
+  },
+  {
+   "courseId": "seo",
+   "kw": "seo vs sem / seo fundamentals",
+   "vol": 150,
+   "kd": 6,
+   "intent": "Informational",
+   "existing": [
+    {
+     "title": "SEO vs SEM: Which Should You Focus On First?",
+     "url": "https://www.equinetacademy.com/blog/seo-vs-sem/"
+    },
+    {
+     "title": "SEO Packages, Pricing & Costs Guide",
+     "url": "https://www.equinetacademy.com/blog/seo-packages-pricing-and-costs-a-comprehensive-guide/"
+    }
+   ],
+   "risk": "Low",
+   "rec": "Optimise Existing Article",
+   "newTopic": null,
+   "targetUrl": "https://www.equinetacademy.com/course/seo-training-course-singapore/",
+   "link": "Add contextual CTA + exact-anchor link 'SEO course Singapore' from both articles to the course page.",
+   "reason": "SEO vs SEM already ranks for 12 keywords (#6 'seo sem marketing'); a 2026 refresh with AEO/GEO section supports the renamed course. A ClickUp distribution task for this article already exists.",
+   "status": "Live",
+   "id": "ct-02"
+  },
+  {
+   "courseId": "smm",
+   "kw": "social media marketing strategy",
+   "vol": 200,
+   "kd": 10,
+   "intent": "Informational",
+   "existing": [
+    {
+     "title": "Winning 6-Step Social Media Marketing Strategy",
+     "url": "https://www.equinetacademy.com/blog/winning-6-step-social-media-marketing-strategy/"
+    },
+    {
+     "title": "When Is the Best Time to Post on Social Media",
+     "url": "https://www.equinetacademy.com/blog/when-is-the-best-time-to-post-on-social-media-platform-by-platform-breakdown/"
+    },
+    {
+     "title": "15 Types of Social Media Content That Work",
+     "url": "https://www.equinetacademy.com/blog/15-types-of-social-media-content-that-work-examples/"
+    }
+   ],
+   "risk": "Medium",
+   "rec": "Optimise Existing Article",
+   "newTopic": null,
+   "targetUrl": "https://www.equinetacademy.com/course/social-media-marketing-training-course/",
+   "link": "Strategy article surfaces for 'social media course' — keep it informational and link its course mentions to the course page.",
+   "reason": "Strong existing cluster; no new article needed. Optimising and interlinking beats new content.",
+   "status": "Live",
+   "id": "ct-03"
+  },
+  {
+   "courseId": "tiktok",
+   "kw": "tiktok marketing strategies",
+   "vol": 150,
+   "kd": 0,
+   "intent": "Informational",
+   "existing": [
+    {
+     "title": "8 TikTok Marketing Strategies for Businesses in Singapore",
+     "url": "https://www.equinetacademy.com/blog/8-tiktok-marketing-strategies-for-businesses-in-singapore/"
+    },
+    {
+     "title": "Top 10 TikTok Marketing Agencies",
+     "url": "https://www.equinetacademy.com/blog/top-10-tiktok-marketing-agencies-that-help-grow-your-brand-online/"
+    }
+   ],
+   "risk": "Low",
+   "rec": "Optimise Existing Article",
+   "newTopic": null,
+   "targetUrl": "https://www.equinetacademy.com/course/tiktok-marketing/",
+   "link": "Add course CTA + exact-anchor 'TikTok course Singapore' link from both posts.",
+   "reason": "Existing strategies post ranks #10 for 'tik tok marketing' — expanding it supports the course page. Covered by existing ClickUp task 'Optimise TikTok Marketing Skills Content'.",
+   "status": "Live",
+   "id": "ct-04"
+  },
+  {
+   "courseId": "ga4",
+   "kw": "ga4 certification",
+   "vol": 20,
+   "kd": 56,
+   "intent": "Commercial",
+   "existing": [
+    {
+     "title": "GA4 Certification: What It Is and Why It Matters",
+     "url": "https://www.equinetacademy.com/blog/ga4-certification-what-it-is-and-why-it-matters/"
+    },
+    {
+     "title": "11 GA4 Metrics All Websites Should Track",
+     "url": "https://www.equinetacademy.com/blog/11-google-analytics-4-metrics-all-websites-should-track/"
+    }
+   ],
+   "risk": "Low",
+   "rec": "Optimise Existing Article",
+   "newTopic": null,
+   "targetUrl": "https://www.equinetacademy.com/course/digital-web-analytics-google-analytics-training-course/",
+   "link": "Both GA4 articles → analytics course page with 'Google Analytics course Singapore' anchors.",
+   "reason": "Certification article slipped #4→#6; refresh and interlink rather than creating new GA4 content.",
+   "status": "Live",
+   "id": "ct-05"
+  },
+  {
+   "courseId": "cyber",
+   "kw": "cybersecurity careers / awareness",
+   "vol": 500,
+   "kd": 2,
+   "intent": "Informational",
+   "existing": [
+    {
+     "title": "Cybersecurity Internship Singapore",
+     "url": "https://www.equinetacademy.com/blog/cybersecurity-internship-singapore-what-to-expect-and-how-to-succeed/"
+    },
+    {
+     "title": "What is the Cybersecurity Act in Singapore",
+     "url": "https://www.equinetacademy.com/blog/what-is-the-cybersecurity-act-in-singapore-and-how-it-protects-your-organisation/"
+    },
+    {
+     "title": "Do You Really Need a Cybersecurity Degree in Singapore",
+     "url": "https://www.equinetacademy.com/blog/do-you-really-need-a-cybersecurity-degree-in-singapore-to-succeed/"
+    }
+   ],
+   "risk": "Low",
+   "rec": "Optimise Existing Article",
+   "newTopic": null,
+   "targetUrl": "https://www.equinetacademy.com/course/cybersecurity-awareness-essentials-for-workplace-employees-business-owners-course/",
+   "link": "All 3 cyber posts currently drive traffic with no course CTA — add in-content links + end-of-article course banner to the Cybersecurity Awareness course.",
+   "reason": "Topical authority already exists in the blog; the course page just isn't connected to it. Internal linking is the highest-ROI fix before any new content.",
+   "status": "Live",
+   "id": "ct-06"
+  },
+  {
+   "courseId": "ecom",
+   "kw": "ecommerce guides",
+   "vol": 500,
+   "kd": 10,
+   "intent": "Informational",
+   "existing": [
+    {
+     "title": "How to Choose the Best Products to Sell Online in Singapore",
+     "url": "https://www.equinetacademy.com/blog/how-to-choose-the-best-products-to-sell-online-in-singapore/"
+    },
+    {
+     "title": "How to Launch Your Dropshipping Business in Singapore",
+     "url": "https://www.equinetacademy.com/blog/how-to-launch-your-dropshipping-business-in-singapore-a-step-by-step-guide-for-new-entrepreneurs/"
+    },
+    {
+     "title": "What is E-commerce and How to Start Your Own Online Business",
+     "url": "https://www.equinetacademy.com/blog/what-is-e-commerce-and-how-to-start-your-own-online-business/"
+    },
+    {
+     "title": "PSG Ecommerce Grant by Enterprise Singapore",
+     "url": "https://www.equinetacademy.com/blog/psg-ecommerce-grant-by-enterprise-singapore-all-you-need-to-know/"
+    }
+   ],
+   "risk": "Low",
+   "rec": "Optimise Existing Article",
+   "newTopic": null,
+   "targetUrl": "https://www.equinetacademy.com/course/ecommerce-strategy-course/",
+   "link": "Add 'ecommerce course Singapore' anchors from all 4 posts to the Ecommerce Strategy course (currently #3 — links help take #1).",
+   "reason": "Large existing ecommerce cluster already ranks; interlinking beats new content.",
+   "status": "Live",
+   "id": "ct-07"
+  },
+  {
+   "courseId": "genai",
+   "kw": "ai tools for marketing",
+   "vol": 80,
+   "kd": 5,
+   "intent": "Informational",
+   "existing": [
+    {
+     "title": "10 Best AI Tools to Transform Your Digital Marketing Strategy",
+     "url": "https://www.equinetacademy.com/blog/10-best-ai-tools-to-transform-your-digital-marketing-strategy/"
+    }
+   ],
+   "risk": "Low",
+   "rec": "Optimise Existing Article",
+   "newTopic": null,
+   "targetUrl": "https://www.equinetacademy.com/course/generative-ai-chatgpt-gemini-and-popular-ai-tools-course/",
+   "link": "Refresh the AI-tools listicle (2026 tools) and link to GenAI + AI-in-Digital-Marketing courses.",
+   "reason": "Existing article ranks #7 for 'ai tools for marketing'; a refresh + links supports the GenAI course push.",
+   "status": "Live",
+   "id": "ct-08"
+  },
+  {
+   "courseId": "aiess",
+   "kw": "learn ai singapore",
+   "vol": 1700,
+   "kd": 26,
+   "intent": "Informational",
+   "existing": [],
+   "risk": "Low",
+   "rec": "Create New Article",
+   "newTopic": "How to Learn AI in Singapore: Beginner's Roadmap, Courses & SkillsFuture Funding (2026)",
+   "targetUrl": "https://www.equinetacademy.com/blog/how-to-learn-ai-in-singapore/",
+   "link": "Link to AI Essentials (primary), Generative AI, Agentic AI and Prompt Engineering course pages with exact-match anchors.",
+   "reason": "No existing blog content covers AI learning intent. 'ai course singapore' (1,700/mo) SERP rewards topical authority — a roadmap guide builds it without cannibalising the course page (different intent).",
+   "status": "Proposed",
+   "id": "ct-09"
+  },
+  {
+   "courseId": "pbi",
+   "kw": "what is power bi",
+   "vol": 250,
+   "kd": 15,
+   "intent": "Informational",
+   "existing": [],
+   "risk": "Low",
+   "rec": "Create New Article",
+   "newTopic": "Power BI vs Excel: Which Should Analysts Learn First? (Singapore Guide)",
+   "targetUrl": "https://www.equinetacademy.com/blog/power-bi-vs-excel/",
+   "link": "Link to WSQ Power BI course with 'Power BI course Singapore' anchor; cross-link Tableau + Data Analytics courses.",
+   "reason": "Zero existing Power BI content while the course page has zero visibility on a 350/mo KD 0 keyword. One supporting article + on-page optimisation closes the gap.",
+   "status": "Proposed",
+   "id": "ct-10"
+  },
+  {
+   "courseId": "da",
+   "kw": "data analyst career singapore",
+   "vol": 350,
+   "kd": 30,
+   "intent": "Informational",
+   "existing": [],
+   "risk": "Low",
+   "rec": "Create New Article",
+   "newTopic": "Data Analyst Career Guide Singapore: Salary, Skills & How to Start (2026)",
+   "targetUrl": "https://www.equinetacademy.com/blog/data-analyst-career-guide-singapore/",
+   "link": "Link to Data Analytics Essentials, Power BI, Tableau courses + Data Analytics Capstone.",
+   "reason": "KD 52 on the money keyword means Equinet needs topical authority; a career guide mirrors the successful digital-marketing-salary-guide playbook already ranking for Equinet.",
+   "status": "Proposed",
+   "id": "ct-11"
+  },
+  {
+   "courseId": "video",
+   "kw": "video editing software comparison",
+   "vol": 150,
+   "kd": 5,
+   "intent": "Informational",
+   "existing": [],
+   "risk": "Low",
+   "rec": "Create New Article",
+   "newTopic": "CapCut vs DaVinci Resolve vs Premiere Pro: Which Video Editor Should You Learn?",
+   "targetUrl": "https://www.equinetacademy.com/blog/capcut-vs-davinci-resolve-vs-premiere/",
+   "link": "Link to CapCut, DaVinci Resolve and Video Creation & Editing course pages.",
+   "reason": "No video-related blog content exists despite 6+ video/photo courses; comparison content captures tool-choice intent and feeds the 'video editing course singapore' (250/mo KD 0) push.",
+   "status": "Proposed",
+   "id": "ct-12"
+  },
+  {
+   "courseId": "uxui",
+   "kw": "ux designer career singapore",
+   "vol": 150,
+   "kd": 18,
+   "intent": "Informational",
+   "existing": [],
+   "risk": "Low",
+   "rec": "Create New Article",
+   "newTopic": "How to Become a UX Designer in Singapore: Skills, Portfolio & Career Switch Guide",
+   "targetUrl": "https://www.equinetacademy.com/blog/how-to-become-ux-designer-singapore/",
+   "link": "Link to UX/UI Essentials (primary), Advanced UX/UI and CUXD with differentiated anchors (beginner vs advanced vs certification).",
+   "reason": "Zero UX blog content despite a full UX course line; a career guide builds authority and clarifies which course page targets which keyword (helps the cannibalisation fix).",
+   "status": "Proposed",
+   "id": "ct-13"
+  },
+  {
+   "courseId": "wp",
+   "kw": "website cost singapore",
+   "vol": 150,
+   "kd": 8,
+   "intent": "Informational / Commercial",
+   "existing": [],
+   "risk": "Low",
+   "rec": "Create New Article",
+   "newTopic": "How Much Does a Website Cost in Singapore? (DIY vs Agency, 2026)",
+   "targetUrl": "https://www.equinetacademy.com/blog/website-cost-singapore/",
+   "link": "Link to WordPress Website Creation + CLPDS ('build it yourself with our WordPress course').",
+   "reason": "Genuine gap; captures buyers earlier in the journey and funnels to the #2-ranking WordPress course and the web-design push.",
+   "status": "Proposed",
+   "id": "ct-14"
+  },
+  {
+   "courseId": "canva",
+   "kw": "how to use canva",
+   "vol": 250,
+   "kd": 10,
+   "intent": "Informational",
+   "existing": [],
+   "risk": "Low",
+   "rec": "Create New Article",
+   "newTopic": "How to Use Canva: A Beginner's Step-by-Step Guide (existing ClickUp task)",
+   "targetUrl": "https://www.equinetacademy.com/blog/how-to-use-canva/",
+   "link": "Link to WSQ Canva Design course with 'Canva course Singapore' anchor.",
+   "reason": "Already planned — ClickUp task z9088242r2 exists in SEO Content View. Shown here to prevent duplicate planning.",
+   "status": "In progress (ClickUp)",
+   "id": "ct-15"
+  },
+  {
+   "courseId": "agentic",
+   "kw": "agentic ai explained",
+   "vol": 200,
+   "kd": 6,
+   "intent": "Informational",
+   "existing": [],
+   "risk": "Low",
+   "rec": "No Action",
+   "newTopic": null,
+   "targetUrl": "https://www.equinetacademy.com/course/agentic-ai-course/",
+   "link": "Follow the existing ClickUp cluster task's internal-linking plan.",
+   "reason": "ClickUp task 'Optimise Agentic AI SEO Cluster: Course + Existing Blogs' (z9088242xz) already covers course + supporting content. No new planning needed.",
+   "status": "In progress (ClickUp)",
+   "id": "ct-16"
+  },
+  {
+   "courseId": "copy",
+   "kw": "copywriting vs content writing",
+   "vol": 30,
+   "kd": 0,
+   "intent": "Informational",
+   "existing": [
+    {
+     "title": "Copywriting vs Content Writing: Key Differences",
+     "url": "https://www.equinetacademy.com/blog/copywriting-vs-content-writing-understanding-the-key-differences/"
+    }
+   ],
+   "risk": "Low",
+   "rec": "Optimise Existing Article",
+   "newTopic": null,
+   "targetUrl": "https://www.equinetacademy.com/course/copywriting-course/",
+   "link": "Add 'copywriting course Singapore' anchor to the course page (currently #9 for 'copywriting course', declining).",
+   "reason": "Article exists and ranks #6; interlink instead of new content to help the course page recover.",
+   "status": "Live",
+   "id": "ct-17"
+  },
+  {
+   "courseId": "entre",
+   "kw": "entrepreneurship guides",
+   "vol": 1500,
+   "kd": 35,
+   "intent": "Informational",
+   "existing": [
+    {
+     "title": "What is Entrepreneurship?",
+     "url": "https://www.equinetacademy.com/blog/what-is-entrepreneurship-the-difference-between-a-dream-and-a-business/"
+    },
+    {
+     "title": "How to Secure Funding for Your Startup in Singapore",
+     "url": "https://www.equinetacademy.com/blog/how-to-secure-funding-for-your-startup-business-in-singapore/"
+    },
+    {
+     "title": "7 Ways to Get a Startup Loan in Singapore",
+     "url": "https://www.equinetacademy.com/blog/7-ways-to-get-a-startup-loan-in-singapore-even-if-you-have-no-revenue-yet/"
+    }
+   ],
+   "risk": "Low",
+   "rec": "Optimise Existing Article",
+   "newTopic": null,
+   "targetUrl": "https://www.equinetacademy.com/course/entrepreneurship-course/",
+   "link": "Add course CTAs from all 3 startup/entrepreneurship posts to the Entrepreneurship course.",
+   "reason": "Cluster exists with rankings ('entrepreneurship' #11, 'angel investors' #1); course page just needs the internal links.",
+   "status": "Live",
+   "id": "ct-18"
+  },
+  {
+   "courseId": "content",
+   "kw": "content marketing cluster",
+   "vol": 400,
+   "kd": 20,
+   "intent": "Informational",
+   "existing": [
+    {
+     "title": "7 Essential Types of Content Pillars",
+     "url": "https://www.equinetacademy.com/blog/7-essential-types-of-content-pillars-and-how-to-use-them/"
+    },
+    {
+     "title": "What is Content Marketing (with Examples)",
+     "url": "https://www.equinetacademy.com/blog/what-is-content-marketing-and-why-is-it-important-with-examples/"
+    },
+    {
+     "title": "Hero Hub Hygiene Content Strategy",
+     "url": "https://www.equinetacademy.com/blog/hero-hub-hygiene-content-strategy-explained-a-complete-guide-with-examples/"
+    }
+   ],
+   "risk": "Low",
+   "rec": "No Action",
+   "newTopic": null,
+   "targetUrl": "https://www.equinetacademy.com/course/content-marketing-course/",
+   "link": "Cluster already strong — ensure each post carries one exact-anchor link to the course page.",
+   "reason": "Content marketing topical authority already established (4+ ranking posts). Focus effort on the course page itself.",
+   "status": "Live",
+   "id": "ct-19"
+  }
+ ],
+ "actions": [
+  {
+   "id": "act-01",
+   "courseId": "dmhub",
+   "kw": "digital marketing course",
+   "category": "Resolve keyword cannibalisation",
+   "title": "Recover 'digital marketing course' from #10 back to top 3",
+   "detail": "Diagnose the #1→#10 drop: de-optimise the beginner's-guide blog post for course intent, re-point internal links to /digital-marketing-courses/, refresh hub content + freshness date, add course schema, and re-strengthen the SkillsFuture funding section ('digital marketing course skillsfuture' also slipped 5→8).",
+   "objective": "Return the two 600-700/mo keywords to page-1 top-3; recover the single largest traffic loss on the site.",
+   "priority": "High",
+   "status": "In progress (ClickUp)",
+   "existingClickUpTask": {
+    "id": "z9088242vw",
+    "name": "Optimise Digital Marketing Foundations SEO Rankings",
+    "url": "https://app.clickup.com/t/z9088242vw"
+   }
+  },
+  {
+   "id": "act-02",
+   "courseId": "pbi",
+   "kw": "power bi course singapore",
+   "category": "Optimise existing course landing page",
+   "title": "Optimise WSQ Power BI page for 'power bi course singapore' (350/mo, KD 0)",
+   "detail": "Add the exact phrase to title/H1/meta, add SkillsFuture funding + course outline sections, publish the Power BI vs Excel supporting article, and internally link from data-analytics pages.",
+   "objective": "Enter top 10 within 1-2 refresh cycles; top 3 medium-term (JCI at DR 7 ranks #6 today).",
+   "priority": "High",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-03",
+   "courseId": "cyber",
+   "kw": "cybersecurity course singapore",
+   "category": "Add internal links",
+   "title": "Connect the cybersecurity blog cluster to the Awareness course page",
+   "detail": "Optimise the course page for 'cybersecurity course singapore' (500/mo, KD 2) + 'cybersecurity awareness training'; add in-content links + banners from the 3 ranking cyber blog posts.",
+   "objective": "Break into top 10 for a 500/mo keyword the site currently has zero visibility on.",
+   "priority": "High",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-04",
+   "courseId": "genai",
+   "kw": "generative ai course singapore",
+   "category": "Optimise existing course landing page",
+   "title": "Optimise Generative AI course page (400/mo, KD 7)",
+   "detail": "Rewrite title/H1/meta around 'Generative AI Course Singapore', add ChatGPT-specific FAQ (captures 'chatgpt course singapore', 150/mo KD 0), refresh the AI-tools blog post and link it in.",
+   "objective": "Page-1 entry; Vertical Institute (DR 40) at #2 proves DR 41 can compete.",
+   "priority": "High",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-05",
+   "courseId": "seo",
+   "kw": "seo course singapore",
+   "category": "Update title/H1/meta description",
+   "title": "Push SEO course page from #5 to top 3",
+   "detail": "Refresh title/meta CTR (funding % + 'AEO/GEO' differentiator), add FAQ + review schema, verify legacy /course/seo-training-course/ canonicalises to the main page, add exact-anchor links from SEO vs SEM + SEO packages articles.",
+   "objective": "Top 3 for 'seo course singapore' (250/mo); defend #1 'seo courses singapore' and #2 'seo training singapore'.",
+   "priority": "High",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-06",
+   "courseId": "uxui",
+   "kw": "ux ui / ui ux design course",
+   "category": "Resolve keyword cannibalisation",
+   "title": "Consolidate the UX/UI keyword cluster across 4 competing pages",
+   "detail": "Assign: Essentials page → 'ui ux course singapore / ux design course singapore'; Advanced → 'advanced ux ui'; CUXD → certification intent; hub → category terms. Fix titles/anchors accordingly; the Advanced page currently outranks Essentials for beginner keywords.",
+   "objective": "Stop 4 pages splitting relevance across 8 UX keywords sitting at #5-#9; lift the cluster into top 3-5.",
+   "priority": "High",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-07",
+   "courseId": "aiess",
+   "kw": "ai course singapore",
+   "category": "Improve topical authority",
+   "title": "Build the AI topical cluster around AI Essentials (1,700/mo)",
+   "detail": "Optimise AI Essentials page, publish the 'How to Learn AI in Singapore' roadmap article, interlink all AI course pages (GenAI, Agentic, Prompt Engineering, AI in DM) into a hub-and-spoke.",
+   "objective": "Enter top 10 for the highest-volume keyword in the portfolio; feed the whole AI course line.",
+   "priority": "High",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-08",
+   "courseId": "prompt",
+   "kw": "prompt engineering course singapore",
+   "category": "Optimise existing course landing page",
+   "title": "Optimise Prompt Engineering page (300 + 350/mo variants)",
+   "detail": "Add 'Singapore' + SkillsFuture phrasing to title/H1/meta, expand outline, link from the AI cluster pages and the AI-tools article.",
+   "objective": "Page-1 entry on both variants (KD 18 global, uncached SG SERP = low local competition).",
+   "priority": "High",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-09",
+   "courseId": "tiktok",
+   "kw": "tiktok course singapore",
+   "category": "Optimise existing course landing page",
+   "title": "Lift TikTok Marketing page from #6 to top 3",
+   "detail": "Execute the existing ClickUp task: refresh content for striking-distance keywords, add 'tiktok marketing course' (150/mo) exact phrase, add review schema, link from both TikTok blog posts.",
+   "objective": "Top 3 on 'tiktok course singapore'; capture the uncovered 150/mo variant.",
+   "priority": "High",
+   "status": "In progress (ClickUp)",
+   "existingClickUpTask": {
+    "id": "z9088242uk",
+    "name": "Optimise TikTok Marketing Skills Content for Striking-Distance Rankings",
+    "url": "https://app.clickup.com/t/z9088242uk"
+   }
+  },
+  {
+   "id": "act-10",
+   "courseId": "agentic",
+   "kw": "agentic ai course",
+   "category": "Improve topical authority",
+   "title": "Execute Agentic AI SEO cluster (existing ClickUp task)",
+   "detail": "Course page + existing blog optimisation per the existing ClickUp task; monitor the fast-growing 200/mo keyword.",
+   "objective": "First-page entry while the SERP is still young (KD 6).",
+   "priority": "High",
+   "status": "In progress (ClickUp)",
+   "existingClickUpTask": {
+    "id": "z9088242xz",
+    "name": "Optimise Agentic AI SEO Cluster: Course + Existing Blogs",
+    "url": "https://app.clickup.com/t/z9088242xz"
+   }
+  },
+  {
+   "id": "act-11",
+   "courseId": "clpds",
+   "kw": "web design course singapore",
+   "category": "Expand or rewrite content",
+   "title": "Target 'web design course singapore' (150/mo, KD 0) with CLPDS page",
+   "detail": "Improved 12→10 organically — add a 'web design course' content block, align H2s, resolve overlap with WSQ Landing Page Design + WordPress pages, add internal links from design hub.",
+   "objective": "Top 5 on both 'web design course singapore' and 'website design course singapore' (100/mo, slipped 8→10).",
+   "priority": "Medium",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-12",
+   "courseId": "video",
+   "kw": "video editing course singapore",
+   "category": "Optimise existing course landing page",
+   "title": "Optimise video editing course line for 'video editing course singapore' (250/mo, KD 0)",
+   "detail": "Pick the Video Creation & Editing page as target, add exact phrasing + course-line links (CapCut, DaVinci, Certified Video Editor), publish the editor-comparison article.",
+   "objective": "Top 10 entry (DR 13 sites rank today), then top 5.",
+   "priority": "Medium",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-13",
+   "courseId": "tableau",
+   "kw": "tableau course singapore",
+   "category": "Optimise existing course landing page",
+   "title": "Optimise Tableau page for 'tableau course singapore' (150/mo, KD 0)",
+   "detail": "Exact phrase in title/H1/meta, SkillsFuture section, internal links from Power BI + Data Analytics pages.",
+   "objective": "Top 10 entry (JCI at DR 7 ranks #8).",
+   "priority": "Medium",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-14",
+   "courseId": "da",
+   "kw": "data analytics course singapore",
+   "category": "Improve topical authority",
+   "title": "Build data-analytics authority (KD 52 head term)",
+   "detail": "Optimise Data Analytics Essentials page, publish Data Analyst Career Guide, target 'business analytics course singapore' (150/mo, KD 2) as the quick win, interlink Power BI/Tableau/Capstone.",
+   "objective": "Quick win on business-analytics variant; 12-month path on the KD 52 head term.",
+   "priority": "Medium",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-15",
+   "courseId": "smm",
+   "kw": "social media course",
+   "category": "Optimise existing course landing page",
+   "title": "Lift Social Media Marketing page from #6 to top 3",
+   "detail": "Title/meta refresh with funding hook, add 'social media marketing course' exact phrase (150/mo — currently not captured), FAQ + review schema, links from the 5-post social media blog cluster.",
+   "objective": "Top 3 on 'social media course'; capture the uncovered exact-match variant.",
+   "priority": "Medium",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-16",
+   "courseId": "gads",
+   "kw": "google ads course",
+   "category": "Expand or rewrite content",
+   "title": "Push Google Ads page from #8 and capture the Singapore variant",
+   "detail": "Add 'google ads course singapore' (150/mo) phrasing, expand outline vs Ask Training's #5 page, link from what-is-CPC + digital-advertising articles.",
+   "objective": "Top 5 among non-Google results on both variants.",
+   "priority": "Medium",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-17",
+   "courseId": "ga4",
+   "kw": "google analytics course singapore",
+   "category": "Update title/H1/meta description",
+   "title": "Reclaim top 3 for GA4 course (slipped 3→4)",
+   "detail": "Title/meta refresh, add 'GA4 course' phrasing (100/mo uncaptured), refresh GA4-certification article and its internal link.",
+   "objective": "Back to top 3; capture 'ga4 course'.",
+   "priority": "Medium",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-18",
+   "courseId": "ecom",
+   "kw": "ecommerce course singapore",
+   "category": "Add internal links",
+   "title": "Take #1 for 'ecommerce course singapore' (improved 4→3)",
+   "detail": "Add exact-anchor internal links from the 4-post ecommerce blog cluster, add review schema; Tertiary Courses #1 is a thin category page.",
+   "objective": "#1 on 150/mo KD 0 keyword; hold #5 'ecommerce course'.",
+   "priority": "Medium",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-19",
+   "courseId": "content",
+   "kw": "content marketing singapore",
+   "category": "Optimise existing course landing page",
+   "title": "Push Content Marketing course from #5 to top 3",
+   "detail": "Only course-type result near the top of a mixed-intent SERP — strengthen relevance (title/H1), add case studies, exact-anchor links from the content-marketing blog cluster.",
+   "objective": "Top 3 on 300/mo KD 2 keyword.",
+   "priority": "Medium",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-20",
+   "courseId": "dx",
+   "kw": "digital transformation course singapore",
+   "category": "Update title/H1/meta description",
+   "title": "Capture the 150/mo Singapore variant (page already rising: 7→3 on 'digital transformation courses')",
+   "detail": "Add exact local phrasing to title/meta; keep momentum with content freshness.",
+   "objective": "Page 1 on all three DX variants.",
+   "priority": "Medium",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-21",
+   "courseId": "canva",
+   "kw": "canva course singapore",
+   "category": "Update title/H1/meta description",
+   "title": "Capture 'canva course singapore' (100/mo) + lift 'canva course' from #6",
+   "detail": "Add 'Singapore' phrasing, publish the planned How-to-Use-Canva guide (existing ClickUp task) and link it in.",
+   "objective": "Top 3 on both Canva variants.",
+   "priority": "Medium",
+   "status": "In progress (ClickUp)",
+   "existingClickUpTask": {
+    "id": "z9088242r2",
+    "name": "How to Use Canva: A Beginner's Step-by-Step Guide",
+    "url": "https://app.clickup.com/t/z9088242r2"
+   }
+  },
+  {
+   "id": "act-22",
+   "courseId": "copy",
+   "kw": "copywriting course",
+   "category": "Expand or rewrite content",
+   "title": "Recover 'copywriting course' (7→9) while defending top-3 variants",
+   "detail": "Content refresh + internal links from copywriting-vs-content-writing article; keep #2/#3 on Singapore variants.",
+   "objective": "Back to top 5 on 'copywriting course'; #1 on 'copywriting courses singapore'.",
+   "priority": "Medium",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-23",
+   "courseId": "dmf",
+   "kw": "fundamentals of digital marketing",
+   "category": "Expand or rewrite content",
+   "title": "Recover Foundations page decline (4→9 / 3→6)",
+   "detail": "Refresh course page, align with hub fix, assign 'wsq digital marketing course' (100/mo) targeting.",
+   "objective": "Back to top 5 on fundamentals keywords.",
+   "priority": "Medium",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-24",
+   "courseId": "meta",
+   "kw": "facebook ads course",
+   "category": "Add relevant sections",
+   "title": "Add Facebook Ads section to Meta Marketing page",
+   "detail": "Capture 'facebook ads course' (70/mo, KD 26) with a dedicated ads-module section; defend #4 'facebook marketing course'.",
+   "objective": "Rank both Meta keywords top 5.",
+   "priority": "Low",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-25",
+   "courseId": "wp",
+   "kw": "wordpress course",
+   "category": "Monitor ranking",
+   "title": "Defend #2 'wordpress course' (slipped from #1)",
+   "detail": "Monitor weekly; the #1 is learn.wordpress.org (navigational). Keep content fresh; publish website-cost article for supporting links.",
+   "objective": "Hold #2-#3; #1 among commercial results.",
+   "priority": "Low",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-26",
+   "courseId": "dcc",
+   "kw": "content creation course",
+   "category": "Monitor ranking",
+   "title": "Push 'content creation course' from #2 to #1",
+   "detail": "Improved 4→2; add review schema + internal link from content-creation blog post, then monitor.",
+   "objective": "#1 on 250/mo KD 0 keyword.",
+   "priority": "Low",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-27",
+   "courseId": "photo",
+   "kw": "photography course singapore",
+   "category": "Optimise existing course landing page",
+   "title": "Give the photography course line a rankable target page",
+   "detail": "Optimise Photography Essentials page (or a category hub) for 'photography course singapore' (200/mo, KD 4).",
+   "objective": "Top 10 entry for the photography line.",
+   "priority": "Low",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-28",
+   "courseId": "pubspeak",
+   "kw": "public speaking course singapore",
+   "category": "Optimise existing course landing page",
+   "title": "Optimise Public Speaking page (300/mo, KD 11)",
+   "detail": "Exact phrase in title/H1/meta; presentation-skills variant (80/mo KD 0) on the Presentation Design page.",
+   "objective": "Top 10 entry.",
+   "priority": "Low",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-29",
+   "courseId": "entre",
+   "kw": "entrepreneurship course singapore",
+   "category": "Add internal links",
+   "title": "Link entrepreneurship blog cluster to the course page (150/mo, KD 0)",
+   "detail": "Course CTAs from the 3 startup posts; optimise course page title.",
+   "objective": "Top 10 entry.",
+   "priority": "Low",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-30",
+   "courseId": "figma",
+   "kw": "figma course singapore",
+   "category": "Update title/H1/meta description",
+   "title": "Make the WTF course findable for 'figma course singapore' (60/mo)",
+   "detail": "The course title 'What The Figma' obscures the keyword — add plain 'Figma Course Singapore' phrasing to title/meta.",
+   "objective": "Top 10 entry.",
+   "priority": "Low",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-31",
+   "courseId": "email",
+   "kw": "email marketing course singapore",
+   "category": "Update title/H1/meta description",
+   "title": "Optimise Email Marketing page (90/mo variant uncaptured)",
+   "detail": "Exact phrase in title/H1/meta; internal link from email-subject-lines article.",
+   "objective": "Top 10 entry.",
+   "priority": "Low",
+   "status": "Not started",
+   "existingClickUpTask": null
+  },
+  {
+   "id": "act-32",
+   "courseId": "seo",
+   "kw": "backlinks",
+   "category": "Build backlinks",
+   "title": "Backlink programme for money pages (DR 41 vs SMU DR 79)",
+   "detail": "Digital-PR and partner links to /digital-marketing-courses/, SEO, Power BI, GenAI and Cybersecurity course pages — the DR gap is the main brake on institution-dominated SERPs.",
+   "objective": "Close the authority gap enough to hold top-3 positions once won.",
+   "priority": "Medium",
+   "status": "Not started",
+   "existingClickUpTask": null
+  }
+ ]
+}

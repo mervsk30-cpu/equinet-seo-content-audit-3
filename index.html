@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Equinet SEO Command Centre</title>
+<script src="data/seo-data.js"></script>
+<style>
+:root{
+  color-scheme: light;
+  --page:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --baseline:#c3c2b7; --ring:rgba(11,11,11,.10);
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a;
+  --good:#0ca30c; --good-text:#006300; --warn:#fab219; --serious:#ec835a; --crit:#d03b3b;
+  --seq250:#86b6ef; --seq350:#5598e7; --seq450:#2a78d6; --seq550:#1c5cab; --seq650:#104281;
+  --chip:#f0efec;
+}
+@media (prefers-color-scheme: dark){
+  :root:where(:not([data-theme="light"])){
+    color-scheme: dark;
+    --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+    --grid:#2c2c2a; --baseline:#383835; --ring:rgba(255,255,255,.10);
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+    --good:#0ca30c; --good-text:#0ca30c; --crit:#d03b3b;
+    --seq250:#86b6ef; --seq350:#5598e7; --seq450:#3987e5; --seq550:#1c5cab; --seq650:#104281;
+    --chip:#262624;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+  --grid:#2c2c2a; --baseline:#383835; --ring:rgba(255,255,255,.10);
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+  --good:#0ca30c; --good-text:#0ca30c; --crit:#d03b3b;
+  --chip:#262624;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:var(--s1);text-decoration:none} a:hover{text-decoration:underline}
+header{padding:20px 24px 0;max-width:1440px;margin:0 auto}
+h1{font-size:20px;margin:0 0 2px}
+.sub{color:var(--ink2);font-size:13px;margin:0}
+.topbar{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;justify-content:space-between}
+.topbtns{display:flex;gap:8px;flex-wrap:wrap}
+button,select,input[type=text],input[type=password]{
+  font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--ring);
+  border-radius:8px;padding:7px 12px}
+button{cursor:pointer} button:hover{border-color:var(--baseline)}
+button.primary{background:var(--s1);color:#fff;border-color:transparent}
+button.small{padding:4px 10px;font-size:12.5px;border-radius:7px;white-space:nowrap}
+main{max-width:1440px;margin:0 auto;padding:0 24px 60px}
+nav.tabs{display:flex;gap:4px;margin:18px 0 0;border-bottom:1px solid var(--grid);flex-wrap:wrap}
+nav.tabs button{border:none;background:none;border-radius:8px 8px 0 0;padding:9px 14px;color:var(--ink2);border-bottom:2px solid transparent}
+nav.tabs button.on{color:var(--ink);border-bottom-color:var(--s1);font-weight:600}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0;align-items:center}
+.filters select,.filters input{max-width:220px}
+.filters .count{color:var(--muted);font-size:12.5px;margin-left:auto}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:16px 0}
+.tile{background:var(--surface);border:1px solid var(--ring);border-radius:12px;padding:12px 14px}
+.tile .v{font-size:26px;font-weight:650;letter-spacing:-.02em}
+.tile .l{color:var(--ink2);font-size:12px}
+.tile .d{font-size:12px;color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--ring);border-radius:12px;padding:16px;margin:14px 0}
+.card h3{margin:0 0 8px;font-size:14.5px}
+.card .note{color:var(--ink2);font-size:12.5px}
+.tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--ring);border-radius:12px;margin:12px 0}
+table{border-collapse:collapse;width:100%;min-width:900px}
+th{font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);text-align:left;
+   padding:10px 10px;border-bottom:1px solid var(--grid);white-space:nowrap;cursor:pointer;user-select:none}
+td{padding:9px 10px;border-bottom:1px solid var(--grid);vertical-align:top;font-size:13px}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:color-mix(in srgb,var(--s1) 4%, transparent)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+td.opp{min-width:260px}
+td.act{min-width:200px}
+.kw{font-weight:600}
+.course{color:var(--ink2);font-size:12px}
+.chip{display:inline-block;background:var(--chip);border-radius:999px;padding:1.5px 9px;font-size:11.5px;color:var(--ink2);white-space:nowrap}
+.pri-High{color:#fff;background:var(--crit)} .pri-Medium{color:#231a00;background:var(--warn)} .pri-Low{background:var(--chip);color:var(--ink2)}
+:root[data-theme="dark"] .pri-Medium{color:#231a00}
+.up{color:var(--good-text);font-weight:600} .down{color:var(--crit);font-weight:600} .flat{color:var(--muted)}
+.rankpill{display:inline-block;min-width:30px;text-align:center;border-radius:7px;padding:1px 7px;font-weight:650;font-variant-numeric:tabular-nums}
+.r13{background:var(--seq650);color:#fff}.r410{background:var(--seq450);color:#fff}
+.r1120{background:var(--seq250);color:#12233a}.rnone{background:var(--chip);color:var(--muted);font-weight:500}
+.gapchip{font-size:11px;border:1px solid var(--ring);border-radius:6px;padding:1px 6px;color:var(--ink2);white-space:nowrap}
+.hist{font-size:12px;color:var(--ink2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.hist b{color:var(--ink)}
+.cu-ok{color:var(--good-text);font-weight:600;font-size:12.5px;white-space:nowrap}
+.cu-existing{color:var(--ink2);font-size:12.5px}
+.warnrow{color:var(--serious);font-weight:600}
+.bar{display:flex;height:26px;border-radius:8px;overflow:hidden;gap:2px;background:var(--page)}
+.bar div{display:flex;align-items:center;justify-content:center;color:#fff;font-size:11.5px;font-weight:600;min-width:2px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px;font-size:12px;color:var(--ink2)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+dialog{background:var(--surface);color:var(--ink);border:1px solid var(--ring);border-radius:14px;max-width:520px;width:92vw;padding:20px}
+dialog::backdrop{background:rgba(0,0,0,.45)}
+dialog h3{margin-top:0}
+.fine{font-size:12px;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:900px){.grid2{grid-template-columns:1fr}}
+.toast{position:fixed;bottom:18px;right:18px;background:var(--ink);color:var(--page);padding:10px 16px;border-radius:10px;
+  font-size:13px;opacity:0;transition:opacity .25s;pointer-events:none;max-width:70vw;z-index:50}
+.toast.show{opacity:1}
+.movers li{margin:4px 0}
+ul{padding-left:20px;margin:8px 0}
+.status-ic{font-weight:700}
+.actiontitle{font-weight:600}
+.detail{color:var(--ink2);font-size:12.5px;margin-top:2px}
+</style>
+</head>
+<body>
+<header>
+  <div class="topbar">
+    <div>
+      <h1>Equinet Academy · SEO Command Centre</h1>
+      <p class="sub">Google Singapore · snapshot <b id="snapdate"></b> vs baseline <span id="basedate"></span> · Ahrefs + ClickUp <span id="cu-state" class="fine"></span></p>
+    </div>
+    <div class="topbtns">
+      <button id="btn-theme" class="small" title="Toggle light/dark">◐ Theme</button>
+      <button id="btn-export" class="small">Export data + history</button>
+      <button id="btn-import" class="small">Import history</button>
+      <button id="btn-token" class="small">⚙ ClickUp token</button>
+    </div>
+  </div>
+  <nav class="tabs" id="tabs">
+    <button data-t="overview" class="on">Overview</button>
+    <button data-t="opps">Course SEO Opportunities</button>
+    <button data-t="ranks">Rank Tracking</button>
+    <button data-t="content">Supporting Content</button>
+    <button data-t="actions">Action Plan</button>
+  </nav>
+</header>
+<main>
+  <div class="filters" id="filters">
+    <select id="f-course"><option value="">All courses</option></select>
+    <input type="text" id="f-q" placeholder="Search keyword / course / action…">
+    <select id="f-pos">
+      <option value="">Any position</option>
+      <option value="top3">Positions 1–3</option>
+      <option value="p1">Page 1 (1–10)</option>
+      <option value="s420">Striking distance (4–20)</option>
+      <option value="p2">Page 2+ (11+)</option>
+      <option value="none">Not ranking</option>
+    </select>
+    <select id="f-trend">
+      <option value="">Any trend</option>
+      <option value="up">↑ Improved</option>
+      <option value="down">↓ Declined</option>
+      <option value="flat">→ Stable</option>
+      <option value="new">★ New</option>
+    </select>
+    <select id="f-pri">
+      <option value="">Any priority</option><option>High</option><option>Medium</option><option>Low</option>
+    </select>
+    <select id="f-action"><option value="">Any action type</option></select>
+    <select id="f-cu">
+      <option value="">Any ClickUp status</option>
+      <option value="created">✓ Task created</option>
+      <option value="existing">In progress (pre-existing task)</option>
+      <option value="none">No task yet</option>
+    </select>
+    <button id="f-reset" class="small">Reset</button>
+    <span class="count" id="f-count"></span>
+  </div>
+  <section id="v-overview"></section>
+  <section id="v-opps" hidden></section>
+  <section id="v-ranks" hidden></section>
+  <section id="v-content" hidden></section>
+  <section id="v-actions" hidden></section>
+</main>
+
+<dialog id="dlg-token">
+  <h3>ClickUp connection</h3>
+  <p class="fine">Paste a ClickUp <b>personal API token</b> (ClickUp → Settings → Apps → API Token, starts with <code>pk_</code>).
+  It is stored only in this browser (localStorage) and used to create subtasks in
+  <a href="https://app.clickup.com/90181914545/v/li/901814205053" target="_blank" rel="noopener">SEO Content View</a>.</p>
+  <input type="password" id="token-input" placeholder="pk_…" style="width:100%">
+  <div style="display:flex;gap:8px;margin-top:14px;justify-content:flex-end">
+    <button id="token-clear" class="small">Clear</button>
+    <button id="token-save" class="small primary">Save</button>
+  </div>
+</dialog>
+
+<dialog id="dlg-rank">
+  <h3>Log rank check</h3>
+  <p id="rank-kw-label" class="fine"></p>
+  <div class="grid2">
+    <label>Date<br><input type="text" id="rank-date" style="width:100%"></label>
+    <label>Position (blank = not ranking)<br><input type="text" id="rank-pos" style="width:100%" placeholder="e.g. 4"></label>
+  </div>
+  <div style="display:flex;gap:8px;margin-top:14px;justify-content:flex-end">
+    <button id="rank-cancel" class="small">Cancel</button>
+    <button id="rank-save" class="small primary">Save snapshot</button>
+  </div>
+</dialog>
+
+<div class="toast" id="toast"></div>
+
+<script>
+'use strict';
+const D = window.SEO_DATA;
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const courseById = Object.fromEntries(D.courses.map(c => [c.id, c]));
+const fmtDate = d => { const [y,m,dd] = d.split('-'); return `${+dd} ${['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m]}`; };
+
+/* ---------- persistent state ---------- */
+const LS = { token:'equinet_cu_token', tasks:'equinet_cu_tasks', ranks:'equinet_rank_log', theme:'equinet_theme' };
+const store = {
+  get(k, fb){ try { return JSON.parse(localStorage.getItem(k)) ?? fb; } catch { return fb; } },
+  set(k, v){ localStorage.setItem(k, typeof v === 'string' ? JSON.stringify(v) : JSON.stringify(v)); }
+};
+let cuTasks = store.get(LS.tasks, {});          // {actionId: {id,url,name,date}}
+let rankLog = store.get(LS.ranks, {});          // {kwId: [{date, rank}]}
+const savedTheme = store.get(LS.theme, null);
+if (savedTheme) document.documentElement.dataset.theme = savedTheme;
+
+/* merged history per keyword (embedded + user-logged) */
+function history(k){
+  const extra = (rankLog[k.id] || []).map(r => ({...r, logged:true}));
+  return [...k.history, ...extra].sort((a,b) => a.date.localeCompare(b.date));
+}
+function currentRank(k){ const h = history(k); return h.length ? h[h.length-1].rank : k.rank; }
+function prevRank(k){ const h = history(k); return h.length > 1 ? h[h.length-2].rank : null; }
+function trend(k){
+  const c = currentRank(k), p = prevRank(k);
+  if (c != null && p == null) return 'new';
+  if (c == null && p != null) return 'lost';
+  if (c == null && p == null) return 'none';
+  return c < p ? 'up' : c > p ? 'down' : 'flat';
+}
+const TREND = { up:['↑ Improved','up'], down:['↓ Declined','down'], flat:['→ Stable','flat'], new:['★ New','up'], lost:['✕ Lost','down'], none:['—','flat'] };
+
+/* ---------- helpers ---------- */
+function rankPill(r){
+  if (r == null) return '<span class="rankpill rnone">—</span>';
+  const cls = r <= 3 ? 'r13' : r <= 10 ? 'r410' : 'r1120';
+  return `<span class="rankpill ${cls}">${r}</span>`;
+}
+function changeCell(k){
+  const c = currentRank(k), p = prevRank(k);
+  if (c != null && p == null) return '<span class="up">★ new</span>';
+  if (c == null) return '<span class="flat">—</span>';
+  const d = p - c;
+  return d > 0 ? `<span class="up">▲ ${d}</span>` : d < 0 ? `<span class="down">▼ ${-d}</span>` : '<span class="flat">＝</span>';
+}
+function histChain(k){
+  return history(k).map(h => `${fmtDate(h.date)}: <b>${h.rank == null ? '–' : '#' + h.rank}</b>`).join(' → ') || '<span class="flat">no data</span>';
+}
+function toast(msg, ms = 3200){ const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), ms); }
+
+/* ---------- filters ---------- */
+const F = { course:'', q:'', pos:'', trend:'', pri:'', action:'', cu:'' };
+D.courses.forEach(c => { const o = document.createElement('option'); o.value = c.id; o.textContent = c.name; $('#f-course').appendChild(o); });
+[...new Set(D.actions.map(a => a.category))].sort().forEach(c => { const o = document.createElement('option'); o.value = c; o.textContent = c; $('#f-action').appendChild(o); });
+function bindFilter(id, key){ $(id).addEventListener('input', e => { F[key] = e.target.value; render(); }); }
+bindFilter('#f-course','course'); bindFilter('#f-q','q'); bindFilter('#f-pos','pos');
+bindFilter('#f-trend','trend'); bindFilter('#f-pri','pri'); bindFilter('#f-action','action'); bindFilter('#f-cu','cu');
+$('#f-reset').onclick = () => { Object.keys(F).forEach(k => F[k] = '');
+  ['#f-course','#f-q','#f-pos','#f-trend','#f-pri','#f-action','#f-cu'].forEach(s => $(s).value = ''); render(); };
+
+function kwMatches(k){
+  const c = currentRank(k);
+  if (F.course && k.courseId !== F.course) return false;
+  if (F.q){ const q = F.q.toLowerCase();
+    if (!(k.kw + ' ' + courseById[k.courseId].name + ' ' + (k.opportunity||'')).toLowerCase().includes(q)) return false; }
+  if (F.pos === 'top3' && !(c != null && c <= 3)) return false;
+  if (F.pos === 'p1' && !(c != null && c <= 10)) return false;
+  if (F.pos === 's420' && !(c != null && c >= 4 && c <= 20)) return false;
+  if (F.pos === 'p2' && !(c != null && c >= 11)) return false;
+  if (F.pos === 'none' && c != null) return false;
+  if (F.trend && trend(k) !== F.trend) return false;
+  if (F.pri){ const a = actionForKw(k); if (!a || a.priority !== F.pri) return false; }
+  if (F.action){ const a = actionForKw(k); if (!a || a.category !== F.action) return false; }
+  if (F.cu){ const a = actionForKw(k); if (!a || cuStatus(a) !== F.cu) return false; }
+  return true;
+}
+function actionMatches(a){
+  if (F.course && a.courseId !== F.course) return false;
+  if (F.q){ const q = F.q.toLowerCase();
+    if (!(a.title + ' ' + a.kw + ' ' + a.detail + ' ' + courseById[a.courseId].name).toLowerCase().includes(q)) return false; }
+  if (F.pri && a.priority !== F.pri) return false;
+  if (F.action && a.category !== F.action) return false;
+  if (F.cu && cuStatus(a) !== F.cu) return false;
+  if (F.trend || F.pos){ const k = kwForAction(a); if (!k) return false;
+    if (F.trend && trend(k) !== F.trend) return false;
+    if (F.pos && !kwMatches({...k})) return false; }
+  return true;
+}
+function contentMatches(c){
+  if (F.course && c.courseId !== F.course) return false;
+  if (F.q){ const q = F.q.toLowerCase();
+    if (!(c.kw + ' ' + (c.newTopic||'') + ' ' + courseById[c.courseId].name + ' ' + c.rec).toLowerCase().includes(q)) return false; }
+  return true;
+}
+const actionForKw = k => D.actions.find(a => a.courseId === k.courseId && a.kw === k.kw)
+                      || D.actions.find(a => a.courseId === k.courseId);
+const kwForAction = a => D.keywords.find(k => k.courseId === a.courseId && k.kw === a.kw) ||
+                         D.keywords.find(k => k.courseId === a.courseId && k.primary);
+
+/* ---------- ClickUp integration ---------- */
+const cuToken = () => store.get(LS.token, '');
+function cuStatus(a){
+  if (cuTasks[a.id]) return 'created';
+  if (a.existingClickUpTask) return 'existing';
+  return 'none';
+}
+function cuCell(a){
+  if (cuTasks[a.id]){
+    const t = cuTasks[a.id];
+    return `<span class="cu-ok">✓ ClickUp Task Created</span><br><a href="${esc(t.url)}" target="_blank" rel="noopener">${esc(t.id)}</a> <span class="fine">${esc(t.date||'')}</span>`;
+  }
+  if (a.existingClickUpTask){
+    const t = a.existingClickUpTask;
+    return `<span class="cu-existing">● Existing task:</span><br><a href="${esc(t.url)}" target="_blank" rel="noopener">${esc(t.name)}</a>
+      <br><button class="small" data-cu="${a.id}">+ Create anyway</button>`;
+  }
+  return `<button class="small primary" data-cu="${a.id}">Create ClickUp Task</button>`;
+}
+function taskName(a){ return a.title; }
+function taskDescription(a){
+  const k = kwForAction(a), c = courseById[a.courseId];
+  const cr = k ? currentRank(k) : null, pr = k ? prevRank(k) : null;
+  const lines = [
+    `## SEO Recommendation (Equinet SEO Dashboard)`,
+    ``,
+    `**Course:** ${c.name}`,
+    `**Course landing page:** ${c.url}`,
+    `**Target keyword:** ${a.kw}`,
+    k ? `**Search volume (SG):** ${k.vol ?? 'n/a'}/mo` : null,
+    k ? `**Keyword difficulty:** ${k.kd ?? 'n/a'}` : null,
+    k ? `**Search intent:** ${k.intent ?? 'n/a'}` : null,
+    `**Current rank (Google SG):** ${cr != null ? '#' + cr : 'Not ranking'}`,
+    `**Previous rank:** ${pr != null ? '#' + pr : 'n/a'}`,
+    k && k.rankUrl ? `**Current ranking URL:** ${k.rankUrl}` : null,
+    k && k.competitor ? `**Competitor:** ${k.competitor.name} (position #${k.competitor.pos}${k.competitor.dr != null ? ', DR ' + k.competitor.dr : ''}) — ${k.competitor.url}` : null,
+    `**Recommended target URL:** ${k && k.rankUrl ? k.rankUrl : c.url}`,
+    ``,
+    `### Recommended SEO changes`,
+    a.detail,
+    k && k.cannibal ? `\n**Cannibalisation note:** ${k.cannibal}` : null,
+    ``,
+    `### Expected objective`,
+    a.objective,
+    ``,
+    `**Priority:** ${a.priority}`,
+    `**Action type:** ${a.category}`,
+    ``,
+    `---`,
+    `Source: Equinet SEO Dashboard · snapshot ${D.meta.generated} (baseline ${D.meta.baseline}) · data: ${D.meta.sources}`
+  ].filter(x => x !== null);
+  return lines.join('\n');
+}
+async function cuFetch(path, opts = {}){
+  const res = await fetch('https://api.clickup.com/api/v2' + path, {
+    ...opts,
+    headers: { 'Authorization': cuToken(), 'Content-Type': 'application/json', ...(opts.headers||{}) }
+  });
+  if (!res.ok){ const body = await res.text(); throw new Error(`ClickUp ${res.status}: ${body.slice(0,200)}`); }
+  return res.json();
+}
+async function findDuplicate(a){
+  const c = courseById[a.courseId];
+  try {
+    const parent = await cuFetch(`/task/${c.clickupParentId}?include_subtasks=true`);
+    const dup = (parent.subtasks || []).find(s => s.name.trim().toLowerCase() === taskName(a).trim().toLowerCase());
+    if (dup) return { id: dup.id, url: `https://app.clickup.com/t/${dup.id}`, name: dup.name };
+  } catch(e){ /* parent lookup failed — fall through to create */ }
+  return null;
+}
+async function createTask(a, btn){
+  if (!cuToken()){ openTokenDialog(); toast('Add your ClickUp API token first'); return; }
+  const c = courseById[a.courseId];
+  btn.disabled = true; btn.textContent = 'Checking…';
+  try {
+    const dup = await findDuplicate(a);
+    if (dup){
+      cuTasks[a.id] = { ...dup, date: new Date().toISOString().slice(0,10) };
+      store.set(LS.tasks, cuTasks);
+      toast('Task already exists in ClickUp — linked the existing one instead of duplicating.');
+      render(); return;
+    }
+    btn.textContent = 'Creating…';
+    const priMap = { High: 2, Medium: 3, Low: 4 };
+    const body = {
+      name: taskName(a),
+      markdown_description: taskDescription(a),
+      parent: c.clickupParentId,
+      priority: priMap[a.priority] || 3,
+      tags: ['seo-dashboard']
+    };
+    const t = await cuFetch(`/list/${D.meta.clickup.listId}/task`, { method:'POST', body: JSON.stringify(body) });
+    cuTasks[a.id] = { id: t.id, url: t.url || `https://app.clickup.com/t/${t.id}`, name: t.name, date: new Date().toISOString().slice(0,10) };
+    store.set(LS.tasks, cuTasks);
+    toast(`✓ ClickUp task created under “${c.clickupParentName}”`);
+  } catch(e){
+    console.error(e);
+    toast('ClickUp error: ' + e.message, 6000);
+    btn.disabled = false; btn.textContent = 'Create ClickUp Task';
+    return;
+  }
+  render();
+}
+document.addEventListener('click', e => {
+  const id = e.target?.dataset?.cu; if (!id) return;
+  const a = D.actions.find(x => x.id === id);
+  if (a) createTask(a, e.target);
+});
+
+/* token dialog */
+function openTokenDialog(){ $('#token-input').value = cuToken(); $('#dlg-token').showModal(); }
+$('#btn-token').onclick = openTokenDialog;
+$('#token-save').onclick = () => { store.set(LS.token, $('#token-input').value.trim()); $('#dlg-token').close(); refreshCuState(); toast('Token saved (this browser only)'); };
+$('#token-clear').onclick = () => { store.set(LS.token, ''); $('#token-input').value=''; refreshCuState(); };
+function refreshCuState(){ $('#cu-state').textContent = cuToken() ? '· ClickUp connected' : '· ClickUp token not set'; }
+
+/* rank logging */
+let rankTarget = null;
+document.addEventListener('click', e => {
+  const id = e.target?.dataset?.logrank; if (!id) return;
+  rankTarget = D.keywords.find(k => k.id === id);
+  $('#rank-kw-label').textContent = `“${rankTarget.kw}” — ${courseById[rankTarget.courseId].name}`;
+  $('#rank-date').value = new Date().toISOString().slice(0,10);
+  $('#rank-pos').value = '';
+  $('#dlg-rank').showModal();
+});
+$('#rank-cancel').onclick = () => $('#dlg-rank').close();
+$('#rank-save').onclick = () => {
+  if (!rankTarget) return;
+  const date = $('#rank-date').value.trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)){ toast('Date must be YYYY-MM-DD'); return; }
+  const raw = $('#rank-pos').value.trim();
+  const rank = raw === '' ? null : parseInt(raw, 10);
+  if (raw !== '' && (!Number.isInteger(rank) || rank < 1)){ toast('Position must be a positive number'); return; }
+  (rankLog[rankTarget.id] = rankLog[rankTarget.id] || []).push({ date, rank });
+  store.set(LS.ranks, rankLog);
+  $('#dlg-rank').close(); toast('Rank snapshot saved'); render();
+};
+
+/* export / import */
+$('#btn-export').onclick = () => {
+  const blob = new Blob([JSON.stringify({ data: D, rankLog, cuTasks, exported: new Date().toISOString() }, null, 1)], { type:'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = `equinet-seo-export-${new Date().toISOString().slice(0,10)}.json`;
+  a.click(); URL.revokeObjectURL(a.href);
+};
+$('#btn-import').onclick = () => {
+  const inp = document.createElement('input'); inp.type = 'file'; inp.accept = '.json';
+  inp.onchange = () => { const f = inp.files[0]; if (!f) return;
+    f.text().then(t => { try {
+      const j = JSON.parse(t);
+      if (j.rankLog){ rankLog = j.rankLog; store.set(LS.ranks, rankLog); }
+      if (j.cuTasks){ cuTasks = j.cuTasks; store.set(LS.tasks, cuTasks); }
+      toast('History imported'); render();
+    } catch { toast('Invalid file'); } }); };
+  inp.click();
+};
+$('#btn-theme').onclick = () => {
+  const cur = document.documentElement.dataset.theme;
+  const next = cur === 'dark' ? 'light' : cur === 'light' ? 'dark'
+    : (matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark');
+  document.documentElement.dataset.theme = next; store.set(LS.theme, next);
+};
+
+/* ---------- sorting ---------- */
+let sortState = {};
+function sortable(tableId, defaultKey, defaultDir = 1){
+  const st = sortState[tableId] || (sortState[tableId] = { key: defaultKey, dir: defaultDir });
+  return { st, apply(list, getters){
+    const g = getters[st.key]; if (!g) return list;
+    return [...list].sort((a,b) => {
+      const va = g(a), vb = g(b);
+      if (va == null && vb == null) return 0;
+      if (va == null) return 1; if (vb == null) return -1;
+      return (va < vb ? -1 : va > vb ? 1 : 0) * st.dir;
+    });
+  }};
+}
+document.addEventListener('click', e => {
+  const th = e.target.closest('th[data-sort]'); if (!th) return;
+  const tid = th.closest('table').dataset.tid;
+  const st = sortState[tid] || (sortState[tid] = {});
+  if (st.key === th.dataset.sort) st.dir = -st.dir; else { st.key = th.dataset.sort; st.dir = 1; }
+  render();
+});
+const thSort = (tid, key, label, num) =>
+  `<th ${num?'class="num"':''} data-sort="${key}">${label}${sortState[tid]?.key===key ? (sortState[tid].dir>0?' ▲':' ▼') : ''}</th>`;
+
+/* ---------- views ---------- */
+function vOverview(){
+  const ks = D.keywords;
+  const ranked = ks.filter(k => currentRank(k) != null);
+  const page1 = ranked.filter(k => currentRank(k) <= 10);
+  const top3 = ranked.filter(k => currentRank(k) <= 3);
+  const up = ks.filter(k => trend(k) === 'up'), down = ks.filter(k => trend(k) === 'down');
+  const neu = ks.filter(k => trend(k) === 'new'), lost = ks.filter(k => trend(k) === 'lost');
+  const courseHasRank = new Set(ranked.map(k => k.courseId));
+  const noOrganic = D.courses.filter(c => !courseHasRank.has(c.id) && c.id !== 'dmhub');
+  const buckets = [
+    ['1–3', top3.length, 'var(--seq650)'],
+    ['4–10', page1.length - top3.length, 'var(--seq450)'],
+    ['11–20', ranked.filter(k => currentRank(k) > 10 && currentRank(k) <= 20).length, 'var(--seq250)'],
+    ['Not ranking', ks.length - ranked.length, 'var(--baseline)'],
+  ];
+  const total = ks.length;
+  const tile = (v, l, d='') => `<div class="tile"><div class="v">${v}</div><div class="l">${l}</div>${d?`<div class="d">${d}</div>`:''}</div>`;
+  const mover = k => `<li><b>${esc(k.kw)}</b> <span class="course">(${esc(courseById[k.courseId].name)})</span> ${changeCell(k)} → ${rankPill(currentRank(k))}</li>`;
+  return `
+  <div class="tiles">
+    ${tile(D.courses.length, 'Courses tracked')}
+    ${tile(total, 'Target keywords', 'Google SG')}
+    ${tile(page1.length, 'Page 1 keywords', 'positions 1–10')}
+    ${tile(top3.length, 'Positions 1–3')}
+    ${tile(`<span class="up">▲ ${up.length}</span>`, 'Improved', 'vs ' + fmtDate(D.meta.baseline))}
+    ${tile(`<span class="down">▼ ${down.length}</span>`, 'Declined', 'vs ' + fmtDate(D.meta.baseline))}
+    ${tile(neu.length, 'New rankings')}
+    ${tile(lost.length, 'Lost rankings')}
+    ${tile(noOrganic.length, 'Courses w/ no organic keywords', 'of tracked set')}
+  </div>
+  <div class="card">
+    <h3>Keyword position distribution</h3>
+    <div class="bar">${buckets.filter(b => b[1] > 0).map(b =>
+      `<div style="flex:${b[1]};background:${b[2]};${b[0]==='Not ranking'?'color:var(--ink2);':''}" title="${b[0]}: ${b[1]}">${b[1]}</div>`).join('')}</div>
+    <div class="legend">${buckets.map(b => `<span><i style="background:${b[2]}"></i>${b[0]} (${b[1]})</span>`).join('')}</div>
+  </div>
+  <div class="grid2">
+    <div class="card"><h3>▲ Top improvements (${fmtDate(D.meta.baseline)} → ${fmtDate(D.meta.generated)})</h3>
+      <ul class="movers">${[...up].sort((a,b)=>(prevRank(b)-currentRank(b))-(prevRank(a)-currentRank(a))).slice(0,8).map(mover).join('')}</ul></div>
+    <div class="card"><h3>▼ Declines needing attention</h3>
+      <ul class="movers">${[...down].sort((a,b)=>(currentRank(b)-prevRank(b))-(currentRank(a)-prevRank(a))).slice(0,8).map(mover).join('')}</ul>
+      <p class="note">Biggest issue: <b>“digital marketing course” dropped #1 → #10</b> (700/mo) with hub/blog cannibalisation — see Action Plan.</p></div>
+  </div>
+  <div class="card">
+    <h3>Courses with no organic visibility yet (${noOrganic.length})</h3>
+    <p class="note">These pages have target keywords with real volume but no rankings — every one is a net-new traffic opportunity.</p>
+    <ul>${noOrganic.map(c => { const pk = D.keywords.find(k => k.courseId === c.id && k.primary);
+      return `<li><a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.name)}</a>${pk ? ` — target “${esc(pk.kw)}” (${pk.vol ?? '?'} /mo, KD ${pk.kd ?? '?'})` : ''}</li>`; }).join('')}</ul>
+  </div>`;
+}
+
+function vOpps(){
+  const tid = 'opps';
+  const { apply } = sortable(tid, 'vol', -1);
+  let rows = D.keywords.filter(kwMatches);
+  rows = apply(rows, {
+    kw: k => k.kw, course: k => courseById[k.courseId].name, vol: k => k.vol, kd: k => k.kd,
+    rank: k => currentRank(k) ?? 999, prev: k => prevRank(k) ?? 999,
+    pri: k => ({High:0,Medium:1,Low:2})[actionForKw(k)?.priority] ?? 3,
+  });
+  $('#f-count').textContent = `${rows.length} keywords`;
+  return `<div class="tablewrap"><table data-tid="${tid}"><thead><tr>
+    ${thSort(tid,'kw','Keyword / Course')}${thSort(tid,'vol','Volume',1)}${thSort(tid,'kd','KD',1)}
+    ${thSort(tid,'rank','Rank',1)}${thSort(tid,'prev','Prev',1)}<th>Change</th>
+    <th>Competitor</th><th>Opportunity</th><th>Recommended action</th>${thSort(tid,'pri','Priority')}<th>ClickUp</th>
+  </tr></thead><tbody>${rows.map(k => {
+    const a = actionForKw(k), c = courseById[k.courseId];
+    return `<tr>
+      <td><div class="kw">${esc(k.kw)}${k.primary?' <span class="chip">primary</span>':''}</div>
+          <div class="course"><a href="${esc(k.rankUrl || c.url)}" target="_blank" rel="noopener">${esc(c.name)}</a></div>
+          ${k.coveredBy?`<div class="fine">Covered by: ${esc(k.coveredBy)}</div>`:''}
+          ${k.cannibal?`<div class="fine warnrow">⚠ ${esc(k.cannibal)}</div>`:''}</td>
+      <td class="num">${k.vol ?? '—'}</td><td class="num">${k.kd ?? '—'}</td>
+      <td class="num">${rankPill(currentRank(k))}</td><td class="num">${rankPill(prevRank(k))}</td>
+      <td>${changeCell(k)}</td>
+      <td>${k.competitor ? `<a href="${esc(k.competitor.url)}" target="_blank" rel="noopener">${esc(k.competitor.name)}</a><br><span class="fine">#${k.competitor.pos}${k.competitor.dr != null ? ' · DR ' + k.competitor.dr : ''}</span>` : '<span class="flat">—</span>'}</td>
+      <td class="opp" style="max-width:340px">${esc(k.opportunity || '')} <span class="gapchip">${esc(k.gap)}</span></td>
+      <td class="act" style="max-width:240px">${a ? `<div class="actiontitle">${esc(a.category)}</div><div class="detail">${esc(a.title)}</div>` : '—'}</td>
+      <td>${a ? `<span class="chip pri-${a.priority}">${a.priority}</span>` : '—'}</td>
+      <td>${a ? cuCell(a) : '—'}</td>
+    </tr>`; }).join('')}</tbody></table></div>`;
+}
+
+function vRanks(){
+  const tid = 'ranks';
+  const { apply } = sortable(tid, 'rank');
+  let rows = D.keywords.filter(kwMatches);
+  rows = apply(rows, {
+    kw: k => k.kw, course: k => courseById[k.courseId].name,
+    rank: k => currentRank(k) ?? 999, prev: k => prevRank(k) ?? 999, vol: k => k.vol,
+  });
+  $('#f-count').textContent = `${rows.length} keywords`;
+  return `<div class="card" style="margin-top:0"><p class="note" style="margin:0">
+    Rankings are stored as dated snapshots, never overwritten. Baseline ${fmtDate(D.meta.baseline)} and snapshot ${fmtDate(D.meta.generated)} come from Ahrefs;
+    click <b>Log rank</b> after each new rank check to append a snapshot (kept in this browser — use Export to back it up or share).</p></div>
+  <div class="tablewrap"><table data-tid="${tid}"><thead><tr>
+    ${thSort(tid,'kw','Keyword / Course')}${thSort(tid,'vol','Volume',1)}
+    ${thSort(tid,'prev','Prev rank',1)}${thSort(tid,'rank','Current',1)}<th>Change</th><th>Trend</th>
+    <th>Date checked</th><th>Historical ranking</th><th></th>
+  </tr></thead><tbody>${rows.map(k => {
+    const [tl, tc] = TREND[trend(k)];
+    const h = history(k); const last = h[h.length-1];
+    return `<tr>
+      <td><div class="kw">${esc(k.kw)}</div><div class="course">${esc(courseById[k.courseId].name)}</div></td>
+      <td class="num">${k.vol ?? '—'}</td>
+      <td class="num">${rankPill(prevRank(k))}</td><td class="num">${rankPill(currentRank(k))}</td>
+      <td>${changeCell(k)}</td><td><span class="${tc}">${tl}</span></td>
+      <td>${last ? fmtDate(last.date) : '—'}</td>
+      <td class="hist">${histChain(k)}</td>
+      <td><button class="small" data-logrank="${k.id}">Log rank</button></td>
+    </tr>`; }).join('')}</tbody></table></div>`;
+}
+
+function vContent(){
+  let rows = D.content.filter(contentMatches);
+  $('#f-count').textContent = `${rows.length} recommendations`;
+  return `<div class="tablewrap"><table><thead><tr>
+    <th>Course</th><th>Target keyword</th><th class="num">Vol</th><th class="num">KD</th><th>Intent</th>
+    <th>Existing article(s)</th><th>Cannibalisation risk</th><th>Recommendation</th><th>Internal linking</th><th>Reason</th><th>Status</th>
+  </tr></thead><tbody>${rows.map(c => {
+    const co = courseById[c.courseId];
+    return `<tr>
+      <td><a href="${esc(co.url)}" target="_blank" rel="noopener">${esc(co.name)}</a></td>
+      <td class="kw">${esc(c.kw)}</td>
+      <td class="num">${c.vol ?? '—'}</td><td class="num">${c.kd ?? '—'}</td><td>${esc(c.intent)}</td>
+      <td>${c.existing.length ? c.existing.map(e2 => `<a href="${esc(e2.url)}" target="_blank" rel="noopener">${esc(e2.title)}</a>`).join('<br>') : '<span class="flat">None found in blog</span>'}</td>
+      <td><span class="chip ${c.risk === 'High' ? 'pri-High' : c.risk === 'Medium' ? 'pri-Medium' : ''}">${esc(c.risk)}</span></td>
+      <td style="max-width:230px"><b>${esc(c.rec)}</b>${c.newTopic ? `<div class="detail">“${esc(c.newTopic)}”</div><div class="fine">→ ${esc(c.targetUrl)}</div>` : ''}</td>
+      <td style="max-width:240px" class="detail">${esc(c.link)}</td>
+      <td style="max-width:260px" class="detail">${esc(c.reason)}</td>
+      <td><span class="chip">${esc(c.status)}</span></td>
+    </tr>`; }).join('')}</tbody></table></div>`;
+}
+
+function vActions(){
+  const tid = 'acts';
+  const { apply } = sortable(tid, 'pri');
+  let rows = D.actions.filter(actionMatches);
+  rows = apply(rows, {
+    pri: a => ({High:0,Medium:1,Low:2})[a.priority],
+    course: a => courseById[a.courseId].name, kw: a => a.kw, cat: a => a.category,
+  });
+  $('#f-count').textContent = `${rows.length} tasks`;
+  return `<div class="tablewrap"><table data-tid="${tid}"><thead><tr>
+    <th>#</th>${thSort(tid,'pri','Priority')}${thSort(tid,'course','Course / Page')}${thSort(tid,'kw','Keyword')}
+    ${thSort(tid,'cat','Action type')}<th>Recommended action</th><th>Expected SEO objective</th><th>Status</th><th>ClickUp</th>
+  </tr></thead><tbody>${rows.map((a, i) => {
+    const c = courseById[a.courseId];
+    const created = cuTasks[a.id];
+    const status = created ? '✓ Task created' : a.status;
+    return `<tr>
+      <td class="num">${i + 1}</td>
+      <td><span class="chip pri-${a.priority}">${a.priority}</span></td>
+      <td><a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.name)}</a><div class="fine">ClickUp parent: ${esc(c.clickupParentName)}</div></td>
+      <td class="kw">${esc(a.kw)}</td>
+      <td><span class="chip">${esc(a.category)}</span></td>
+      <td style="max-width:320px"><div class="actiontitle">${esc(a.title)}</div><div class="detail">${esc(a.detail)}</div></td>
+      <td style="max-width:240px" class="detail">${esc(a.objective)}</td>
+      <td><span class="${created ? 'cu-ok' : 'flat'}">${esc(status)}</span></td>
+      <td>${cuCell(a)}</td>
+    </tr>`; }).join('')}</tbody></table></div>`;
+}
+
+/* ---------- render ---------- */
+let tab = 'overview';
+$('#tabs').addEventListener('click', e => {
+  const b = e.target.closest('button[data-t]'); if (!b) return;
+  tab = b.dataset.t;
+  document.querySelectorAll('#tabs button').forEach(x => x.classList.toggle('on', x === b));
+  render();
+});
+function render(){
+  ['overview','opps','ranks','content','actions'].forEach(t => { $('#v-' + t).hidden = t !== tab; });
+  $('#filters').style.display = tab === 'overview' ? 'none' : 'flex';
+  if (tab === 'overview') $('#v-overview').innerHTML = vOverview();
+  if (tab === 'opps') $('#v-opps').innerHTML = vOpps();
+  if (tab === 'ranks') $('#v-ranks').innerHTML = vRanks();
+  if (tab === 'content') $('#v-content').innerHTML = vContent();
+  if (tab === 'actions') $('#v-actions').innerHTML = vActions();
+}
+$('#snapdate').textContent = fmtDate(D.meta.generated) + ' 2026';
+$('#basedate').textContent = fmtDate(D.meta.baseline) + ' 2026';
+refreshCuState();
+render();
+</script>
+</body>
+</html>
