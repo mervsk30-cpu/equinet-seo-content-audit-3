@@ -148,9 +148,16 @@ def main() -> None:
     unknown_tags = {}
     seen_per_course = {code: set() for code in course_index}
 
+    untagged = 0
     for row in src["keywords"]:
         kw = " ".join(row["keyword"].lower().split())
-        for tag in row.get("tags") or []:
+        tags = row.get("tags") or []
+        if not tags:
+            # keep untagged tracked keywords visible for triage instead of dropping them
+            untagged += 1
+            unassigned.append({"keyword": kw, "team_tag": "(untagged)", "type": classify(None, kw)})
+            continue
+        for tag in tags:
             m = FUNNEL_RE.match(tag)
             base, funnel = (m.group(1), m.group(2)) if m else (tag, None)
             if base not in TAG_MAP:
@@ -205,9 +212,11 @@ def main() -> None:
 
     total = sum(len(c["keywords"]) for c in course_index.values())
     print(f"Wrote {OUTPUT}")
+    print(f"  source keywords: {len(src['keywords'])} (untagged: {untagged})")
     print(f"  courses: {len(course_index)}  assigned keyword rows: {total}  unassigned: {len(unassigned)}")
     if unknown_tags:
         print(f"  WARNING unknown tags skipped: {unknown_tags}", file=sys.stderr)
+        sys.exit(2)
 
 
 if __name__ == "__main__":

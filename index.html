@@ -94,7 +94,7 @@
   .chip[aria-pressed="true"] { border-color: var(--series-1); color: var(--ink); box-shadow: inset 0 0 0 1px var(--series-1); }
   .chip .n { font-weight: 650; color: var(--ink); }
 
-  .tablewrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+  .tablewrap { overflow: auto; max-height: 78vh; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
   table { border-collapse: collapse; width: 100%; min-width: 1150px; }
   th, td { text-align: left; padding: 7px 10px; border-top: 1px solid var(--grid); font-size: 13px; vertical-align: top; }
   thead th { border-top: none; font-size: 11.5px; text-transform: uppercase; letter-spacing: .04em;
@@ -223,6 +223,14 @@
   function pagePath(url) { try { return new URL(url).pathname; } catch (e) { return url; } }
 
   /* ---------- banner ---------- */
+  // Build-time state is a lower bound: also check freshness against the
+  // viewer's clock, so a workflow that silently stops firing still surfaces
+  // as stale instead of "ok" forever.
+  function effectiveState() {
+    if (D.state !== "ok") return D.state;
+    const due = Date.parse(D.next_refresh.date + "T00:00:00Z") + 2 * 864e5; // refresh day + 1 day grace
+    return Date.now() > due ? "stale" : "ok";
+  }
   function bannerHtml() {
     const lu = D.last_updated;
     if (D.state === "no_data_yet") {
@@ -238,9 +246,10 @@
         ', window ' + fmtShort(lu.window.start) + " – " + fmtShortY(lu.window.end) + "). This data is <b>not current</b>." : "") +
         "</div>";
     }
-    if (D.state === "stale") {
+    if (effectiveState() === "stale") {
       return '<div class="banner stale"><b>Data is stale.</b> The last successful refresh was ' +
         (lu ? esc(lu.display) : "unknown") + "; a weekly Monday refresh was expected since. " +
+        "The table below shows the <b>last successful week</b>, not current rankings. " +
         "Check the <b>Weekly GSC refresh</b> workflow run in GitHub Actions.</div>";
     }
     return "";

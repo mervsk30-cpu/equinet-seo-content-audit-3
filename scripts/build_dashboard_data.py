@@ -129,19 +129,28 @@ def fmt_date_long(d: date) -> str:
 
 def build_payload(config: dict, snapshots: list[dict], meta: dict, today: date) -> dict:
     settings = config["settings"]
+
+    # last week each (course, query) ranked, over the FULL snapshot list, so a
+    # keyword lost >HISTORY_WEEKS ago still reads "lost", never "no data"
+    last_ranked_week: dict[tuple, str] = {}
+    for s in snapshots:  # sorted ascending, so later weeks overwrite
+        for r in s.get("rows", []):
+            if r["device"] == "all" and r.get("position") is not None:
+                last_ranked_week[(r["course"], r["query"])] = s["run_date"]
+
     snapshots = snapshots[-HISTORY_WEEKS:]
     current = snapshots[-1] if snapshots else None
     previous = snapshots[-2] if len(snapshots) >= 2 else None
 
     idx_cur = index_snapshot(current) if current else {}
     idx_prev = index_snapshot(previous) if previous else {}
-    older_indexes = [(s["run_date"], index_snapshot(s)) for s in snapshots[:-2]] if len(snapshots) > 2 else []
     all_indexes = [(s["run_date"], index_snapshot(s)) for s in snapshots]
 
     # ---- global state -------------------------------------------------
     error = meta.get("last_error") if meta.get("last_run_status") == "error" else None
     if current is None:
-        state = "no_data_yet"
+        # a failed pull must surface as an error even before the first snapshot
+        state = "error" if error else "no_data_yet"
     else:
         run_d = date.fromisoformat(current["run_date"])
         stale = (today - run_d).days > STALE_AFTER_DAYS
@@ -186,10 +195,8 @@ def build_payload(config: dict, snapshots: list[dict], meta: dict, today: date) 
                     "impressions": e["impressions"] if e else None,
                 })
 
-            ranked_weeks = [h["week"] for h in history if h["position"] is not None]
-            ever_before = any(
-                idx.get((code, kw, "all")) is not None for _, idx in older_indexes
-            )
+            last_ranked = last_ranked_week.get((code, kw))
+            ever_before = last_ranked is not None and (current is None or last_ranked < current["run_date"])
             status = status_for(cur, prev, previous is not None, ever_before)
 
             row = {
@@ -204,8 +211,8 @@ def build_payload(config: dict, snapshots: list[dict], meta: dict, today: date) 
                 "mobile": device_cell(idx_cur, idx_prev if previous else None, code, kw, "mobile"),
                 "history": history,
             }
-            if status == "lost" and ranked_weeks:
-                row["lost_since"] = ranked_weeks[-1]
+            if status == "lost" and last_ranked:
+                row["lost_since"] = last_ranked
             if conf and conf.get("mapping_review"):
                 row["mapping_review"] = True
             rows.append(row)

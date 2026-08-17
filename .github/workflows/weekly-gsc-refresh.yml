@@ -55,16 +55,20 @@ jobs:
         run: |
           python scripts/collect_gsc.py --backfill "${{ github.event.inputs.backfill_weeks || '0' }}"
 
+      # The two steps below run even when collection fails - that is how a
+      # failure gets published as an explicit error on the dashboard - but NOT
+      # when collection never ran (e.g. pip/test failure), which must not
+      # rebuild or push anything.
       - name: Rebuild dashboard data (also runs on failure to surface the error state)
-        if: always()
+        if: always() && (steps.collect.outcome == 'success' || steps.collect.outcome == 'failure')
         run: python scripts/build_dashboard_data.py
 
       - name: Commit and push
-        if: always()
+        if: always() && (steps.collect.outcome == 'success' || steps.collect.outcome == 'failure')
         run: |
           git config user.name "gsc-refresh-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/snapshots data/meta.json data/dashboard-data.js data/dashboard-data.json
+          git add -A data/snapshots data/meta.json data/dashboard-data.js data/dashboard-data.json
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
@@ -73,6 +77,7 @@ jobs:
             else
               git commit -m "GSC refresh FAILED: $(date -u +%F) (error state recorded)"
             fi
+            git pull --rebase origin "$GITHUB_REF_NAME"
             git push
           fi
 

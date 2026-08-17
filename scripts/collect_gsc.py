@@ -126,17 +126,27 @@ def gsc_query(token: str, site: str, body: dict) -> list[dict]:
     url = GSC_ENDPOINT.format(site=quote(site, safe=""))
     while True:
         payload = dict(body, rowLimit=ROW_LIMIT, startRow=start_row)
+        resp = None
+        last_exc: Exception | None = None
         for attempt in range(5):
-            resp = requests.post(
-                url,
-                json=payload,
-                headers={"Authorization": f"Bearer {token}"},
-                timeout=120,
-            )
-            if resp.status_code in (429, 500, 502, 503):
+            try:
+                resp = requests.post(
+                    url,
+                    json=payload,
+                    headers={"Authorization": f"Bearer {token}"},
+                    timeout=120,
+                )
+            except requests.exceptions.RequestException as exc:  # network blip: retry
+                last_exc = exc
+                resp = None
+                time.sleep(2 ** attempt)
+                continue
+            if resp.status_code in (408, 429, 500, 502, 503, 504):
                 time.sleep(2 ** attempt)
                 continue
             break
+        if resp is None:
+            raise RuntimeError(f"GSC API unreachable after retries: {last_exc}")
         if resp.status_code != 200:
             raise RuntimeError(
                 f"GSC API error {resp.status_code} for {site}: {resp.text[:500]}"
@@ -232,7 +242,9 @@ def update_meta(**patch) -> None:
         except json.JSONDecodeError:
             meta = {}
     meta.update(patch)
-    META_PATH.write_text(json.dumps(meta, indent=2) + "\n")
+    tmp = META_PATH.with_suffix(".tmp")
+    tmp.write_text(json.dumps(meta, indent=2) + "\n")
+    tmp.replace(META_PATH)
 
 
 def main() -> int:
@@ -244,13 +256,14 @@ def main() -> int:
     ap.add_argument("--dry-run", action="store_true", help="Query GSC and report row counts without writing files.")
     args = ap.parse_args()
 
-    config = load_config()
-    settings = config["settings"]
-
-    raw_date = date.fromisoformat(args.run_date) if args.run_date else datetime.now(timezone.utc).date()
-    run_monday = monday_of(raw_date)
-
     try:
+        # everything - config parsing included - must fail into meta.json so
+        # the dashboard reports the error instead of quietly staying "ok"
+        config = load_config()
+        settings = config["settings"]
+        raw_date = date.fromisoformat(args.run_date) if args.run_date else datetime.now(timezone.utc).date()
+        run_monday = monday_of(raw_date)
+
         token = get_access_token()
         run_dates = [run_monday - timedelta(weeks=k) for k in range(args.backfill, -1, -1)]
         written = []
@@ -278,11 +291,12 @@ def main() -> int:
             print(f"wrote {p}")
         return 0
     except Exception as exc:  # noqa: BLE001 - anything must surface as a dashboard error
-        update_meta(
-            last_run_status="error",
-            last_run_at=datetime.now(timezone.utc).isoformat(timespec="seconds"),
-            last_error=f"{type(exc).__name__}: {exc}",
-        )
+        if not args.dry_run:  # --dry-run promises to write nothing
+            update_meta(
+                last_run_status="error",
+                last_run_at=datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                last_error=f"{type(exc).__name__}: {exc}",
+            )
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1
 

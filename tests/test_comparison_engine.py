@@ -177,6 +177,28 @@ def test_history_preserved_across_weeks():
     assert [rnd(h["position"]) for h in hist] == [15, 12, 9, 7]
 
 
+def test_error_with_zero_snapshots_surfaces_as_error_not_no_data():
+    p = build_payload(CONFIG, [], {"last_run_status": "error", "last_error": "403 permission denied"},
+                      date(2026, 8, 17))
+    assert p["state"] == "error"
+    assert p["error"] == "403 permission denied"
+    assert p["last_updated"] is None
+
+
+def test_lost_older_than_history_cap_stays_lost():
+    from datetime import timedelta
+    base = date(2026, 1, 5)  # a Monday
+    snaps = [snap(base.isoformat(), [row("testkw lost long ago", 12.0)])]
+    for i in range(1, 30):  # 29 more weeks, keyword never ranks again
+        snaps.append(snap((base + timedelta(weeks=i)).isoformat(),
+                          [row("testkw improved", 5.0)]))
+    rows = course_rows(build(snaps, today=date(2026, 8, 4)))
+    r = rows["testkw lost long ago"]
+    assert r["status"] == "lost"                      # not no_ranking_data
+    assert r["lost_since"] == "2026-01-05"            # from before the 26-week cap
+    assert len(r["history"]) == 26                    # history itself stays capped
+
+
 def test_state_stale_and_error():
     old = snap("2026-08-03", [row("testkw improved", 5.0)])
     p = build_payload(CONFIG, [old], {"last_run_status": "ok"}, date(2026, 8, 18))
