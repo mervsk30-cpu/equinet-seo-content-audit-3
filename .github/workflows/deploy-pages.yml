@@ -1,8 +1,16 @@
 # Publishes the dashboard to GitHub Pages.
 #
 # Runs on every push (so each weekly GSC snapshot redeploys the site) and can
-# be run manually. actions/configure-pages enables the Pages site on first run.
-# Live URL: https://mervsk30-cpu.github.io/equinet-seo-content-audit-3/
+# be run manually. Live URL once active:
+#   https://mervsk30-cpu.github.io/equinet-seo-content-audit-3/
+#
+# NOTE: this repository is PRIVATE. GitHub Pages for private repositories
+# requires GitHub Pro/Team; on the Free plan Pages only works for public
+# repos. Until Pages is available (upgrade, or make the repo public, or
+# enable it once in Settings -> Pages), this workflow skips the deploy with
+# a warning instead of failing. Pages sites from private repos are still
+# publicly reachable by anyone with the URL (access-controlled Pages is an
+# Enterprise feature).
 
 name: Deploy dashboard to GitHub Pages
 
@@ -31,16 +39,31 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Enable and configure GitHub Pages
+      - name: Check whether GitHub Pages is available for this repo
+        id: pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh api "repos/${GITHUB_REPOSITORY}/pages" >/dev/null 2>&1; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          elif gh api -X POST "repos/${GITHUB_REPOSITORY}/pages" -f "build_type=workflow" >/dev/null 2>&1; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::GitHub Pages is not available for this repository (private repo on the Free plan, or Pages not yet enabled in Settings). Upgrade to GitHub Pro or make the repo public, enable Pages once under Settings -> Pages, then re-run this workflow. Skipping deploy."
+            echo "available=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Configure Pages
+        if: steps.pages.outputs.available == 'true'
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Upload site
+        if: steps.pages.outputs.available == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
 
       - name: Deploy
+        if: steps.pages.outputs.available == 'true'
         id: deployment
         uses: actions/deploy-pages@v4
