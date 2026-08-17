@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Equinet Academy — SEO Keyword Ranking Dashboard</title>
+<style>
+  :root {
+    color-scheme: light;
+    --page: #f9f9f7; --surface: #fcfcfb;
+    --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781;
+    --grid: #e1e0d9; --baseline: #c3c2b7; --border: rgba(11,11,11,0.10);
+    --series-1: #2a78d6;
+    --delta-up: #006300; --delta-down: #d03b3b;
+    --st-good: #0ca30c; --st-warn: #fab219; --st-serious: #ec835a; --st-critical: #d03b3b;
+    --good-bg: rgba(12,163,12,0.10); --warn-bg: rgba(250,178,25,0.14);
+    --serious-bg: rgba(236,131,90,0.14); --critical-bg: rgba(208,59,59,0.10);
+    --neutral-bg: rgba(11,11,11,0.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --page: #0d0d0d; --surface: #1a1a19;
+      --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
+      --grid: #2c2c2a; --baseline: #383835; --border: rgba(255,255,255,0.10);
+      --series-1: #3987e5;
+      --delta-up: #0ca30c; --delta-down: #d03b3b;
+      --neutral-bg: rgba(255,255,255,0.07);
+      --good-bg: rgba(12,163,12,0.16); --warn-bg: rgba(250,178,25,0.14);
+      --serious-bg: rgba(236,131,90,0.16); --critical-bg: rgba(208,59,59,0.18);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --page: #0d0d0d; --surface: #1a1a19;
+    --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
+    --grid: #2c2c2a; --baseline: #383835; --border: rgba(255,255,255,0.10);
+    --series-1: #3987e5;
+    --delta-up: #0ca30c; --delta-down: #d03b3b;
+    --neutral-bg: rgba(255,255,255,0.07);
+    --good-bg: rgba(12,163,12,0.16); --warn-bg: rgba(250,178,25,0.14);
+    --serious-bg: rgba(236,131,90,0.16); --critical-bg: rgba(208,59,59,0.18);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--page); color: var(--ink);
+    font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 20px 20px 60px; }
+  header.top { display: flex; flex-wrap: wrap; gap: 12px; align-items: baseline; justify-content: space-between; margin-bottom: 6px; }
+  h1 { font-size: 20px; margin: 0; }
+  .sub { color: var(--ink-2); font-size: 13px; }
+  .meta-line { color: var(--ink-2); font-size: 13px; margin: 2px 0 14px; }
+  .meta-line b { color: var(--ink); font-weight: 600; }
+  .meta-line .sep { color: var(--muted); margin: 0 6px; }
+  button.ghost {
+    background: none; border: 1px solid var(--border); border-radius: 8px;
+    color: var(--ink-2); padding: 4px 10px; font: inherit; font-size: 12px; cursor: pointer;
+  }
+  button.ghost:hover { background: var(--neutral-bg); }
+
+  .banner { border: 1px solid var(--border); border-left-width: 4px; border-radius: 8px;
+    padding: 12px 14px; margin: 0 0 16px; background: var(--surface); font-size: 13.5px; }
+  .banner b { font-weight: 650; }
+  .banner.error   { border-left-color: var(--st-critical); background: var(--critical-bg); }
+  .banner.stale   { border-left-color: var(--st-warn); background: var(--warn-bg); }
+  .banner.setup   { border-left-color: var(--st-warn); background: var(--warn-bg); }
+  .banner.ok      { border-left-color: var(--st-good); }
+  .banner code { background: var(--neutral-bg); padding: 1px 5px; border-radius: 4px; font-size: 12px; }
+
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin: 0 0 18px; }
+  .tile { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; }
+  .tile .v { font-size: 24px; font-weight: 650; }
+  .tile .l { font-size: 12px; color: var(--ink-2); display: flex; align-items: center; gap: 6px; }
+  .tile .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+
+  .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 0 0 12px; }
+  .controls label { font-size: 12px; color: var(--ink-2); }
+  select, input[type="search"] {
+    font: inherit; font-size: 13px; color: var(--ink); background: var(--surface);
+    border: 1px solid var(--border); border-radius: 8px; padding: 6px 9px;
+  }
+  select:focus, input:focus { outline: 2px solid var(--series-1); outline-offset: 1px; }
+  input[type="search"] { min-width: 210px; }
+
+  .course-head { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: baseline; margin: 4px 0 10px; }
+  .course-head h2 { font-size: 16px; margin: 0; }
+  .course-head a { color: var(--series-1); text-decoration: none; font-size: 12.5px; word-break: break-all; }
+  .course-head a:hover { text-decoration: underline; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+  .chip { font-size: 12px; border: 1px solid var(--border); border-radius: 999px; padding: 3px 10px;
+    background: var(--surface); color: var(--ink-2); cursor: pointer; user-select: none; }
+  .chip[aria-pressed="true"] { border-color: var(--series-1); color: var(--ink); box-shadow: inset 0 0 0 1px var(--series-1); }
+  .chip .n { font-weight: 650; color: var(--ink); }
+
+  .tablewrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+  table { border-collapse: collapse; width: 100%; min-width: 1150px; }
+  th, td { text-align: left; padding: 7px 10px; border-top: 1px solid var(--grid); font-size: 13px; vertical-align: top; }
+  thead th { border-top: none; font-size: 11.5px; text-transform: uppercase; letter-spacing: .04em;
+    color: var(--muted); cursor: pointer; white-space: nowrap; position: sticky; top: 0; background: var(--surface); }
+  thead th.nosort { cursor: default; }
+  thead th .arr { font-size: 10px; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.krow:hover td { background: var(--neutral-bg); }
+  tr.krow { cursor: pointer; }
+  td .kw { font-weight: 550; }
+  td .tag { color: var(--muted); font-size: 11px; }
+  .type { font-size: 11px; color: var(--ink-2); border: 1px solid var(--border); border-radius: 5px; padding: 1px 6px; white-space: nowrap; }
+  .pos { font-weight: 650; font-size: 14px; }
+  .blank { color: var(--muted); }
+  .delta.up { color: var(--delta-up); font-weight: 650; }
+  .delta.down { color: var(--delta-down); font-weight: 650; }
+  .delta.zero { color: var(--muted); }
+  .devcell { white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 600;
+    border-radius: 6px; padding: 2px 8px; white-space: nowrap; color: var(--ink); }
+  .badge .ic { font-size: 12px; }
+  .b-improved { background: var(--good-bg); } .b-improved .ic { color: var(--st-good); }
+  .b-newly    { background: var(--good-bg); } .b-newly .ic { color: var(--st-good); }
+  .b-stable   { background: var(--neutral-bg); color: var(--ink-2); }
+  .b-dropped  { background: var(--serious-bg); } .b-dropped .ic { color: var(--st-serious); }
+  .b-lost     { background: var(--critical-bg); } .b-lost .ic { color: var(--st-critical); }
+  .b-nodata, .b-nobase { background: var(--neutral-bg); color: var(--muted); }
+  td a.rurl { color: var(--series-1); text-decoration: none; font-size: 12px;
+    display: inline-block; max-width: 170px; overflow: hidden; text-overflow: ellipsis;
+    white-space: nowrap; vertical-align: bottom; }
+  td a.rurl:hover { text-decoration: underline; }
+  td.nowrap { white-space: nowrap; }
+  .livebtn { background: none; border: 1px solid var(--border); border-radius: 6px; color: var(--ink-2);
+    font-size: 11.5px; padding: 3px 8px; cursor: pointer; white-space: nowrap; }
+  .livebtn:hover { background: var(--neutral-bg); color: var(--ink); }
+
+  tr.hist td { background: var(--neutral-bg); border-top: none; padding: 10px 14px 14px; cursor: default; }
+  .hist-inner { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; }
+  .hist-table { font-size: 12.5px; border-collapse: collapse; min-width: 0; }
+  .hist-table th, .hist-table td { border: none; padding: 2px 12px 2px 0; font-size: 12.5px; }
+  .hist-table th { color: var(--muted); text-transform: none; letter-spacing: 0; position: static; background: none; }
+  .spark { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px; }
+  .spark .cap { font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+  .empty { padding: 26px; text-align: center; color: var(--ink-2); font-size: 13.5px; }
+  .note { color: var(--muted); font-size: 12px; margin: 10px 2px; }
+  .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; margin-bottom: 20px; }
+  .ccard { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 11px 13px; cursor: pointer; }
+  .ccard:hover { outline: 2px solid var(--series-1); outline-offset: -1px; }
+  .ccard .nm { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+  .ccard .st { font-size: 12px; color: var(--ink-2); display: flex; gap: 10px; flex-wrap: wrap; }
+  .ccard .st .delta { font-size: 12px; }
+  footer { margin-top: 26px; color: var(--muted); font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="wrap" id="app">
+  <div class="empty" id="loading">Loading dashboard data…</div>
+</div>
+
+<script src="data/dashboard-data.js"></script>
+<script>
+"use strict";
+(function () {
+  const D = window.DASHBOARD_DATA;
+  const app = document.getElementById("app");
+  if (!D) {
+    app.innerHTML = '<div class="banner error"><b>Dashboard data missing.</b> ' +
+      'data/dashboard-data.js was not found. Run <code>python scripts/build_dashboard_data.py</code> ' +
+      'and reload. No data is shown because nothing may be fabricated.</div>';
+    return;
+  }
+
+  /* ---------- helpers (all display rounding happens here) ---------- */
+  const rnd = p => (p === null || p === undefined) ? null : Math.floor(p + 0.5);
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const fmtInt = n => (n === null || n === undefined) ? "" : n.toLocaleString("en-SG");
+  const fmtPct = x => (x === null || x === undefined) ? "" : (100 * x).toFixed(1) + "%";
+  const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  function fmtShort(iso) { const d = new Date(iso + "T00:00:00Z");
+    return d.getUTCDate() + " " + MONTHS[d.getUTCMonth()]; }
+  function fmtShortY(iso) { const d = new Date(iso + "T00:00:00Z");
+    return d.getUTCDate() + " " + MONTHS[d.getUTCMonth()] + " " + d.getUTCFullYear(); }
+
+  const STATUS = {
+    improved:      { label: "Improved",        cls: "b-improved", ic: "↑" },
+    dropped:       { label: "Dropped",         cls: "b-dropped",  ic: "↓" },
+    newly_ranking: { label: "Newly Ranking",   cls: "b-newly",    ic: "＋" },
+    lost:          { label: "Lost",            cls: "b-lost",     ic: "✕" },
+    stable:        { label: "Stable",          cls: "b-stable",   ic: "＝" },
+    no_ranking_data:{ label: "No Ranking Data", cls: "b-nodata",  ic: "–" },
+    no_baseline:   { label: "Ranking (first week)", cls: "b-nobase", ic: "·" },
+  };
+  const TYPES = { primary: "Primary", secondary: "Secondary", related: "Related", discovered: "Discovered" };
+
+  function deltaHtml(change) {
+    if (change === null || change === undefined) return '<span class="blank">–</span>';
+    if (change > 0) return '<span class="delta up">↑' + change + "</span>";
+    if (change < 0) return '<span class="delta down">↓' + (-change) + "</span>";
+    return '<span class="delta zero">0</span>';
+  }
+  function posHtml(p) {
+    const r = rnd(p);
+    return r === null ? '<span class="blank">—</span>' : '<span class="pos">#' + r + "</span>";
+  }
+  function devHtml(cell) {
+    if (!cell) return '<span class="blank">—</span>';
+    const cur = rnd(cell.position), prev = rnd(cell.previous);
+    if (cur === null && prev === null) return '<span class="blank">—</span>';
+    let s = "";
+    if (prev !== null && cur !== null) {
+      s = prev + " → " + cur + " ";
+      const ch = cell.change;
+      s += ch > 0 ? '<span class="delta up">(↑' + ch + ")</span>"
+         : ch < 0 ? '<span class="delta down">(↓' + (-ch) + ")</span>"
+         : '<span class="delta zero">(0)</span>';
+    } else if (cur !== null) {
+      s = "#" + cur;
+    } else {
+      s = prev + ' → <span class="blank">lost</span>';
+    }
+    return '<span class="devcell">' + s + "</span>";
+  }
+  function liveRankUrl(kw) {
+    return "https://www.google.com/search?q=" + encodeURIComponent(kw) + "&hl=en&gl=sg&pws=0&num=30";
+  }
+  function pagePath(url) { try { return new URL(url).pathname; } catch (e) { return url; } }
+
+  /* ---------- banner ---------- */
+  function bannerHtml() {
+    const lu = D.last_updated;
+    if (D.state === "no_data_yet") {
+      return '<div class="banner setup"><b>No ranking data yet.</b> The first Google Search Console pull has not run, ' +
+        'so every ranking cell is blank — this dashboard never shows demo or estimated numbers. ' +
+        'To activate: add the <code>GSC_SERVICE_ACCOUNT_JSON</code> repository secret, then run the ' +
+        '<b>Weekly GSC refresh</b> GitHub Action with a backfill (e.g. 8 weeks) to load real history. ' +
+        'Setup steps are in README.md. It then refreshes automatically every Monday.</div>';
+    }
+    if (D.state === "error") {
+      return '<div class="banner error"><b>Last data refresh FAILED.</b> ' + esc(D.error || "Unknown error") +
+        (lu ? ' — showing the last <b>successful</b> snapshot (' + esc(lu.display) +
+        ', window ' + fmtShort(lu.window.start) + " – " + fmtShortY(lu.window.end) + "). This data is <b>not current</b>." : "") +
+        "</div>";
+    }
+    if (D.state === "stale") {
+      return '<div class="banner stale"><b>Data is stale.</b> The last successful refresh was ' +
+        (lu ? esc(lu.display) : "unknown") + "; a weekly Monday refresh was expected since. " +
+        "Check the <b>Weekly GSC refresh</b> workflow run in GitHub Actions.</div>";
+    }
+    return "";
+  }
+
+  /* ---------- header meta ---------- */
+  function metaHtml() {
+    const lu = D.last_updated;
+    let parts = [];
+    if (lu) {
+      parts.push("<b>Last Updated:</b> " + esc(lu.display));
+      parts.push("<b>Data window:</b> " + fmtShort(lu.window.start) + " – " + fmtShortY(lu.window.end));
+    } else {
+      parts.push("<b>Last Updated:</b> never (awaiting first pull)");
+    }
+    parts.push("<b>Next Refresh:</b> " + esc(D.next_refresh.display));
+    parts.push("<b>Source:</b> Google Search Console (" + esc(D.property) + ")");
+    if (D.country) parts.push("<b>Country:</b> " + (D.country === "sgp" ? "Singapore" : esc(D.country.toUpperCase())));
+    return parts.join('<span class="sep">·</span>');
+  }
+
+  /* ---------- overview tiles + course cards ---------- */
+  function totals() {
+    const t = { total: 0, ranking: 0, improved: 0, dropped: 0, newly_ranking: 0, lost: 0, stable: 0, no_ranking_data: 0, no_baseline: 0 };
+    for (const c of D.courses) for (const k in t) t[k] += c.summary[k] || 0;
+    return t;
+  }
+  function tilesHtml(t) {
+    const tile = (v, label, color) =>
+      '<div class="tile"><div class="v">' + fmtInt(v) + '</div><div class="l">' +
+      (color ? '<span class="dot" style="background:' + color + '"></span>' : "") + label + "</div></div>";
+    return '<div class="tiles">' +
+      tile(t.total, "Tracked keywords") +
+      tile(t.ranking, "Currently ranking") +
+      tile(t.improved, "Improved", "var(--st-good)") +
+      tile(t.dropped, "Dropped", "var(--st-serious)") +
+      tile(t.newly_ranking, "Newly ranking", "var(--st-good)") +
+      tile(t.lost, "Lost", "var(--st-critical)") +
+      "</div>";
+  }
+  function courseCardsHtml() {
+    return '<div class="courses-grid">' + D.courses.map(c => {
+      const s = c.summary;
+      return '<div class="ccard" data-course="' + esc(c.code) + '"><div class="nm">' + esc(c.name) + "</div>" +
+        '<div class="st"><span>' + s.ranking + "/" + s.total + " ranking</span>" +
+        '<span class="delta up">↑' + s.improved + "</span>" +
+        '<span class="delta down">↓' + s.dropped + "</span>" +
+        (s.lost ? '<span class="delta down">✕' + s.lost + "</span>" : "") +
+        "</div></div>";
+    }).join("") + "</div>";
+  }
+
+  /* ---------- course table ---------- */
+  const COLS = [
+    { id: "keyword",  label: "Keyword",       sort: r => r.keyword },
+    { id: "type",     label: "Type",          sort: r => r.type },
+    { id: "status",   label: "Status",        sort: r => Object.keys(STATUS).indexOf(r.status) },
+    { id: "current",  label: "Current",       num: true, sort: r => r.current ? rnd(r.current.position) : 9999 },
+    { id: "previous", label: "Previous",      num: true, sort: r => r.previous ? rnd(r.previous.position) : 9999 },
+    { id: "change",   label: "Change",        num: true, sort: r => r.change === null ? -9999 : r.change, desc: true },
+    { id: "desktop",  label: "Desktop",       sort: r => r.desktop && r.desktop.position ? rnd(r.desktop.position) : 9999, num: true },
+    { id: "mobile",   label: "Mobile",        sort: r => r.mobile && r.mobile.position ? rnd(r.mobile.position) : 9999, num: true },
+    { id: "impr",     label: "Impr.",         num: true, sort: r => r.current ? r.current.impressions : -1, desc: true },
+    { id: "clicks",   label: "Clicks",        num: true, sort: r => r.current ? r.current.clicks : -1, desc: true },
+    { id: "ctr",      label: "CTR",           num: true, sort: r => r.current ? r.current.ctr : -1, desc: true },
+    { id: "url",      label: "Ranking URL",   sort: r => r.current ? r.current.page : "" },
+    { id: "updated",  label: "Updated",       nosort: true },
+    { id: "live",     label: "Live",          nosort: true },
+  ];
+
+  const state = { course: null, status: "all", type: "all", q: "", sortBy: "current", sortDesc: false };
+
+  function currentCourse() { return D.courses.find(c => c.code === state.course) || null; }
+
+  function filteredRows(course) {
+    let rows = course.keywords;
+    if (state.status !== "all") rows = rows.filter(r => r.status === state.status);
+    if (state.type !== "all") rows = rows.filter(r => r.type === state.type);
+    if (state.q) { const q = state.q.toLowerCase(); rows = rows.filter(r => r.keyword.includes(q)); }
+    const col = COLS.find(c => c.id === state.sortBy);
+    if (col && col.sort) {
+      rows = rows.slice().sort((a, b) => {
+        const va = col.sort(a), vb = col.sort(b);
+        return (va < vb ? -1 : va > vb ? 1 : 0) * (state.sortDesc ? -1 : 1);
+      });
+    }
+    return rows;
+  }
+
+  function sparkSvg(history) {
+    const pts = history.map((h, i) => ({ i, p: h.position === null ? null : rnd(h.position), w: h.week }))
+      .filter(d => d.p !== null);
+    if (pts.length < 2) return "";
+    const W = 300, H = 80, PAD = 10;
+    const xs = history.length - 1 || 1;
+    const maxP = Math.max(...pts.map(d => d.p), 10);
+    const minP = 1;
+    const x = i => PAD + (W - 2 * PAD) * (i / xs);
+    const y = p => PAD + (H - 2 * PAD) * ((p - minP) / (maxP - minP || 1)); // position 1 at top
+    let path = "";
+    let prev = null;
+    for (const d of pts) {
+      path += (prev === null ? "M" : "L") + x(d.i).toFixed(1) + " " + y(d.p).toFixed(1) + " ";
+      prev = d;
+    }
+    const dots = pts.map(d =>
+      '<circle cx="' + x(d.i).toFixed(1) + '" cy="' + y(d.p).toFixed(1) + '" r="4" fill="var(--series-1)">' +
+      "<title>Week of " + fmtShortY(d.w) + ": #" + d.p + "</title></circle>").join("");
+    return '<div class="spark"><div class="cap">Position by week (top = #1, whole positions)</div>' +
+      '<svg width="' + W + '" height="' + H + '" role="img" aria-label="Weekly position trend">' +
+      '<line x1="' + PAD + '" y1="' + (H - PAD) + '" x2="' + (W - PAD) + '" y2="' + (H - PAD) + '" stroke="var(--baseline)" stroke-width="1"/>' +
+      '<path d="' + path.trim() + '" fill="none" stroke="var(--series-1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
+      dots + "</svg></div>";
+  }
+
+  function histRowHtml(r, colspan) {
+    const cells = r.history.map(h => {
+      const p = rnd(h.position);
+      return "<tr><td>Week of " + fmtShortY(h.week) + "</td><td>" + (p === null ? "—" : "#" + p) + "</td>" +
+        "<td>" + (h.impressions === null ? "—" : fmtInt(h.impressions)) + "</td>" +
+        "<td>" + (h.clicks === null ? "—" : fmtInt(h.clicks)) + "</td></tr>";
+    }).join("");
+    return '<tr class="hist"><td colspan="' + colspan + '"><div class="hist-inner">' +
+      '<table class="hist-table"><thead><tr><th>Week</th><th>Position</th><th>Impressions</th><th>Clicks</th></tr></thead>' +
+      "<tbody>" + cells + "</tbody></table>" + sparkSvg(r.history) +
+      (r.lost_since ? '<div class="note">Last ranked in the week of ' + fmtShortY(r.lost_since) + ".</div>" : "") +
+      "</div></td></tr>";
+  }
+
+  function tableHtml(course) {
+    const rows = filteredRows(course);
+    const luDate = D.last_updated ? fmtShortY(D.last_updated.run_date) : "";
+    const head = COLS.map(c =>
+      "<th" + (c.num ? ' class="num"' : "") + (c.nosort ? ' class="nosort"' : ' data-sort="' + c.id + '"') + ">" +
+      c.label + (state.sortBy === c.id ? ' <span class="arr">' + (state.sortDesc ? "▼" : "▲") + "</span>" : "") +
+      "</th>").join("");
+    const body = rows.map((r, idx) => {
+      const st = STATUS[r.status] || STATUS.no_ranking_data;
+      const cur = r.current, prev = r.previous;
+      return '<tr class="krow" data-i="' + idx + '">' +
+        '<td><span class="kw">' + esc(r.keyword) + "</span>" +
+          (r.team_tag ? '<div class="tag">' + esc(r.team_tag) + "</div>" : "") + "</td>" +
+        '<td><span class="type">' + (TYPES[r.type] || esc(r.type)) + "</span></td>" +
+        '<td><span class="badge ' + st.cls + '"><span class="ic">' + st.ic + "</span>" + st.label + "</span>" +
+          (r.status === "lost" && r.lost_since ? '<div class="tag">since ' + fmtShort(r.lost_since) + "</div>" : "") + "</td>" +
+        '<td class="num">' + posHtml(cur ? cur.position : null) + "</td>" +
+        '<td class="num">' + posHtml(prev ? prev.position : null) + "</td>" +
+        '<td class="num">' + deltaHtml(r.change) + "</td>" +
+        '<td class="num">' + devHtml(r.desktop) + "</td>" +
+        '<td class="num">' + devHtml(r.mobile) + "</td>" +
+        '<td class="num">' + (cur ? fmtInt(cur.impressions) : '<span class="blank">—</span>') + "</td>" +
+        '<td class="num">' + (cur ? fmtInt(cur.clicks) : '<span class="blank">—</span>') + "</td>" +
+        '<td class="num">' + (cur ? fmtPct(cur.ctr) : '<span class="blank">—</span>') + "</td>" +
+        "<td>" + (cur ? '<a class="rurl" href="' + esc(cur.page) + '" target="_blank" rel="noopener">' + esc(pagePath(cur.page)) + "</a>" : '<span class="blank">—</span>') + "</td>" +
+        '<td class="num nowrap">' + (cur ? luDate : '<span class="blank">—</span>') + "</td>" +
+        '<td><button class="livebtn" data-kw="' + esc(r.keyword) + '" title="Open a Google search for this keyword (Singapore, no personalisation) to verify the live position manually">Check live</button></td>' +
+        "</tr>";
+    }).join("");
+    return '<div class="tablewrap"><table><thead><tr>' + head + "</tr></thead><tbody>" +
+      (body || '<tr><td colspan="' + COLS.length + '"><div class="empty">No keywords match the current filters.</div></td></tr>') +
+      "</tbody></table></div>" +
+      '<p class="note">Positions are Google Search Console average positions for the data window, shown as whole numbers. ' +
+      "Blank cells mean Search Console returned no data — nothing is estimated. " +
+      "Expand a row to see the weekly history. “Check live” opens a manual Google search (Singapore settings); " +
+      "the dashboard itself never scrapes live results.</p>";
+  }
+
+  function chipsHtml(course) {
+    const s = course.summary;
+    const chip = (id, label, n) =>
+      '<button class="chip" data-status="' + id + '" aria-pressed="' + (state.status === id) + '">' +
+      label + ' <span class="n">' + n + "</span></button>";
+    return '<div class="chips">' +
+      chip("all", "All", s.total) +
+      chip("improved", "↑ Improved", s.improved) +
+      chip("dropped", "↓ Dropped", s.dropped) +
+      chip("newly_ranking", "＋ Newly Ranking", s.newly_ranking) +
+      chip("lost", "✕ Lost", s.lost) +
+      chip("stable", "＝ Stable", s.stable) +
+      chip("no_ranking_data", "– No Ranking Data", s.no_ranking_data) +
+      (s.no_baseline ? chip("no_baseline", "· First week", s.no_baseline) : "") +
+      "</div>";
+  }
+
+  /* ---------- render ---------- */
+  function render() {
+    const course = currentCourse();
+    const t = totals();
+    let html = "";
+    html += '<header class="top"><div><h1>SEO Keyword Ranking Dashboard</h1>' +
+      '<div class="sub">Equinet Academy course landing pages · weekly Google Search Console data</div></div>' +
+      '<button class="ghost" id="themeBtn">Toggle theme</button></header>';
+    html += '<div class="meta-line">' + metaHtml() + "</div>";
+    html += bannerHtml();
+    html += tilesHtml(t);
+
+    html += '<div class="controls"><label for="courseSel">Course</label> ' +
+      '<select id="courseSel"><option value="">All courses — overview</option>' +
+      D.courses.map(c => '<option value="' + esc(c.code) + '"' + (state.course === c.code ? " selected" : "") + ">" +
+        esc(c.name) + "</option>").join("") + "</select>";
+    if (course) {
+      html += '<label for="typeSel">Type</label> <select id="typeSel">' +
+        '<option value="all">All types</option>' +
+        Object.entries(TYPES).map(([v, l]) => '<option value="' + v + '"' + (state.type === v ? " selected" : "") + ">" + l + "</option>").join("") +
+        "</select>" +
+        '<input type="search" id="kwSearch" placeholder="Search keywords…" value="' + esc(state.q) + '">';
+    }
+    html += "</div>";
+
+    if (!course) {
+      html += courseCardsHtml();
+    } else {
+      html += '<div class="course-head"><h2>' + esc(course.name) + "</h2>" +
+        '<a href="' + esc(course.url) + '" target="_blank" rel="noopener">' + esc(course.url) + "</a></div>";
+      html += chipsHtml(course);
+      html += tableHtml(course);
+    }
+    html += "<footer>Data source: Google Search Console API · Refreshed every Monday · " +
+      "Snapshots are immutable weekly records (see data/snapshots/) · " +
+      esc(D.data_policy) + "</footer>";
+    app.innerHTML = html;
+    wire(course);
+  }
+
+  function wire(course) {
+    document.getElementById("themeBtn").onclick = () => {
+      const root = document.documentElement;
+      const dark = root.getAttribute("data-theme") === "dark" ||
+        (root.getAttribute("data-theme") !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
+      root.setAttribute("data-theme", dark ? "light" : "dark");
+    };
+    const sel = document.getElementById("courseSel");
+    if (sel) sel.onchange = () => { state.course = sel.value || null; state.status = "all"; state.q = ""; render(); };
+    for (const card of app.querySelectorAll(".ccard")) {
+      card.onclick = () => { state.course = card.dataset.course; state.status = "all"; render(); };
+    }
+    if (!course) return;
+    const typeSel = document.getElementById("typeSel");
+    if (typeSel) typeSel.onchange = () => { state.type = typeSel.value; render(); };
+    const search = document.getElementById("kwSearch");
+    if (search) {
+      search.oninput = () => { state.q = search.value.trim().toLowerCase(); rerenderTable(course); };
+    }
+    for (const chip of app.querySelectorAll(".chip")) {
+      chip.onclick = () => { state.status = chip.dataset.status; render(); };
+    }
+    wireTable(course);
+  }
+
+  function rerenderTable(course) {
+    const wrap = app.querySelector(".tablewrap");
+    if (!wrap) return;
+    const container = document.createElement("div");
+    container.innerHTML = tableHtml(course);
+    wrap.replaceWith(container.querySelector(".tablewrap"));
+    wireTable(course);
+    const search = document.getElementById("kwSearch");
+    if (search) search.focus();
+  }
+
+  function wireTable(course) {
+    for (const th of app.querySelectorAll("thead th[data-sort]")) {
+      th.onclick = () => {
+        const id = th.dataset.sort;
+        const col = COLS.find(c => c.id === id);
+        if (state.sortBy === id) state.sortDesc = !state.sortDesc;
+        else { state.sortBy = id; state.sortDesc = !!col.desc; }
+        render();
+      };
+    }
+    const rows = filteredRows(course);
+    for (const tr of app.querySelectorAll("tr.krow")) {
+      tr.onclick = ev => {
+        if (ev.target.closest("a") || ev.target.closest("button")) return;
+        const existing = tr.nextElementSibling;
+        if (existing && existing.classList.contains("hist")) { existing.remove(); return; }
+        for (const h of app.querySelectorAll("tr.hist")) h.remove();
+        const r = rows[Number(tr.dataset.i)];
+        if (!r || !r.history || !r.history.length) return;
+        tr.insertAdjacentHTML("afterend", histRowHtml(r, COLS.length));
+      };
+    }
+    for (const btn of app.querySelectorAll(".livebtn")) {
+      btn.onclick = ev => {
+        ev.stopPropagation();
+        window.open(liveRankUrl(btn.dataset.kw), "_blank", "noopener");
+      };
+    }
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
