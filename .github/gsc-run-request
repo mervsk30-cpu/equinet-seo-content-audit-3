@@ -1,5 +1,5 @@
-backfill=8 force
+backfill=0
 # Commit a change to this file to trigger an off-schedule GSC collection.
-# First number = weeks to backfill. The word "force" re-collects existing
-# weekly snapshots from the GSC API (use only after expanding the tracked
-# course set, so new pages get their historical rows).
+# First number = weeks to backfill. Add the word "force" ONLY after expanding
+# the tracked course set: it re-collects existing weekly snapshots from the
+# GSC API so newly tracked pages gain their historical rows.
