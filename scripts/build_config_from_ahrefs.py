@@ -19,6 +19,7 @@ Keyword type rules (deterministic, documented in README):
 A keyword tagged for several courses is listed under each of them.
 """
 
+import html
 import json
 import re
 import sys
@@ -27,6 +28,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SOURCE = ROOT / "data" / "sources" / "ahrefs-tracked-keywords-2026-08-17.json"
+DISCOVERED = ROOT / "data" / "discovered-pages.json"
 OUTPUT = ROOT / "data" / "keywords-config.json"
 
 SITE = "https://www.equinetacademy.com"
@@ -79,6 +81,14 @@ def legacy_aliases(path: str) -> list[str]:
         return [path.replace("/course/", "/", 1)]
     return []
 
+
+def normalize(url_or_path: str) -> str:
+    p = url_or_path
+    if p.startswith("http"):
+        p = "/" + p.split("equinetacademy.com", 1)[-1].lstrip("/")
+    p = p.split("?", 1)[0].split("#", 1)[0].lower()
+    return p if p.endswith("/") else p + "/"
+
 # Team tag code -> course code. "review" marks mappings the team should
 # double-check; "unassigned" keeps keywords visible in the config without
 # attaching them to a course page.
@@ -98,20 +108,69 @@ TAG_MAP = {
     "GTM": ("gtm", False),
     "CRO": ("cro", False),
     "BBS": ("bbs", False),
-    "Web Design": ("wp", True),      # site's web-design keywords -> WordPress course
-    "UI/UX": ("lpd", True),          # nearest current course: Landing Page Design
+    "Web Design": ("web-design-course-singapore", True),  # web-design discipline hub
+    "UI/UX": ("wsq-user-experience-user-interface-ux-ui-design-essentials", True),
     "DMC": ("hub", False),
     "General Courses": ("hub", False),
     "WSQ Courses": ("hub", False),
     "digital marketing career": ("career", False),
+    "EBE": ("ecommerce-courses", True),       # general e-commerce keywords -> discipline hub
     # No current course page -- kept in unassigned for the team to triage:
-    "EBE": (None, False),                     # legacy e-commerce course keywords
     "Content": (None, False),                 # blog/informational content keywords
     "DME": (None, False),
     "CDMS": (None, False),                    # CDMS programme URL not on current catalogue page
     "digital marketing agency": (None, False),
     "Equinet Academy Brand": (None, False),   # brand/navigational queries
 }
+
+# Pages from data/discovered-pages.json matching this are not course landing
+# pages (registration funnels, thank-you pages, tests, blog/event posts).
+DISCOVERY_EXCLUDE = re.compile(
+    r"thank|registration|/blog/|/event/|utm-test|/eblh/|-old/$|course-selector",
+    re.I,
+)
+
+
+def clean_title(raw: str, path: str) -> str:
+    t = html.unescape(raw or "")
+    t = re.sub(r"\s*[-|–·]\s*Equinet Academy\s*$", "", t).strip()
+    if not t:
+        t = path.rstrip("/").rsplit("/", 1)[-1].replace("-", " ").title()
+    return re.sub(r"\s+", " ", t)
+
+
+def discovered_courses(existing_paths: set[str]) -> list[dict]:
+    """Landing pages from the discovery inventory not already tracked."""
+    if not DISCOVERED.exists():
+        return []
+    inv = json.loads(DISCOVERED.read_text())
+    out, seen_codes = [], set(existing_paths)
+    for page in inv.get("pages", []):
+        url = page["url"].split("?")[0].split("#")[0]
+        path = "/" + url.split("equinetacademy.com", 1)[-1].strip("/").lower() + "/"
+        if path == "//":
+            continue
+        if DISCOVERY_EXCLUDE.search(path):
+            continue
+        candidates = {path, *legacy_aliases(path)}
+        if candidates & existing_paths:
+            continue
+        code = path.rstrip("/").rsplit("/", 1)[-1] or path.strip("/").replace("/", "-")
+        while code in seen_codes:
+            code = "x-" + code
+        seen_codes.add(code)
+        existing_paths.update(candidates)
+        out.append({
+            "code": code,
+            "name": clean_title(page.get("title", ""), path),
+            "url": SITE + path,
+            "aliases": sorted(set(legacy_aliases(path))),
+            "keywords": [],
+            "source": "discovered",
+        })
+    out.sort(key=lambda c: c["name"].lower())
+    return out
+
 
 COURSE_INTENT = re.compile(
     r"\b(course|courses|training|class|classes|certification|certifications|"
@@ -135,14 +194,22 @@ def classify(tag_funnel: str | None, keyword: str) -> str:
 def main() -> None:
     src = json.loads(SOURCE.read_text())
     course_index = OrderedDict()
+    existing_paths: set[str] = set()
     for code, name, path, extra in COURSES:
+        aliases = sorted(set(extra + legacy_aliases(path)))
         course_index[code] = {
             "code": code,
             "name": name,
             "url": SITE + path,
-            "aliases": sorted(set(extra + legacy_aliases(path))),
+            "aliases": aliases,
             "keywords": [],
         }
+        existing_paths.add(normalize(path))
+        existing_paths.update(normalize(a) for a in aliases)
+
+    # every other live course-like landing page from the discovery inventory
+    for course in discovered_courses(existing_paths):
+        course_index[course["code"]] = course
 
     unassigned = []
     unknown_tags = {}

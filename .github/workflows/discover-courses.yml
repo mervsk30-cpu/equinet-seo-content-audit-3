@@ -1,0 +1,45 @@
+# Enumerates all live course landing pages from the site's own sitemap and
+# WordPress API, and commits the inventory to data/discovered-pages.json.
+# Runs whenever the discovery script changes, or manually. Report-only: it
+# never modifies the tracking config.
+
+name: Discover course pages
+
+on:
+  push:
+    branches:
+      - main
+      - claude/seo-keyword-ranking-dashboard-dcdn52
+    paths:
+      - "scripts/discover_courses.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: discover-courses-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - run: python scripts/discover_courses.py
+      - name: Commit inventory
+        run: |
+          git config user.name "gsc-refresh-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/discovered-pages.json
+          if git diff --cached --quiet; then
+            echo "No changes."
+          else
+            git commit -m "Update discovered course-page inventory"
+            git pull --rebase origin "$GITHUB_REF_NAME"
+            git push
+          fi
