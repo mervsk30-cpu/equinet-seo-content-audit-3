@@ -22,6 +22,17 @@ on:
         description: "Also backfill this many earlier weeks (real historical GSC data)"
         required: false
         default: "0"
+  # Manual trigger without the Actions UI: commit a change to
+  # .github/gsc-run-request (its first number = backfill weeks).
+  # Useful because workflow_dispatch only works once this file is on the
+  # default branch. Safe to re-trigger: existing snapshots are never
+  # overwritten, so a re-run only fills gaps.
+  push:
+    branches:
+      - main
+      - claude/seo-keyword-ranking-dashboard-dcdn52
+    paths:
+      - ".github/gsc-run-request"
 
 permissions:
   contents: write
@@ -53,7 +64,11 @@ jobs:
         env:
           GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
         run: |
-          python scripts/collect_gsc.py --backfill "${{ github.event.inputs.backfill_weeks || '0' }}"
+          BACKFILL="${{ github.event.inputs.backfill_weeks || '' }}"
+          if [ -z "$BACKFILL" ] && [ "${{ github.event_name }}" = "push" ] && [ -f .github/gsc-run-request ]; then
+            BACKFILL=$(grep -oE '[0-9]+' .github/gsc-run-request | head -1 || true)
+          fi
+          python scripts/collect_gsc.py --backfill "${BACKFILL:-0}"
 
       # The two steps below run even when collection fails - that is how a
       # failure gets published as an explicit error on the dashboard - but NOT
