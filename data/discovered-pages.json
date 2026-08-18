@@ -1,0 +1,1510 @@
+{
+ "fetched_at": "2026-08-18T02:54:47+00:00",
+ "sources": [
+  "wp-rest",
+  "sitemaps"
+ ],
+ "count": 375,
+ "pages": [
+  {
+   "url": "https://www.equinetacademy.com/all-courses/",
+   "title": "All Courses"
+  },
+  {
+   "url": "https://www.equinetacademy.com/artificial-intelligence-machine-learning-ai-ml-courses/",
+   "title": "Artificial Intelligence &#038; Machine Learning (AI &#038; ML) Courses"
+  },
+  {
+   "url": "https://www.equinetacademy.com/blog/additional-course-funding-support-from-singapore-budget-2020/",
+   "title": "Additional Course Funding Support from Singapore Budget 2020 - Equinet Academy"
+  },
+  {
+   "url": "https://www.equinetacademy.com/business-courses/",
+   "title": "Business Courses"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/ada-course-registration/",
+   "title": "Performance Marketing Strategy (Lead Generation) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/adma-course-registration/",
+   "title": "WSQ Advanced Digital Marketing Analytics (ADMA) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/advanced-camera-techniques-creative-lighting-photography-course-registration/",
+   "title": "Advanced Camera Techniques &#038; Creative Lighting Photography (ACTCLP) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/advanced-camera-techniques-creative-lighting-photography-course/",
+   "title": "Advanced Camera Techniques &#038; Creative Lighting Photography Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/advanced-cinematic-mirrorless-dslr-videography-video-production-course-course-registration/",
+   "title": "Advanced Cinematic Mirrorless/DSLR Videography &#038; Video Production Course Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/advanced-cinematic-mirrorless-dslr-videography-video-production-techniques-acvvp-course-registration/",
+   "title": "Advanced Cinematic Mirrorless/DSLR Videography &#038; Video Production Techniques (ACVVP) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/advanced-cinematic-mirrorless-dslr-videography-video-production-techniques-course/",
+   "title": "Advanced Cinematic Mirrorless/DSLR Videography &#038; Video Production Techniques Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/advanced-cinematic-smartphone-videography-acsv-course-registration/",
+   "title": "Advanced Cinematic Smartphone Videography (ACSV) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/advanced-cinematic-smartphone-videography-course/",
+   "title": "Advanced Cinematic Smartphone Videography Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/advanced-digital-marketing-analytics-course/",
+   "title": "Advanced Digital Marketing Analytics (Google Analytics) Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/advanced-seo-course/",
+   "title": "Advanced SEO, AEO &#038; GEO Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/advanced-smartphone-photography-course-course-registration/",
+   "title": "Advanced Smartphone Photography Course Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/advanced-smartphone-photography-course-registration/",
+   "title": "Advanced Smartphone Photography for Business and Marketing (ASP) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/advanced-smartphone-photography-course/",
+   "title": "Advanced Smartphone Photography for Business and Marketing Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/advanced-social-media-management-course/",
+   "title": "Advanced Social Media Management Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/advanced-ux-ui-design-course-registration/",
+   "title": "WSQ Advanced UX UI Design Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/advanced-ux-ui-design-course/",
+   "title": "Advanced UX UI Design Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/agentic-ai-course-registration/",
+   "title": "Agentic AI (AGENT) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/agentic-ai-course/",
+   "title": "Agentic AI Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/ai-and-machine-learning-course-registration/",
+   "title": "AI Essentials Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/ai-and-machine-learning-course/",
+   "title": "AI Essentials Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/ai-in-data-and-business-analytics-course/",
+   "title": "AI in Data &#038; Business Analytics Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/ai-in-data-business-analytics-adba-course-registration/",
+   "title": "AI in Data &#038; Business Analytics (ADBA) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/ai-in-digital-marketing-course-registration/",
+   "title": "WSQ AI in Digital Marketing Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/ai-in-digital-marketing/",
+   "title": "AI in Digital Marketing Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/ai-video-and-image-creation-course-registration/",
+   "title": "AI Video &#038; Image Creation Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/ai-video-image-creation-course/",
+   "title": "AI Video &#038; Image Creation Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/applied-cybersecurity-controls-computer-and-network-security-acc-course-registration/",
+   "title": "Applied Cybersecurity Controls, Computer and Network Security (ACC) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/applied-cybersecurity-controls-computer-and-network-security-course/",
+   "title": "Applied Cybersecurity Controls, Computer and Network Security Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/aseo-course-registration/",
+   "title": "WSQ Advanced SEO, AEO &#038; GEO Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/asmm-course-registration/",
+   "title": "WSQ Advanced Social Media Management Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/b2b-corporate-sales-course/",
+   "title": "B2B Corporate Sales Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/bbs-course-registration/",
+   "title": "WSQ Digital Branding and Brand Strategy Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/branding-brand-strategy-course/",
+   "title": "Digital Branding &#038; Brand Strategy Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/business-analytics-applied-data-analysis-course-registration/",
+   "title": "Business Analytics &#038; Applied Data Analysis (BAADA) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/business-email-writing-course-registration/",
+   "title": "Business and Email Writing with AI Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/business-email-writing-course/",
+   "title": "Business and Email Writing with AI Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/business-storytelling-and-stakeholder-engagement-course-registration/",
+   "title": "Business Storytelling and Stakeholder Engagement (BSSE) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/business-storytelling-and-stakeholder-engagement-course/",
+   "title": "Business Storytelling and Stakeholder Engagement Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/business-strategy-and-business-development-essentials-bsbd-course-registration/",
+   "title": "Business Strategy and Business Development Essentials (BSBD) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/business-strategy-and-business-development-essentials-course/",
+   "title": "Business Strategy and Business Development Essentials Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/canva-design-course-registration-2/",
+   "title": "Canva Design Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/canva-design-course-registration/",
+   "title": "WSQ Canva Design Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/canva-design-course/",
+   "title": "Canva Design Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/ccw-course-registration/",
+   "title": "WSQ Digital Copywriting &#038; Content Writing Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-ai-content-creator-course-registration/",
+   "title": "Certified AI Content Creator Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-ai-content-creator/",
+   "title": "Certified AI Content Creator"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-ai-enabled-data-analyst-2-0-course-registration/",
+   "title": "Certified AI-Enabled Data Analyst 2.0 Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-ai-enabled-data-analyst/",
+   "title": "Certified AI-Enabled Data Analyst 2.0"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-ai-enabled-digital-marketer-cadm-course-registration/",
+   "title": "Certified AI-Enabled Digital Marketer (CADM) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-ai-enabled-digital-marketer/",
+   "title": "Certified AI-Enabled Digital Marketer"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-ai-practitioner-business-work-applications-course-registration/",
+   "title": "Certified AI-Practitioner (Business &#038; Work Applications) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-ai-practitioner-business-work-applications/",
+   "title": "Certified AI-Practitioner (Business &#038; Work Applications) 2.0"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-content-marketing-specialist-ccms-course-registration/",
+   "title": "Certified Content Marketing Specialist (CCMS) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-cybersecurity-catalyst-course-registration/",
+   "title": "Certified Cybersecurity Catalyst Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-cybersecurity-catalyst/",
+   "title": "Certified Cybersecurity Catalyst"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-digital-marketing-analyst-2-0-course-registration/",
+   "title": "Certified Digital Marketing Analyst 2.0 Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-digital-marketing-analyst/",
+   "title": "Certified Digital Marketing Analyst 2.0"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-digital-photographer-2-0-course-registration/",
+   "title": "Certified Digital Photographer 2.0 Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-digital-photographer/",
+   "title": "Certified Digital Photographer 2.0"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-digital-videographer-2-0-course-registration/",
+   "title": "Certified Digital Videographer 2.0 Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-digital-videographer/",
+   "title": "Certified Digital Videographer 2.0"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-ecommerce-specialist-ces-programme/",
+   "title": "Certified Ecommerce Specialist (CES) 2.0"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-ecommerce-specialist-programme-ces-course-registration/",
+   "title": "Certified Ecommerce Specialist (CES) 2.0 Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-landing-page-design-specialist-clpds-course-registration/",
+   "title": "Certified Landing Page &#038; Web Design Specialist (CLPWDS) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-landing-page-design-specialist-clpds/",
+   "title": "Certified Landing Page &#038; Web Design Specialist (CLPWDS)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-photo-editor-course-registration/",
+   "title": "Certified Photo Editor Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-photo-editor/",
+   "title": "Certified Photo Editor"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-seo-specialist-cseos-course-registration/",
+   "title": "Certified SEO Specialist (CSEOS) 2.0 Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-seo-specialist-programme/",
+   "title": "Certified SEO Specialist (CSEOS) 2.0"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-smartphone-photographer-course-registration/",
+   "title": "Certified Smartphone Photographer Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-smartphone-photographer/",
+   "title": "Certified Smartphone Photographer"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-smartphone-videographer-course-registration/",
+   "title": "Certified Smartphone Videographer Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-smartphone-videographer/",
+   "title": "Certified Smartphone Videographer"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-social-media-marketing-specialist-2-0-course-registration/",
+   "title": "Certified Social Media Marketing Specialist 2.0 Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-social-media-marketing-specialist/",
+   "title": "Certified Social Media Marketing Specialist 2.0"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-ux-designer-cuxd-course-registration/",
+   "title": "Certified UX Designer (CUXD) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-ux-designer-cuxd/",
+   "title": "Certified UX Designer (CUXD) 2.0"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-video-editor-course-registration/",
+   "title": "Certified Video Editor Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/certified-video-editor/",
+   "title": "Certified Video Editor"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/conflict-management-course-registration/",
+   "title": "Conflict Management Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/conflict-management-course/",
+   "title": "Conflict Management Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/content-creation-capstone-course/",
+   "title": "Content Creation Capstone &#8211; Multi-Format Content Portfolio Development Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/content-creation-capstone-multi-format-content-portfolio-development-course-registration/",
+   "title": "Content Creation Capstone &#8211; Multi-Format Content Portfolio Development Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/content-marketing-course-registration/",
+   "title": "WSQ Digital Content Creation &#038; Content Marketing Strategy Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/content-marketing-course/",
+   "title": "Content Marketing Strategy Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/conversion-rate-optimisation-course-registration/",
+   "title": "Conversion Rate Optimisation Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/conversion-rate-optimisation-course/",
+   "title": "Conversion Rate Optimisation Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/copywriting-course/",
+   "title": "WSQ AI Copywriting and Content Writing"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/corporate-b2b-sales-cbbs-course-registration/",
+   "title": "B2B Corporate Sales (B2B) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/course-ecommerce-capstone-course/",
+   "title": "Ecommerce Capstone &#8211; Ecommerce Launch and Growth Plan Development Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/",
+   "title": "Courses Thanks"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-abc/",
+   "title": "Thank You For Registering For Our Courses (The ABC of Sales – Sell Anything to Anyone Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-acsv/",
+   "title": "Thank You For Registering For Our Courses (Advanced Cinematic Smartphone Videography Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-actclp/",
+   "title": "Thank You For Registering For Our Courses (Advanced Camera Techniques &#038; Creative Lighting Photography Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-acvvp/",
+   "title": "Thank You For Registering For Our Courses (Advanced Cinematic Mirrorless/DSLR Videography &#038; Video Production Techniques Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-adba/",
+   "title": "Thank You For Registering For Our AI in Data &#038; Business Analytics Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-adm/",
+   "title": "Thank You For Registering For Our Courses (WSQ AI in Digital Marketing)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-adma/",
+   "title": "Thank You For Registering For Our Courses (WSQ Advanced Digital Marketing Analytics &#8211; Google Analytics)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-adms/",
+   "title": "Thank You For Registering For Our Courses (Advanced Digital Marketing Strategy)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-advanced-digital-ads/",
+   "title": "Thank You For Registering For Our Courses (Advanced Digital Advertising)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-agent/",
+   "title": "Thank You For Registering For Our Courses (Agentic AI)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-ai-ml/",
+   "title": "Thank You For Registering For Our Courses (AI Essentials Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-aicc/",
+   "title": "Thank You For Registering For Our Courses (AI Video &#038; Image Creation Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-aidds/",
+   "title": "Thank You For Registering For Our Courses (AI-Driven Digital Sales)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-aidt/",
+   "title": "Thank You For Registering For Our Course AI- Driven Digital Transformation (AIDT)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-aseo/",
+   "title": "Thank You For Registering For Our Courses (WSQ Advanced SEO, AEO &#038; GEO)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-asmm/",
+   "title": "Thank You For Registering For Our Courses (WSQ Advanced Social Media Management)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-asn/",
+   "title": "Thank You For Registering For Our The Art and Science of Negotiation Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-asp/",
+   "title": "Thank You For Registering For Our Courses (Advanced Smartphone Photography for Business and Marketing)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-auxd/",
+   "title": "Thank You For Registering For Our Courses (WSQ Advanced UX UI Design Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-bbcs/",
+   "title": "Thank You For Registering For Our Courses (B2B Corporate Sales)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-bbs/",
+   "title": "Thank You For Registering For Our Courses (WSQ Digital Branding and Brand Strategy)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-bew/",
+   "title": "Thank You For Registering For Our Business and Email Writing with AI Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-bsbd/",
+   "title": "Thank You For Registering For Our Courses (Business Strategy and Business Development Essentials Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-bsse/",
+   "title": "Thank You For Registering For Our Courses (Business Storytelling and Stakeholder Engagement)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-caeda/",
+   "title": "Thank You For Registering For Our Courses Certified AI-Enabled Data Analyst"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-caicc/",
+   "title": "Thank You For Registering For Our Courses Certified AI Content Creator"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-caip/",
+   "title": "Thank You For Registering For Our Courses Certified AI-Practitioner (Business &#038; Work Applications)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-ccms/",
+   "title": "Thank You For Registering For Our Courses Certified Content Marketing Specialist (CCMS) Programme"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-ccs/",
+   "title": "Thank You For Registering For Our Courses Certified Cybersecurity Catalyst"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-ccw/",
+   "title": "Thank You For Registering For Our Courses (WSQ Digital Copywriting and Content Writing Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-cd/",
+   "title": "Thank You For Registering For Our Courses (Canva Design)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-cdma/",
+   "title": "Thank You For Registering For Our Courses (Certified Digital Marketing Analyst 2.0)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-cdp/",
+   "title": "Thank You For Registering For Our Certified Digital Photographer 2.0"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-cdv/",
+   "title": "Thank You For Registering For Our Certified Digital Videographer 2.0"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-ces/",
+   "title": "Thank You For Registering For Our Certified Ecommerce Specialist (CES) 2.0 Programme"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-chm/",
+   "title": "Thank You For Registering For Our Courses (Conflict Management Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-clpwds/",
+   "title": "Thank You For Registering For Our Certified Landing Page &#038; Web Design Specialist (CLPWDS) Programme"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-cmn/",
+   "title": "Thank You For Registering For Our Courses (Effective Commmunication Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-courses/",
+   "title": "Thank You For Registering For Our Courses"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-cpe/",
+   "title": "Thank You For Registering For Our Certified Photo Editor"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-cro/",
+   "title": "Thank You For Registering For Our Courses (Conversion Rate Optimisation)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-csmms-2-0/",
+   "title": "Thank You For Registering For Our Courses (Certified Social Media Marketing Specialist 2.0)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-csmms/",
+   "title": "Thank You For Registering For Our Courses Certified Social Media Marketing Specialist (CSMMS) Programme"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-csp/",
+   "title": "Thank You For Registering For Our Courses Certified Smartphone Photographer"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-csv/",
+   "title": "Thank You For Registering For Our Courses (Certified Smartphone Videographer)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-cuxd/",
+   "title": "Thank You For Registering For Our Courses Certified UX Designer (CUXD) Programme"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-cve/",
+   "title": "Thank You For Registering For Our Certified Video Editor"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-cyba/",
+   "title": "Thank You For Registering For Our Courses (Cybersecurity Awareness Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-dae/",
+   "title": "Thank You For Registering For Our Courses (Data Analytics and Data Literacy Essentials)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-davi/",
+   "title": "Thank You For Registering For Our Courses (Video Editing with DaVinci Resolve Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-dcc/",
+   "title": "Thank You For Registering For Our Courses (WSQ Digital Content Creation For Content Creators Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-dcm/",
+   "title": "Thank You For Registering For Our Courses (WSQ Digital Content Creation &#038; Content Marketing Strategy)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-digital-ads/",
+   "title": "Thank You For Registering For Our Courses (WSQ Digital Advertising Strategy)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-dma/",
+   "title": "Thank You For Registering For Our Courses (WSQ Digital Marketing Analytics &#038; Optimisation &#8211; Google Analytics 4)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-dme/",
+   "title": "Thank You For Registering For Our Courses (WSQ Digital Marketing Foundations &#8211; Fundamentals)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-dms/",
+   "title": "Thank You For Registering For Our Courses (WSQ AI-Driven Digital Marketing Strategy)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-dperr/",
+   "title": "Thank You For Registering For Our Courses (Desktop Photo Editing &#038; Retouching (Photoshop &#038; Lightroom) Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-dpr/",
+   "title": "Thank You For Registering For Our Courses (Digital Public Relations Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-dsec/",
+   "title": "Thank You For Registering For Our Courses (Data Storytelling &#038; Executive Communication)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-dt/",
+   "title": "Thank You For Registering For Our Courses (Design Thinking Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-dtio/",
+   "title": "Thank You For Registering For Our Courses (Digital Transformation – IT &#038; Operations Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-ee/",
+   "title": "Thank You For Registering For Our Courses (Ecommerce Essentials)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-em/",
+   "title": "Thank You For Registering For Our Courses (WSQ Email Marketing &#038; Marketing Automation)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-emsl-2/",
+   "title": "Thank You For Registering For Our Courses (Ecommerce Marketplaces &#8211; Shopee &#038; Lazada)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-emsl/",
+   "title": "Thank You For Registering For Our Courses (WSQ Ecommerce Marketplaces (Shopee &#038; Lazada))"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-es/",
+   "title": "Thank You For Registering For Our Courses (Ecommerce Strategy)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-fim/",
+   "title": "Thank You For Registering For Our Course (WSQ Meta Marketing (Facebook and Instagram))"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-fnfm/",
+   "title": "Thank You For Registering For Our Courses (Finance For Non-Finance Manager Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-gads/",
+   "title": "Thank You For Registering For Our Courses (WSQ Google Ads Strategy and Optimisation Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-genai/",
+   "title": "Thank You For Registering For Our Courses (Generative AI Applications (ChatGPT, Claude, and Mainstream AI Tools) for Productivity &#038; Business Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-grc/",
+   "title": "Thank You For Registering For Our Courses (Cyber and IT Security Governance, Risk, and Compliance (GRC))"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-gtm/",
+   "title": "Thank You For Registering For Our Courses (WSQ Google Tag Manager)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-lim/",
+   "title": "Thank You For Registering For Our LinkedIn Sales and Marketing Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-linkedin-marketing/",
+   "title": "Thank You For Registering For Our Courses (WSQ LinkedIn Sales and Marketing)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-lpd/",
+   "title": "Thank You For Registering For Our Landing Page Design Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-meta/",
+   "title": "Thank You For Registering For Our Courses (Meta Marketing (Facebook and Instagram))"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-min/",
+   "title": "Thank You For Registering For Our Courses (Thrive with Mindfulness: Stress Reduction and Resilience Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-mlod/",
+   "title": "Thank You For Registering For Our Courses (Management, Leadership and Organisational Design Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-mlpe/",
+   "title": "Thank You For Registering For Our Courses (Mirrorless &#038; DSLR Photography Essentials Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-mlve-2/",
+   "title": "Thank You For Registering For Our Courses (Mirrorless &#038; DSLR Videography Essentials Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-mlve/",
+   "title": "Thank You For Registering For Our Mirrorless &#038; DSLR Videography Essentials Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-mpli/",
+   "title": "Thank You For Registering For Our Courses (Mobile Photo Editing with Lightroom &#038; Creative Apps Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-mpp/",
+   "title": "Thank You For Registering For Our Courses (Mobile Phone (iPhone &#038; Android) Photography for Business and Marketing Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-mpve/",
+   "title": "Thank You For Registering For Our Courses (Mobile Smartphone (iPhone and Android) Videography Essentials Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-ocai/",
+   "title": "Thank You For Registering For Our Courses (OpenCLAW AI Productivity &#038; Automation Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-pbi/",
+   "title": "Thank You For Registering For Our Courses (Power BI Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-pdp/",
+   "title": "Thank You For Registering For Our Presentation Design with PowerPoint &#038; Google Slides Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-pe/",
+   "title": "Thank You For Registering For Our Courses (Prompt Engineering Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-pmgms/",
+   "title": "Thank You For Registering For Our Courses (Product Management and Go-to-Market Strategy Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-pms/",
+   "title": "Thank You For Registering For Our Performance Marketing Strategy (Lead Generation) Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-pub/",
+   "title": "Thank You For Registering For Our Courses (Public Speaking Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-seo/",
+   "title": "Thank You For Registering For Our Courses (WSQ SEO, AEO, GEO)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-smm/",
+   "title": "Thank You For Registering For Our Courses (WSQ Social Media Marketing Strategy &#038; Optimisation)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-sms/",
+   "title": "Thank You For Registering For Our Courses (Sales and Marketing Strategy Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-ssc/",
+   "title": "Thank You For Registering For Our Shopify Store Creation Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-tab/",
+   "title": "Thank You For Registering For Our Courses (Tableau Data Visualisation &#038; Dashboarding)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-ttm/",
+   "title": "Thank You For Registering For Our Courses (WSQ TikTok Marketing Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-uid/",
+   "title": "Thank You For Registering For Our Courses (User Interface (UI) Design Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-uxe/",
+   "title": "Thank You For Registering For Our Course (WSQ User Experience &#038; User Interface (UX UI) Design Essentials)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-vcap/",
+   "title": "Thank You For Registering For Our Courses (Mobile Video Editing with CapCut Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-vco/",
+   "title": "Thank You For Registering For Our Courses (Vibe Coding Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-ven/",
+   "title": "Thank You For Registering For Our Venture Capital and Strategic Fundraising Decisions Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-wordpress/",
+   "title": "Thank You For Registering For Our Courses (WSQ WordPress Website &#038; Landing Page Creation)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-wp/",
+   "title": "Thank You For Registering For Our Courses (WordPress Website &#038; Landing Page Creation)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-registering-wtf/",
+   "title": "Thank You For Registering For Our What The Figma (WTF) Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-you-for-registering-for-our-course-public-relations-pr/",
+   "title": "Thank You For Registering For Our Course Public Relations (PR)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-you-for-registering-for-our-courses-2-day-intensive-estate-agent-digital-marketing-course/",
+   "title": "Thank You For Registering For Our Courses (2-Day Intensive Estate Agent Digital Marketing Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-you-for-registering-for-our-courses-content-creation-capstone-multi-format-content-portfolio-development/",
+   "title": "Thank You For Registering For Our Courses (Content Creation Capstone &#8211; Multi-Format Content Portfolio Development)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-you-for-registering-for-our-courses-data-analytics-capstone-analyse-data-and-develop-evidence-based-business-recommendations/",
+   "title": "Thank You For Registering For Our Courses (Data Analytics Capstone – Analyse Data and Develop Evidence-Based Business Recommendations)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-you-for-registering-for-our-courses-digital-marketing-capstone-strategic-digital-marketing-plan-development/",
+   "title": "Thank You For Registering For Our Courses (Digital Marketing Capstone &#8211; Strategic Digital Marketing Plan Development)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-you-for-registering-for-our-courses-e-commerce-capstone-e-commerce-launch-and-growth-plan-development/",
+   "title": "Thank You For Registering For Our Courses (Ecommerce Capstone – Ecommerce Launch and Growth Plan Development)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thank-you-for-registering-for-our-courses-ux-and-digital-product-design-capstone-design-and-validate-a-digital-product-experience/",
+   "title": "Thank You For Registering For Our Courses (UX and Digital Product Design Capstone – Design and Validate a Digital Product Experience)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thanks-registering-acc/",
+   "title": "Thank You For Registering For Our Courses (Applied Cybersecurity Controls, Computer and Network Security)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thanks-registering-atabl/",
+   "title": "Thank You For Registering For Our Courses (Advanced Data Visualisation &#038; Dashboarding with Tableau)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thanks-registering-baada/",
+   "title": "Thank You For Registering For Our Courses (Business Analytics &#038; Applied Data Analysis)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thanks-registering-caew/",
+   "title": "Thank You For Registering For Our Courses (Cybersecurity Awareness &#038; Essentials For Workplace Employees &#038; Business Owners)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thanks-registering-cbye/",
+   "title": "Thank You For Registering For Our Course Cybersecurity Essentials"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/courses-thanks/thanks-registering-mpp/",
+   "title": "Thank You For Registering For Our Courses (Mobile Phone (iPhone &#038; Android) Photography Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/cyber-and-it-security-governance-risk-and-compliance-grc-course-registration/",
+   "title": "Cyber and IT Security Governance, Risk, and Compliance (GRC) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/cyber-and-it-security-governance-risk-and-compliance-grc-course/",
+   "title": "Cyber and IT Security Governance, Risk, and Compliance (GRC) Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/cybersecurity-awareness-essentials-for-workplace-employees-business-owners-course-registration/",
+   "title": "Cybersecurity Awareness &#038; Essentials For Workplace Employees &#038; Business Owners (CAEWEB) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/cybersecurity-awareness-essentials-for-workplace-employees-business-owners-course/",
+   "title": "Cybersecurity Awareness &#038; Essentials For Workplace Employees &#038; Business Owners Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/data-analytics-and-data-literacy-essentials-course-registration/",
+   "title": "Data Analytics and Data Literacy Essentials Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/data-analytics-and-data-literacy-essentials-course/",
+   "title": "Data Analytics and Data Literacy Essentials Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/data-analytics-capstone-analyse-data-and-develop-evidence-based-business-recommendations-course-registration/",
+   "title": "Data Analytics Capstone &#8211; Analyse Data and Develop Evidence-Based Business Recommendations Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/data-analytics-capstone/",
+   "title": "Data Analytics Capstone &#8211; Analyse Data and Develop Evidence-Based Business Recommendations Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/data-storytelling-executive-communication-course-registration/",
+   "title": "Data Storytelling &#038; Executive Communication (DSEC) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/data-storytelling-executive-communication-course/",
+   "title": "Data Storytelling &#038; Executive Communication Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/dcc-course-registration/",
+   "title": "WSQ Digital Content Creation For Content Creators Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/design-thinking-course-registration/",
+   "title": "Design Thinking Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/design-thinking-course/",
+   "title": "Design Thinking Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/desktop-editing-retouching-photoshop-lightroom-course-registration/",
+   "title": "Desktop Photo Editing &#038; Retouching (Photoshop &#038; Lightroom) (DPERR) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/desktop-editing-retouching-photoshop-lightroom-course/",
+   "title": "Desktop Photo Editing &#038; Retouching (Photoshop &#038; Lightroom) Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/digital-advertising-course-registration/",
+   "title": "WSQ Digital Advertising Strategy Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/digital-advertising-course/",
+   "title": "Digital Advertising Strategy Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/digital-content-creation-course/",
+   "title": "Digital Content Creation For Content Creators Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/digital-marketing-capstone-course/",
+   "title": "Digital Marketing Capstone &#8211; Strategic Digital Marketing Plan Development Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/digital-marketing-capstone-strategic-digital-marketing-plan-development-course-registration/",
+   "title": "Digital Marketing Capstone &#8211; Strategic Digital Marketing Plan Development Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/digital-marketing-essentials-course-registration/",
+   "title": "WSQ Digital Marketing Foundations (Fundamentals) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/digital-marketing-foundations-fundamentals-course/",
+   "title": "Digital Marketing Foundations (Fundamentals) Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/digital-marketing-strategy-course/",
+   "title": "AI-Driven Digital Marketing Strategy Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/digital-public-relations-course-registration/",
+   "title": "WSQ Digital Public Relations Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/digital-public-relations-course/",
+   "title": "Digital Public Relations Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/digital-sales-course-registration/",
+   "title": "AI-Driven Digital Sales Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/digital-sales-course/",
+   "title": "AI-Driven Digital Sales Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/digital-transformation-course/",
+   "title": "AI-Driven Digital Transformation Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/digital-web-analytics-course-registration/",
+   "title": "WSQ Digital Marketing Analytics &#038; Optimisation (Google Analytics 4) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/digital-web-analytics-google-analytics-training-course/",
+   "title": "Digital Marketing Analytics &#038; Optimisation (Google Analytics 4) Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/e-commerce-capstone-e-commerce-launch-and-growth-plan-development-course-registration/",
+   "title": "Ecommerce Capstone &#8211; Ecommerce Launch and Growth Plan Development Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/eblh/",
+   "title": "Early Bird Last Hour"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/eblh/agentic-ai-registration/",
+   "title": "Agentic AI Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/eblh/prompt-engineering-registration/",
+   "title": "Prompt Engineering Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/ecommerce-essentials-course-registration/",
+   "title": "Ecommerce Essentials Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/ecommerce-essentials/",
+   "title": "Ecommerce Essentials Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/ecommerce-marketplaces-shopee-lazada-course-registration/",
+   "title": "Ecommerce Marketplaces (Shopee &#038; Lazada) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/ecommerce-marketplaces-shopee-lazada-course/",
+   "title": "Ecommerce Marketplaces (Shopee &#038; Lazada) Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/ecommerce-strategy-course-registration/",
+   "title": "Ecommerce Strategy Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/ecommerce-strategy-course/",
+   "title": "Ecommerce Strategy Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/effective-communication-course-registration/",
+   "title": "Effective Communication Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/email-marketing-and-marketing-automation-course/",
+   "title": "Email Marketing &#038; Marketing Automation Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/email-marketing-course-registration/",
+   "title": "WSQ Email Marketing &#038; Marketing Automation Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/facebook-advertising-course-registration/",
+   "title": "Meta Marketing (Facebook and Instagram) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/facebook-instagram-marketing-course/",
+   "title": "Meta Marketing (Facebook and Instagram) Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/finance-for-non-finance-manager-course-registration/",
+   "title": "Finance For Non-Finance Managers Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/finance-for-non-finance-manager-course/",
+   "title": "Finance For Non-Finance Managers Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/generative-ai-applications-chatgpt-claude-and-mainstream-ai-tools-for-productivity-and-business-course-registration/",
+   "title": "Generative AI Applications (ChatGPT, Claude, and Mainstream AI Tools) for Productivity &#038; Business Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/generative-ai-chatgpt-gemini-and-popular-ai-tools-course/",
+   "title": "Generative AI Applications (ChatGPT, Claude, and Mainstream AI Tools) for Productivity &#038; Business Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/google-ads-course-registration/",
+   "title": "WSQ Google Ads Search Engine Marketing (SEM) and Display (PPC) Certification Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/google-ads-strategy-and-optimisation-course/",
+   "title": "Google Ads Strategy and Optimisation Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/google-tag-manager-certification-course/",
+   "title": "Google Tag Manager Certification Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/google-tag-manager-course-registration/",
+   "title": "WSQ Google Tag Manager Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/landing-page-design-course-registration/",
+   "title": "WSQ Landing Page Design Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/landing-page-design/",
+   "title": "Landing Page Design Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/linkedin-marketing-course-registration/",
+   "title": "WSQ LinkedIn Sales And Marketing Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/linkedin-marketing-course/",
+   "title": "LinkedIn Sales and Marketing Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/management-leadership-and-organisational-design-course-2/",
+   "title": "Management Leadership and Organisational Design Course (V3)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/management-leadership-and-organisational-design-course/",
+   "title": "Management Leadership and Organisational Design Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/management-leadership-and-organisational-design-mlod-course-registration/",
+   "title": "Management Leadership and Organisational Design (MLOD) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/mirrorless-dslr-photography-essentials-course-registration/",
+   "title": "Mirrorless &#038; DSLR Photography Essentials (MLPE) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/mirrorless-dslr-photography-essentials-course/",
+   "title": "Mirrorless &#038; DSLR Photography Essentials Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/mirrorless-dslr-videography-essentials-course-course-registration/",
+   "title": "Mirrorless &#038; DSLR Videography Essentials Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/mirrorless-dslr-videography-essentials-course/",
+   "title": "Mirrorless &#038; DSLR Videography Essentials Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/mobile-phone-iphone-and-android-photography-for-business-and-marketing-course-registration/",
+   "title": "Mobile Phone (iPhone &#038; Android) Photography for Business and Marketing Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/mobile-phone-iphone-android-photography-course-registration/",
+   "title": "Mobile Phone (iPhone &#038; Android) Photography for Business and Marketing (MPP) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/mobile-phone-iphone-android-photography-course/",
+   "title": "Mobile Phone (iPhone &#038; Android) Photography for Business and Marketing Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/mobile-photo-editing-with-lightroom-creative-apps-course-registration/",
+   "title": "Mobile Photo Editing with Lightroom &#038; Creative Apps (MPLI) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/mobile-photo-editing-with-lightroom-creative-apps-course/",
+   "title": "Mobile Photo Editing with Lightroom &#038; Creative Apps Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/mobile-smart-phone-iphone-and-android-photography-and-videography-course-registration/",
+   "title": "Out Of Pocket! – Mobile Photography and Videography for Smart Phones (iOS and Android) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/mobile-smart-phone-iphone-and-android-photography-and-videography-course/",
+   "title": "Out Of Pocket! – Mobile Photography and Videography for Smart Phones (iOS and Android) Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/mobile-smartphone-iphone-and-android-videography-essentials-course/",
+   "title": "Mobile Smartphone (iPhone and Android) Videography Essentials Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/mobile-smartphone-iphone-and-android-videography-essentials-mpve-course-registration/",
+   "title": "Mobile Smartphone (iPhone and Android) Videography Essentials (MPVE) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/mobile-video-editing-with-capcut-course-course-registration/",
+   "title": "Mobile Video Editing with CapCut Course Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/mobile-video-editing-with-capcut-course/",
+   "title": "Mobile Video Editing with CapCut Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/mobile-video-editing-with-capcut-vcap-course-registration/",
+   "title": "Mobile Video Editing with CapCut (VCAP) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/openclaw-ai-productivity-and-automation-course-registration/",
+   "title": "OpenCLAW AI Productivity &#038; Automation Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/openclaw-ai-productivity-automation-course/",
+   "title": "OpenCLAW AI Productivity &#038; Automation Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/performance-marketing-strategy-lead-generation-course-registration/",
+   "title": "Performance Marketing Strategy (Lead Generation) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/performance-marketing-strategy-lead-generation-course/",
+   "title": "Performance Marketing Strategy (Lead Generation) Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/power-bi-course-registration/",
+   "title": "WSQ Power BI Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/power-bi-course/",
+   "title": "Power BI Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/product-management-and-go-to-market-strategy-course/",
+   "title": "Product Management and Go-to-Market Strategy Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/product-management-and-go-to-market-strategy-pmgms-course-registration/",
+   "title": "Product Management and Go-to-Market Strategy (PMGMS) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/prompt-engineering-course-registration/",
+   "title": "Prompt Engineering Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/prompt-engineering-course/",
+   "title": "Prompt Engineering Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/public-speaking-course-registration/",
+   "title": "Public Speaking Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/public-speaking-course/",
+   "title": "Public Speaking Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/sales-and-marketing-strategy-course/",
+   "title": "Sales and Marketing Strategy Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/sales-and-marketing-strategy-sms-course-registration/",
+   "title": "Sales and Marketing Strategy (SMS) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/seo-training-course-singapore/",
+   "title": "SEO, AEO, GEO Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/shopify-store-creation-course-registration/",
+   "title": "WSQ Shopify Store Creation Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/shopify-store-creation-course/",
+   "title": "Shopify Store Creation Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/social-media-marketing-smm-course-registration/",
+   "title": "WSQ Social Media Marketing Strategy &#038; Optimisation Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/social-media-marketing-training-course/",
+   "title": "Social Media Marketing Strategy &#038; Optimisation Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/tableau-data-visualisation-and-dashboarding-course-registration/",
+   "title": "Tableau Data Visualisation &#038; Dashboarding (TAB) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/tableau-data-visualisation-and-dashboarding-course/",
+   "title": "Tableau Data Visualisation &#038; Dashboarding Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/thank-registering-caeda/",
+   "title": "Thank You For Registering For Our Courses Certified AI-Enabled Data Analyst 2.0"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/the-abc-of-sales-sell-anything-to-anyone-course-registration/",
+   "title": "The ABC of Sales – Sell Anything to Anyone Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/the-abc-of-sales-sell-anything-to-anyone-course/",
+   "title": "The ABC of Sales &#8211; Sell Anything to Anyone Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/the-art-and-science-of-negotiation-course-registration/",
+   "title": "The Art and Science of Negotiation (ASN) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/the-art-and-science-of-negotiation-course/",
+   "title": "The Art and Science of Negotiation Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/thrive-with-mindfulness-stress-reduction-and-resilience-course-registration/",
+   "title": "Thrive with Mindfulness: Stress Reduction and Resilience Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/thrive-with-mindfulness-stress-reduction-and-resilience-course/",
+   "title": "Thrive with Mindfulness: Stress Reduction and Resilience Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/tiktok-marketing-course-registration/",
+   "title": "WSQ TikTok Marketing Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/tiktok-marketing/",
+   "title": "TikTok Marketing Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/tiktok-shop-live-streaming-commerce-course-course-registration/",
+   "title": "TikTok Shop &#038; Live Streaming Commerce Course Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/ui-design-course-registration/",
+   "title": "WSQ User Interface (UI) Design Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/ui-ux-course-registration/",
+   "title": "User Experience Design and User Interface (UI/UX) Training Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/utm-test-page/",
+   "title": "UTM Test Page"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/ux-and-digital-product-design-capstone-design-and-validate-a-digital-product-experience-course-registration/",
+   "title": "UX and Digital Product Design Capstone &#8211; Design and Validate a Digital Product Experience Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/ux-digital-product-design-capstone/",
+   "title": "UX and Digital Product Design Capstone &#8211; Design and Validate a Digital Product Experience Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/ux-ui-design-career-programme/",
+   "title": "UX/UI Design Career Programme"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/venture-capital-and-fundraising-strategy-course/",
+   "title": "Venture Capital and Strategic Fundraising Decisions Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/venture-capital-and-fundraising-strategy-vcfs-course-registration/",
+   "title": "Venture Capital and Strategic Fundraising Decisions (VCFS) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/vibe-coding-course-registration/",
+   "title": "Vibe Coding Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/vibe-coding-course/",
+   "title": "Vibe Coding Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/video-editing-with-davinci-resolve-course/",
+   "title": "Video Editing with DaVinci Resolve Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/video-editing-with-davinci-resolve-davi-course-registration/",
+   "title": "Video Editing with DaVinci Resolve (DAVI) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/what-the-figma-wtf/",
+   "title": "What The Figma (WTF) Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/wordpress-website-creation-course-registration/",
+   "title": "WordPress Website &#038; Landing Page Creation Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/wordpress-website-landing-page-creation-course-singapore/",
+   "title": "WordPress Website &#038; Landing Page Creation Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/wsq-digital-marketing-strategy-course-registration/",
+   "title": "AI-Driven Digital Marketing Strategy (DMS) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/wsq-digital-transformation-course-registration/",
+   "title": "WSQ AI-Driven Digital Transformation Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/wsq-ecommerce-marketplaces-shopee-lazada-course-registration/",
+   "title": "WSQ Ecommerce Marketplaces (Shopee &#038; Lazada) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/wsq-presentation-design-with-powerpoint-google-slides-course-registration/",
+   "title": "WSQ Presentation Design with PowerPoint &#038; Google Slides Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/wsq-presentation-design-with-powerpoint-google-slides/",
+   "title": "Presentation Design with PowerPoint &#038; Google Slides"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/wsq-seo-registration/",
+   "title": "WSQ SEO, AEO, GEO Strategy Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/wsq-user-experience-user-interface-ux-ui-design-essentials-course-registration/",
+   "title": "WSQ User Experience &#038; User Interface (UX UI) Design Essentials Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/wsq-user-experience-user-interface-ux-ui-design-essentials/",
+   "title": "User Experience &#038; User Interface (UX UI) Design Essentials Course"
+  },
+  {
+   "url": "https://www.equinetacademy.com/course/wsq-what-the-figma-wtf-course-registration/",
+   "title": "WSQ What The Figma (WTF) Course Registration"
+  },
+  {
+   "url": "https://www.equinetacademy.com/cybersecurity-courses/",
+   "title": "Cybersecurity Courses"
+  },
+  {
+   "url": "https://www.equinetacademy.com/data-analytics-data-science-courses/",
+   "title": "Data Analytics Courses"
+  },
+  {
+   "url": "https://www.equinetacademy.com/digital-marketing-courses/",
+   "title": "Digital Marketing Courses"
+  },
+  {
+   "url": "https://www.equinetacademy.com/ecommerce-courses/",
+   "title": "Ecommerce Courses"
+  },
+  {
+   "url": "https://www.equinetacademy.com/ecommerce-marketplaces-shopee-lazada-course-old/",
+   "title": "Ecommerce Marketplaces (Shopee &#038; Lazada) Course Old"
+  },
+  {
+   "url": "https://www.equinetacademy.com/event/google-tag-manager-course/",
+   "title": "1-Day Google Tag Manager Workshop - Equinet Academy"
+  },
+  {
+   "url": "https://www.equinetacademy.com/hiring-career-programme/",
+   "title": "Get Hired · Career Programmes"
+  },
+  {
+   "url": "https://www.equinetacademy.com/hiring-career-programme/ai-career-programme-singapore/",
+   "title": "AI Career Programme · Singapore"
+  },
+  {
+   "url": "https://www.equinetacademy.com/hiring-career-programme/content-creator-career-programme-singapore/",
+   "title": "Content Creator Career Programme · Singapore"
+  },
+  {
+   "url": "https://www.equinetacademy.com/hiring-career-programme/cybersecurity-career-programme-singapore/",
+   "title": "Cybersecurity Career Programme · Singapore"
+  },
+  {
+   "url": "https://www.equinetacademy.com/hiring-career-programme/data-analytics-career-programme-singapore/",
+   "title": "Data Analytics Career Programme · Singapore"
+  },
+  {
+   "url": "https://www.equinetacademy.com/hiring-career-programme/digital-marketing-career-programme-singapore/",
+   "title": "Digital Marketing Career Programme · Singapore"
+  },
+  {
+   "url": "https://www.equinetacademy.com/hiring-career-programme/early-career-pathway/",
+   "title": "Early Career Pathway · Age 21–39"
+  },
+  {
+   "url": "https://www.equinetacademy.com/hiring-career-programme/ecommerce-career-programme-singapore/",
+   "title": "Ecommerce Career Programme · Singapore"
+  },
+  {
+   "url": "https://www.equinetacademy.com/hiring-career-programme/mid-career-pathway/",
+   "title": "Mid-Career Pathway · Age 40+"
+  },
+  {
+   "url": "https://www.equinetacademy.com/hiring-career-programme/photography-career-programme-singapore/",
+   "title": "Photography Career Programme · Singapore"
+  },
+  {
+   "url": "https://www.equinetacademy.com/hiring-career-programme/sales-career-programme-singapore/",
+   "title": "Sales Career Programme · Singapore"
+  },
+  {
+   "url": "https://www.equinetacademy.com/hiring-career-programme/ux-design-career-programme-singapore/",
+   "title": "UX Design Career Programme · Singapore"
+  },
+  {
+   "url": "https://www.equinetacademy.com/hiring-career-programme/videography-career-programme-singapore/",
+   "title": "Videography Career Programme · Singapore"
+  },
+  {
+   "url": "https://www.equinetacademy.com/soft-skills-courses/",
+   "title": "Soft Skills Courses"
+  },
+  {
+   "url": "https://www.equinetacademy.com/thank-you-for-getting-in-touch-with-our-consultant-digital-marketing-strategy-course/",
+   "title": "Thank You For Getting in Touch with Our Consultant (Digital Marketing Strategy Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/thank-you-for-getting-in-touch-with-our-consultant-ecommerce-strategy-course/",
+   "title": "Thank You For Getting in Touch with Our Consultant (Ecommerce Strategy Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/thank-you-for-getting-in-touch-with-our-consultant-mirrorless-dslr-photography-essentials-course-2/",
+   "title": "Thank You For Getting in Touch with Our Consultant (Mirrorless &#038; DSLR Photography Essentials Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/thank-you-for-getting-in-touch-with-our-consultant-mirrorless-dslr-photography-essentials-course/",
+   "title": "Thank You For Getting in Touch with Our Consultant (Mirrorless &#038; DSLR Photography Essentials Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/thank-you-for-getting-in-touch-with-our-consultant-mobile-video-editing-with-capcut-course/",
+   "title": "Thank You For Getting in Touch with Our Consultant (Mobile Video Editing with CapCut Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/thank-you-for-getting-in-touch-with-our-consultant-openclaw-ai-productivity-and-automation-course/",
+   "title": "Thank You For Getting in Touch with Our Consultant (OpenCLAW AI Productivity &#038; Automation Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/thank-you-for-getting-in-touch-with-our-consultant-the-art-and-science-of-negotiation-course/",
+   "title": "Thank You For Getting in Touch with Our Consultant (The Art and Science of Negotiation Course)"
+  },
+  {
+   "url": "https://www.equinetacademy.com/thanks/thank-course-consultants/",
+   "title": "Thank you for contacting our course consultants"
+  },
+  {
+   "url": "https://www.equinetacademy.com/user-experience-ux-design-creative-courses/",
+   "title": "User Experience (UX) Design &#038; Creative Courses"
+  },
+  {
+   "url": "https://www.equinetacademy.com/web-design-course-singapore/",
+   "title": "Web Design Courses Singapore"
+  }
+ ]
+}
