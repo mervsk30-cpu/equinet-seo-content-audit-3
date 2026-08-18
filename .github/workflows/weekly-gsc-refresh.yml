@@ -65,10 +65,19 @@ jobs:
           GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
         run: |
           BACKFILL="${{ github.event.inputs.backfill_weeks || '' }}"
-          if [ -z "$BACKFILL" ] && [ "${{ github.event_name }}" = "push" ] && [ -f .github/gsc-run-request ]; then
-            BACKFILL=$(grep -oE '[0-9]+' .github/gsc-run-request | head -1 || true)
+          FORCE_FLAG=""
+          if [ "${{ github.event_name }}" = "push" ] && [ -f .github/gsc-run-request ]; then
+            if [ -z "$BACKFILL" ]; then
+              BACKFILL=$(grep -oE '[0-9]+' .github/gsc-run-request | head -1 || true)
+            fi
+            # "force" re-collects existing weeks from the GSC API (same source,
+            # same windows). Only for config expansions - e.g. newly tracked
+            # course pages need their rows added to historical snapshots.
+            if grep -qiE '(^|[[:space:]])force([[:space:]]|$)' .github/gsc-run-request; then
+              FORCE_FLAG="--force"
+            fi
           fi
-          python scripts/collect_gsc.py --backfill "${BACKFILL:-0}"
+          python scripts/collect_gsc.py --backfill "${BACKFILL:-0}" $FORCE_FLAG
 
       # The two steps below run even when collection fails - that is how a
       # failure gets published as an explicit error on the dashboard - but NOT
