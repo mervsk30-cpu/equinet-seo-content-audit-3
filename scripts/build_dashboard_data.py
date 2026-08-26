@@ -36,6 +36,7 @@ OUT_JSON = ROOT / "data" / "dashboard-data.json"
 
 HISTORY_WEEKS = 26
 STALE_AFTER_DAYS = 8  # a weekly cadence means anything older than this is stale
+MIN_DISCOVERED_IMPRESSIONS = 5  # see discovered_totals below
 
 STATUS_ORDER = [
     "dropped", "lost", "improved", "newly_ranking", "stable", "no_baseline", "no_ranking_data",
@@ -173,11 +174,19 @@ def build_payload(config: dict, snapshots: list[dict], meta: dict, today: date) 
     for course in config["courses"]:
         code = course["code"]
         configured = {k["keyword"]: k for k in course.get("keywords", [])}
-        discovered = set()
+        # Auto-discovered queries (real GSC rows not in the team's config) are
+        # cheap noise: most course pages pick up dozens of one-off, single-
+        # impression long-tail queries with no real signal. Require a modest
+        # cumulative impression total before surfacing one as a tracked
+        # "discovered" keyword, so the table isn't dominated by statistical
+        # flukes. This only affects what's DISPLAYED - the underlying GSC
+        # snapshot rows are untouched and remain available for any future re-run.
+        discovered_totals: dict[str, int] = {}
         for _, idx in all_indexes:
-            for (c, q, dev) in idx.keys():
+            for (c, q, dev), entry in idx.items():
                 if c == code and dev == "all" and q not in configured:
-                    discovered.add(q)
+                    discovered_totals[q] = discovered_totals.get(q, 0) + entry["impressions"]
+        discovered = {q for q, total in discovered_totals.items() if total >= MIN_DISCOVERED_IMPRESSIONS}
 
         rows = []
         for kw in list(configured.keys()) + sorted(discovered):
@@ -240,6 +249,7 @@ def build_payload(config: dict, snapshots: list[dict], meta: dict, today: date) 
         "country": settings.get("country"),
         "search_type": settings.get("search_type", "web"),
         "data_policy": "Real Google Search Console data only. Blank cells mean the GSC API returned no data; nothing is estimated.",
+        "discovered_keyword_policy": f"Auto-discovered keywords (queries not in the team's keyword list) are shown only once they accumulate {MIN_DISCOVERED_IMPRESSIONS}+ impressions across recorded weeks, to keep single-impression long-tail noise out of the table. Configured (Primary/Secondary/Related) keywords are always shown regardless of impressions.",
         "last_updated": (
             {
                 "run_date": current["run_date"],

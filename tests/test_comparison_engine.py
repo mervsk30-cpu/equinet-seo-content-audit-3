@@ -151,6 +151,29 @@ def test_device_split_and_discovered_keywords():
     assert d["status"] == "newly_ranking"
 
 
+def test_low_impression_discovered_keywords_are_filtered():
+    week1 = snap("2026-08-10", [
+        row("testkw discovered only", 20.0, impressions=100),   # survives: well above threshold
+        row("testkw one impression", 30.0, impressions=1),      # noise: filtered out
+        row("testkw two impressions week1", 40.0, impressions=2),
+    ])
+    week2 = snap("2026-08-17", [
+        row("testkw discovered only", 18.0, impressions=100),
+        row("testkw two impressions week1", 42.0, impressions=2),  # 2+2=4, still under threshold (5)
+        row("testkw accumulates", 50.0, impressions=3),
+    ])
+    week3 = snap("2026-08-24", [
+        row("testkw accumulates", 48.0, impressions=3),  # 3+3=6, clears threshold cumulatively
+    ])
+    rows = course_rows(build([week1, week2, week3]))
+    assert "testkw discovered only" in rows
+    assert "testkw one impression" not in rows
+    assert "testkw two impressions week1" not in rows          # 4 total < 5
+    assert "testkw accumulates" in rows                        # 6 total >= 5
+    # configured keywords are never filtered, regardless of impressions
+    assert "testkw never" in rows
+
+
 def test_dominant_page_and_metric_aggregation():
     week = snap("2026-08-17", [
         row("testkw improved", 6.0, page="https://www.example.com/course/alpha/", impressions=500, clicks=25),

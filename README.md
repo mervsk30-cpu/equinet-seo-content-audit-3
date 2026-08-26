@@ -89,7 +89,16 @@ property. This takes ~10 minutes:
 - `courses[]` — every course landing page (name, URL, legacy URL aliases) with
   its keywords. Keyword `type` is `primary` / `secondary` / `related`
   (see rules below). Queries found in GSC that aren't configured are added
-  automatically as **discovered**.
+  automatically as **discovered** — but only once they accumulate 5+ total
+  impressions across recorded weeks (`MIN_DISCOVERED_IMPRESSIONS` in
+  `scripts/build_dashboard_data.py`). Course pages naturally pick up dozens of
+  one-off, single-impression long-tail queries that are statistical noise, not
+  real opportunities; this threshold is a *display* filter only — every raw
+  GSC row stays in `data/snapshots/`, untouched, so lowering the threshold
+  later re-surfaces the same real history rather than losing anything.
+  Configured (primary/secondary/related) keywords are always shown regardless
+  of impressions. The dashboard also paginates each course's table at 100 rows
+  to keep large courses fast to browse.
 - `unassigned_keywords` — tracked keywords with no current course page
   (legacy e-commerce course, agency-intent terms, etc.). Assign or delete as
   you see fit.

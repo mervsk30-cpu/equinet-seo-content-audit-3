@@ -59,6 +59,12 @@
     color: var(--ink-2); padding: 4px 10px; font: inherit; font-size: 12px; cursor: pointer;
   }
   button.ghost:hover { background: var(--neutral-bg); }
+  button.ghost:disabled { opacity: .4; cursor: default; }
+  button.ghost:disabled:hover { background: none; }
+
+  .pager { display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 8px 2px; font-size: 12.5px; color: var(--ink-2); }
+  .pager-info { font-variant-numeric: tabular-nums; }
 
   .banner { border: 1px solid var(--border); border-left-width: 4px; border-radius: 8px;
     padding: 12px 14px; margin: 0 0 16px; background: var(--surface); font-size: 13.5px; }
@@ -95,7 +101,12 @@
   .chip .n { font-weight: 650; color: var(--ink); }
 
   .tablewrap { overflow: auto; max-height: 78vh; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
-  table { border-collapse: collapse; width: 100%; min-width: 1150px; }
+  /* border-spacing (not border-collapse) is deliberate: collapsed borders
+     force the browser to recompute the whole table's border geometry on
+     every row insertion/removal, which is what made expanding a keyword's
+     history feel like a freeze on large tables. */
+  table { border-collapse: separate; border-spacing: 0; width: 100%; min-width: 1150px; }
+  td, th { border-collapse: separate; }
   th, td { text-align: left; padding: 7px 10px; border-top: 1px solid var(--grid); font-size: 13px; vertical-align: top; }
   thead th { border-top: none; font-size: 11.5px; text-transform: uppercase; letter-spacing: .04em;
     color: var(--muted); cursor: pointer; white-space: nowrap; position: sticky; top: 0; background: var(--surface); }
@@ -303,6 +314,12 @@
   }
 
   /* ---------- course table ---------- */
+  // Large courses can carry hundreds of tracked keywords. Rendering (and,
+  // worse, mutating - e.g. expanding a row's history) a many-hundred-row
+  // table in one go is what made the dashboard feel like it froze; capping
+  // the rendered rows per page keeps every course fast regardless of size.
+  const PAGE_SIZE = 100;
+
   const COLS = [
     { id: "keyword",  label: "Keyword",       sort: r => r.keyword },
     { id: "type",     label: "Type",          sort: r => r.type },
@@ -320,7 +337,7 @@
     { id: "live",     label: "Live",          nosort: true },
   ];
 
-  const state = { course: null, status: "all", type: "all", q: "", sortBy: "current", sortDesc: false };
+  const state = { course: null, status: "all", type: "all", q: "", sortBy: "current", sortDesc: false, page: 1 };
 
   function currentCourse() { return D.courses.find(c => c.code === state.course) || null; }
 
@@ -379,14 +396,31 @@
       "</div></td></tr>";
   }
 
+  function pagerHtml(totalRows, page, totalPages) {
+    if (totalPages <= 1) return "";
+    const start = totalRows === 0 ? 0 : (page - 1) * PAGE_SIZE + 1;
+    const end = Math.min(page * PAGE_SIZE, totalRows);
+    return '<div class="pager">' +
+      '<button class="ghost pager-prev"' + (page <= 1 ? " disabled" : "") + '>← Prev</button>' +
+      '<span class="pager-info">Showing ' + fmtInt(start) + '–' + fmtInt(end) + ' of ' + fmtInt(totalRows) + ' · Page ' + page + ' of ' + totalPages + '</span>' +
+      '<button class="ghost pager-next"' + (page >= totalPages ? " disabled" : "") + '>Next →</button>' +
+      "</div>";
+  }
+
   function tableHtml(course) {
-    const rows = filteredRows(course);
+    const allRows = filteredRows(course);
+    const totalPages = Math.max(1, Math.ceil(allRows.length / PAGE_SIZE));
+    if (state.page > totalPages) state.page = totalPages;
+    if (state.page < 1) state.page = 1;
+    const startIdx = (state.page - 1) * PAGE_SIZE;
+    const rows = allRows.slice(startIdx, startIdx + PAGE_SIZE);
     const luDate = D.last_updated ? fmtShortY(D.last_updated.run_date) : "";
     const head = COLS.map(c =>
       "<th" + (c.num ? ' class="num"' : "") + (c.nosort ? ' class="nosort"' : ' data-sort="' + c.id + '"') + ">" +
       c.label + (state.sortBy === c.id ? ' <span class="arr">' + (state.sortDesc ? "▼" : "▲") + "</span>" : "") +
       "</th>").join("");
-    const body = rows.map((r, idx) => {
+    const body = rows.map((r, localIdx) => {
+      const idx = startIdx + localIdx; // global index into allRows, matched by wireTable's click handler
       const st = STATUS[r.status] || STATUS.no_ranking_data;
       const cur = r.current, prev = r.previous;
       return '<tr class="krow" data-i="' + idx + '">' +
@@ -408,13 +442,18 @@
         '<td><button class="livebtn" data-kw="' + esc(r.keyword) + '" title="Open a Google search for this keyword (Singapore, no personalisation) to verify the live position manually">Check live</button></td>' +
         "</tr>";
     }).join("");
-    return '<div class="tablewrap"><table><thead><tr>' + head + "</tr></thead><tbody>" +
+    return '<div class="table-section">' +
+      pagerHtml(allRows.length, state.page, totalPages) +
+      '<div class="tablewrap"><table><thead><tr>' + head + "</tr></thead><tbody>" +
       (body || '<tr><td colspan="' + COLS.length + '"><div class="empty">No keywords match the current filters.</div></td></tr>') +
       "</tbody></table></div>" +
+      pagerHtml(allRows.length, state.page, totalPages) +
       '<p class="note">Positions are Google Search Console average positions for the data window, shown as whole numbers. ' +
       "Blank cells mean Search Console returned no data — nothing is estimated. " +
       "Expand a row to see the weekly history. “Check live” opens a manual Google search (Singapore settings); " +
-      "the dashboard itself never scrapes live results.</p>";
+      "the dashboard itself never scrapes live results. " +
+      esc(D.discovered_keyword_policy || "") +
+      "</p></div>";
   }
 
   function chipsHtml(course) {
@@ -482,29 +521,29 @@
       root.setAttribute("data-theme", dark ? "light" : "dark");
     };
     const sel = document.getElementById("courseSel");
-    if (sel) sel.onchange = () => { state.course = sel.value || null; state.status = "all"; state.q = ""; render(); };
+    if (sel) sel.onchange = () => { state.course = sel.value || null; state.status = "all"; state.q = ""; state.page = 1; render(); };
     for (const card of app.querySelectorAll(".ccard")) {
-      card.onclick = () => { state.course = card.dataset.course; state.status = "all"; render(); };
+      card.onclick = () => { state.course = card.dataset.course; state.status = "all"; state.page = 1; render(); };
     }
     if (!course) return;
     const typeSel = document.getElementById("typeSel");
-    if (typeSel) typeSel.onchange = () => { state.type = typeSel.value; render(); };
+    if (typeSel) typeSel.onchange = () => { state.type = typeSel.value; state.page = 1; render(); };
     const search = document.getElementById("kwSearch");
     if (search) {
-      search.oninput = () => { state.q = search.value.trim().toLowerCase(); rerenderTable(course); };
+      search.oninput = () => { state.q = search.value.trim().toLowerCase(); state.page = 1; rerenderTable(course); };
     }
     for (const chip of app.querySelectorAll(".chip")) {
-      chip.onclick = () => { state.status = chip.dataset.status; render(); };
+      chip.onclick = () => { state.status = chip.dataset.status; state.page = 1; render(); };
     }
     wireTable(course);
   }
 
   function rerenderTable(course) {
-    const wrap = app.querySelector(".tablewrap");
+    const wrap = app.querySelector(".table-section");
     if (!wrap) return;
     const container = document.createElement("div");
     container.innerHTML = tableHtml(course);
-    wrap.replaceWith(container.querySelector(".tablewrap"));
+    wrap.replaceWith(container.querySelector(".table-section"));
     wireTable(course);
     const search = document.getElementById("kwSearch");
     if (search) search.focus();
@@ -517,6 +556,7 @@
         const col = COLS.find(c => c.id === id);
         if (state.sortBy === id) state.sortDesc = !state.sortDesc;
         else { state.sortBy = id; state.sortDesc = !!col.desc; }
+        state.page = 1;
         render();
       };
     }
@@ -537,6 +577,12 @@
         ev.stopPropagation();
         window.open(liveRankUrl(btn.dataset.kw), "_blank", "noopener");
       };
+    }
+    for (const btn of app.querySelectorAll(".pager-prev")) {
+      btn.onclick = () => { state.page -= 1; rerenderTable(course); };
+    }
+    for (const btn of app.querySelectorAll(".pager-next")) {
+      btn.onclick = () => { state.page += 1; rerenderTable(course); };
     }
   }
 
