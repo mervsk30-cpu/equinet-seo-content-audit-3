@@ -1,8 +1,16 @@
 # Publishes the dashboard to GitHub Pages.
 #
-# Runs on every push (so each weekly GSC snapshot redeploys the site) and can
-# be run manually. Live URL once active:
+# Runs on every push (so a human editing the site redeploys it immediately)
+# and can be run manually. Live URL:
 #   https://mervsk30-cpu.github.io/equinet-seo-content-audit-3/
+#
+# IMPORTANT: the weekly-gsc-refresh.yml and discover-courses.yml workflows
+# commit and push their own results using the default GITHUB_TOKEN. GitHub
+# deliberately does NOT let a GITHUB_TOKEN-authored push trigger other
+# workflows' `on: push` handlers (anti-recursion protection), so this
+# workflow would otherwise never redeploy after the weekly data refresh.
+# The `workflow_run` trigger below is the standard workaround: it fires on
+# completion of those workflows regardless of which token pushed the commit.
 #
 # NOTE: this repository is PRIVATE. GitHub Pages for private repositories
 # requires GitHub Pro/Team; on the Free plan Pages only works for public
@@ -19,6 +27,12 @@ on:
     branches:
       - main
       - claude/seo-keyword-ranking-dashboard-dcdn52
+  workflow_run:
+    workflows:
+      - "Weekly GSC refresh"
+      - "Discover course pages"
+    types:
+      - completed
   workflow_dispatch:
 
 permissions:
