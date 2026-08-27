@@ -11,7 +11,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 
-from build_dashboard_data import build_payload, rnd  # noqa: E402
+from build_dashboard_data import build_cannibalisation, build_payload, rnd  # noqa: E402
 from collect_gsc import compute_window, monday_of, normalize_path  # noqa: E402
 
 CONFIG = {
@@ -355,3 +355,96 @@ def test_url_normalization():
     assert normalize_path("https://www.example.com/Course/Alpha") == "/course/alpha/"
     assert normalize_path("/alpha/?utm_source=x#frag") == "/alpha/"
     assert normalize_path("https://example.com") == "/"
+
+
+# ---------------------------------------------------------------- cannibalisation
+
+
+def test_cannibalisation_ignores_single_page_and_low_impression_queries():
+    week = snap("2026-08-17", [
+        row("testkw solo", 3.0, page="https://www.example.com/course/alpha/",
+            clicks=0, impressions=400),
+        # two pages, but the query barely registers - below MIN_CANNIBAL_IMPRESSIONS
+        row("testkw tiny", 4.0, page="https://www.example.com/course/alpha/",
+            clicks=0, impressions=3),
+        row("testkw tiny", 9.0, page="https://www.example.com/course/beta/",
+            clicks=0, impressions=2),
+    ])
+    c = build_cannibalisation([week], {"alpha": "Alpha Course"})
+    assert [g["query"] for g in c["groups"]] == []
+
+
+def test_cannibalisation_owner_is_the_page_with_most_impressions_not_best_position():
+    """A 1-impression URL variant at #1 must not be mistaken for the page
+    doing the work. That miscount would inflate trailing impressions and
+    point the team at the wrong URL to consolidate."""
+    week = snap("2026-08-17", [
+        # trailing-slash variant: perfect position, negligible reach
+        row("testkw split", 1.0, page="https://www.example.com/course/alpha",
+            clicks=0, impressions=1),
+        row("testkw split", 8.0, page="https://www.example.com/course/alpha/",
+            clicks=2, impressions=180),
+        row("testkw split", 40.0, page="https://www.example.com/course/beta/",
+            clicks=0, impressions=20),
+    ])
+    c = build_cannibalisation([week], {"alpha": "Alpha Course"})
+    g = c["groups"][0]
+
+    assert g["primary_page"] == "https://www.example.com/course/alpha/"
+    assert g["page_count"] == 3
+    assert g["impressions"] == 201
+    assert g["clicks"] == 2
+    assert g["trailing_impressions"] == 21          # 1 + 20, not 201 - 1
+    assert g["best_position"] == 1.0                # still reported, just not the owner
+    assert [e["primary"] for e in g["pages"]] == [False, True, False]  # sorted by position
+
+
+def test_cannibalisation_counts_weeks_seen_and_sorts_by_trailing_impressions():
+    def wk(d, extra):
+        return snap(d, [
+            row("testkw persistent", 5.0, page="https://www.example.com/course/alpha/",
+                clicks=0, impressions=100),
+            row("testkw persistent", 30.0, page="https://www.example.com/course/beta/",
+                clicks=0, impressions=90),
+        ] + extra)
+
+    weeks = [
+        wk("2026-08-03", []),
+        wk("2026-08-10", []),
+        wk("2026-08-17", [
+            # split for the first time this week, and splits less badly
+            row("testkw onceoff", 6.0, page="https://www.example.com/course/gamma/",
+                clicks=0, impressions=60),
+            row("testkw onceoff", 20.0, page="https://www.example.com/course/delta/",
+                clicks=0, impressions=15),
+        ]),
+    ]
+    c = build_cannibalisation(weeks, {})
+    by_query = {g["query"]: g for g in c["groups"]}
+
+    assert c["weeks_considered"] == 3
+    assert by_query["testkw persistent"]["weeks_seen"] == 3
+    assert by_query["testkw onceoff"]["weeks_seen"] == 1
+    # worst offender first, so the view opens on what is worth fixing
+    assert [g["query"] for g in c["groups"]] == ["testkw persistent", "testkw onceoff"]
+    assert c["trailing_impressions"] == 90 + 15
+
+
+def test_cannibalisation_never_infers_a_click():
+    """Trailing impressions describe where impressions went. They must never
+    be presented as clicks, and the click total must stay the real sum."""
+    week = snap("2026-08-17", [
+        row("testkw split", 2.0, page="https://www.example.com/course/alpha/",
+            clicks=0, impressions=150),
+        row("testkw split", 60.0, page="https://www.example.com/course/beta/",
+            clicks=0, impressions=40),
+    ])
+    g = build_cannibalisation([week], {})["groups"][0]
+    assert g["clicks"] == 0
+    assert g["trailing_impressions"] == 40
+    assert "estimated_clicks" not in g and "lost_clicks" not in g
+
+
+def test_cannibalisation_handles_no_snapshots():
+    c = build_cannibalisation([], {})
+    assert c["groups"] == [] and c["queries"] == 0

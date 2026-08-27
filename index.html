@@ -174,6 +174,27 @@
   .empty { padding: 26px; text-align: center; color: var(--ink-2); font-size: 13.5px; }
   .note { color: var(--muted); font-size: 12px; margin: 10px 2px; }
   .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; margin-bottom: 20px; }
+  /* cannibalisation view */
+  .cgroup { background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+            padding: 11px 13px; margin: 0 0 10px; }
+  .cgroup .chead { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; margin-bottom: 8px; }
+  .cgroup .cq { font-weight: 650; font-size: 13.5px; }
+  .cgroup .cstat { font-size: 12px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .cgroup .cstat b { color: var(--ink); font-weight: 650; }
+  .cgroup table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 12.5px; }
+  .cgroup th { text-align: left; font-weight: 600; color: var(--ink-2); font-size: 11px;
+               text-transform: uppercase; letter-spacing: .04em; padding: 2px 8px 4px 0; }
+  .cgroup td { padding: 3px 8px 3px 0; border-top: 1px solid var(--border); vertical-align: top; }
+  .cgroup td.num, .cgroup th.num { text-align: right; font-variant-numeric: tabular-nums;
+                                  padding-right: 14px; white-space: nowrap; }
+  .cgroup td:last-child, .cgroup th:last-child { padding-right: 0; }
+  .cgroup th:first-child, .cgroup td:first-child { width: 1%; }
+  .cgroup tr.owner td { background: var(--good-bg); }
+  .cgroup .own { font-size: 10.5px; font-weight: 700; color: var(--st-good); letter-spacing: .04em; }
+  .cgroup .cpath { color: var(--series-1); text-decoration: none; word-break: break-all; }
+  .cgroup .cpath:hover { text-decoration: underline; }
+  .cnote { font-size: 12.5px; color: var(--ink-2); margin: 0 0 12px; max-width: 78ch; line-height: 1.5; }
+  .cnote b { color: var(--ink); }
   .ccard { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 11px 13px; cursor: pointer; }
   .ccard:hover { outline: 2px solid var(--series-1); outline-offset: -1px; }
   .ccard .nm { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
@@ -745,10 +766,11 @@
       "</div></td></tr>";
   }
 
-  function pagerHtml(totalRows, page, totalPages) {
+  function pagerHtml(totalRows, page, totalPages, pageSize) {
     if (totalPages <= 1) return "";
-    const start = totalRows === 0 ? 0 : (page - 1) * PAGE_SIZE + 1;
-    const end = Math.min(page * PAGE_SIZE, totalRows);
+    const size = pageSize || PAGE_SIZE;
+    const start = totalRows === 0 ? 0 : (page - 1) * size + 1;
+    const end = Math.min(page * size, totalRows);
     return '<div class="pager">' +
       '<button class="ghost pager-prev"' + (page <= 1 ? " disabled" : "") + '>← Prev</button>' +
       '<span class="pager-info">Showing ' + fmtInt(start) + '–' + fmtInt(end) + ' of ' + fmtInt(totalRows) + ' · Page ' + page + ' of ' + totalPages + '</span>' +
@@ -893,6 +915,73 @@
         : "");
   }
 
+  /* ---------- cannibalisation view ---------- */
+  // Search Console counts an impression per URL per search, but only one of
+  // them can be clicked. Where several of our own pages rank for one query,
+  // impressions multiply while clicks cannot - which is a large part of why
+  // healthy impression counts sit next to zero clicks elsewhere in this
+  // dashboard. Nothing here is modelled: every number is a Search Console row.
+  const CANNIB_PAGE_SIZE = 25;
+
+  function cannibGroups() {
+    const c = D.cannibalisation;
+    if (!c || !c.groups) return [];
+    if (!state.q) return c.groups;
+    return c.groups.filter(g =>
+      g.query.includes(state.q) || g.pages.some(e => e.page.toLowerCase().includes(state.q)));
+  }
+
+  function cannibHtml() {
+    const c = D.cannibalisation;
+    if (!c || !c.groups || !c.groups.length) {
+      return '<p class="cnote">No query currently has more than one tracked page ranking for it. ' +
+        "Nothing to consolidate.</p>";
+    }
+    const all = cannibGroups();
+    const totalPages = Math.max(1, Math.ceil(all.length / CANNIB_PAGE_SIZE));
+    if (state.page > totalPages) state.page = totalPages;
+    if (state.page < 1) state.page = 1;
+    const shown = all.slice((state.page - 1) * CANNIB_PAGE_SIZE, state.page * CANNIB_PAGE_SIZE);
+
+    let html = '<p class="cnote">Search Console counts an impression for <b>every</b> one of your ' +
+      "URLs that appears for a search, but the searcher can only click one of them. Where several " +
+      "of your course pages rank for the same query, impressions multiply while clicks cannot — " +
+      "which is a large part of why impressions sit next to zero clicks elsewhere in this dashboard. " +
+      "The page with the most impressions is marked <b>OWNS</b>; the impressions going to the other " +
+      "pages are counted as <b>trailing</b>. Trailing impressions are not lost clicks — they are a " +
+      "measure of how far a query is split across your pages. Every figure is a Search Console row " +
+      "from the week of " + esc(D.last_updated ? D.last_updated.display : "—") + ".</p>";
+
+    html += shown.map(g => {
+      const rows = g.pages.map(e =>
+        '<tr' + (e.primary ? ' class="owner"' : "") + ">" +
+        '<td class="num">#' + rnd(e.position) + "</td>" +
+        "<td>" + (e.primary ? '<span class="own">OWNS</span> ' : "") +
+          '<a class="cpath" href="' + esc(e.page) + '" target="_blank" rel="noopener">' +
+          esc(pagePath(e.page)) + "</a></td>" +
+        "<td>" + esc(e.course_name) + "</td>" +
+        '<td class="num">' + fmtInt(e.impressions) + "</td>" +
+        '<td class="num">' + (e.clicks ? fmtInt(e.clicks) : '<span class="blank">0</span>') + "</td>" +
+        "</tr>").join("");
+      return '<div class="cgroup"><div class="chead">' +
+        '<span class="cq">' + esc(g.query) + "</span>" +
+        '<span class="cstat"><b>' + g.page_count + "</b> pages</span>" +
+        '<span class="cstat"><b>' + fmtInt(g.impressions) + "</b> impressions</span>" +
+        '<span class="cstat"><b>' + fmtInt(g.clicks) + "</b> click" + (g.clicks === 1 ? "" : "s") + "</span>" +
+        '<span class="cstat" title="Impressions going to pages other than the one that owns the query">' +
+          "<b>" + fmtInt(g.trailing_impressions) + "</b> trailing</span>" +
+        '<span class="cstat" title="How many of the ' + c.weeks_considered +
+          ' recorded weeks show this query split across 2+ pages"><b>' + g.weeks_seen + "/" +
+          c.weeks_considered + "</b> weeks</span>" +
+        "</div>" +
+        '<table><thead><tr><th class="num">Pos</th><th>Page</th><th>Course</th>' +
+        '<th class="num">Impr.</th><th class="num">Clicks</th></tr></thead><tbody>' +
+        rows + "</tbody></table></div>";
+    }).join("");
+
+    return html + pagerHtml(all.length, state.page, totalPages, CANNIB_PAGE_SIZE);
+  }
+
   /* ---------- render ---------- */
   function render() {
     const course = currentCourse();
@@ -906,10 +995,19 @@
     html += tilesHtml(t);
 
     const showTable = state.view === "course" || state.view === "tile";
+    const cannib = D.cannibalisation;
     html += '<div class="controls"><label for="courseSel">Course</label> ' +
       '<select id="courseSel"><option value="">All courses — overview</option>' +
       D.courses.map(c => '<option value="' + esc(c.code) + '"' + (state.view === "course" && state.course === c.code ? " selected" : "") + ">" +
         esc(c.name) + "</option>").join("") + "</select>";
+    if (cannib && cannib.queries) {
+      html += '<button class="ghost" id="cannibBtn" aria-pressed="' + (state.view === "cannib") + '" ' +
+        'title="Queries where more than one of your course pages ranks at the same time">' +
+        "⚠ Cannibalisation (" + fmtInt(cannib.queries) + ")</button>";
+    }
+    if (state.view === "cannib") {
+      html += '<input type="search" id="kwSearch" placeholder="Search queries or pages…" value="' + esc(state.q) + '">';
+    }
     if (showTable) {
       html += '<label for="typeSel">Type</label> <select id="typeSel">' +
         '<option value="all">All types</option>' +
@@ -927,6 +1025,14 @@
         fmtInt(new Set(filteredRows().map(r => r.courseCode)).size) + " courses</span>" +
         '<button class="ghost" id="backBtn">← Back to overview</button></div>';
       html += tableHtml();
+    } else if (state.view === "cannib") {
+      const c = D.cannibalisation;
+      html += '<div class="course-head"><h2>Keyword cannibalisation</h2>' +
+        '<span class="sub">' + fmtInt(c.queries) + " quer" + (c.queries === 1 ? "y" : "ies") +
+        " with 2+ tracked pages ranking · " + fmtInt(c.trailing_impressions) +
+        " trailing impressions of " + fmtInt(c.impressions) + "</span>" +
+        '<button class="ghost" id="backBtn">← Back to overview</button></div>';
+      html += cannibHtml();
     } else if (state.view === "course" && course) {
       html += '<div class="course-head"><h2>' + esc(course.name) + "</h2>" +
         '<a href="' + esc(course.url) + '" target="_blank" rel="noopener">' + esc(course.url) + "</a></div>";
@@ -982,6 +1088,23 @@
         state.sortBy = null; state.sortDesc = false; state.page = 1;
         render();
       };
+    }
+    const cannibBtn = document.getElementById("cannibBtn");
+    if (cannibBtn) cannibBtn.onclick = () => {
+      state.view = state.view === "cannib" ? "overview" : "cannib";
+      state.course = null; state.tile = null; state.q = ""; state.page = 1;
+      render();
+    };
+    if (state.view === "cannib") {
+      const cs = document.getElementById("kwSearch");
+      if (cs) cs.oninput = () => { state.q = cs.value.trim().toLowerCase(); state.page = 1; render(); };
+      for (const btn of app.querySelectorAll(".pager-prev")) {
+        btn.onclick = () => { state.page -= 1; render(); };
+      }
+      for (const btn of app.querySelectorAll(".pager-next")) {
+        btn.onclick = () => { state.page += 1; render(); };
+      }
+      return;
     }
     if (state.view !== "course" && state.view !== "tile") return;
     const typeSel = document.getElementById("typeSel");

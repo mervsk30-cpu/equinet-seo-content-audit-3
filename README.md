@@ -44,6 +44,27 @@ When Ahrefs reports a keyword ranking on a *different* page than the course
 you're viewing, the Ahrefs Rank cell shows a **↗ other page** flag — a useful
 cannibalisation signal rather than a hidden mismatch.
 
+## Cannibalisation view
+
+The **⚠ Cannibalisation** button lists every query where two or more of your
+course pages rank at the same time. Search Console counts an impression for
+*every* URL of yours that appears for a search, but a searcher can only click
+one of them — so when several pages surface for one query, impressions multiply
+while clicks cannot. That is a large part of why healthy impression counts sit
+next to zero clicks elsewhere in the dashboard.
+
+Each group shows every competing page with its position, impressions and
+clicks. The page carrying the **most impressions** is marked `OWNS` — position
+alone is a bad owner test, because a trailing-slash URL variant can sit at #1
+on a single impression while the page doing the real work ranks #8 on two
+hundred. Impressions on the other pages are counted as **trailing**.
+
+Trailing impressions are *not* lost clicks and are never presented as such —
+they measure how far a query is split across your pages. `weeks_seen` counts
+how many recorded weeks show the same split, so a persistent structural problem
+is distinguishable from one noisy week. Groups under
+`MIN_CANNIBAL_IMPRESSIONS` (10) total impressions are left out as noise.
+
 ## Data policy — no fabricated numbers, ever
 
 - Every ranking, impression, click and CTR figure comes from the Google Search

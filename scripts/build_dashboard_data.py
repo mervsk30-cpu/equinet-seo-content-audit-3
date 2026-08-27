@@ -45,6 +45,7 @@ OUT_JSON = ROOT / "data" / "dashboard-data.json"
 HISTORY_WEEKS = 26
 STALE_AFTER_DAYS = 8  # a weekly cadence means anything older than this is stale
 MIN_DISCOVERED_IMPRESSIONS = 5  # see discovered_totals below
+MIN_CANNIBAL_IMPRESSIONS = 10   # see build_cannibalisation below
 
 STATUS_ORDER = [
     "dropped", "lost", "improved", "newly_ranking", "stable", "no_baseline",
@@ -210,6 +211,98 @@ def status_for(cur, prev, has_prev_snapshot: bool, ever_ranked_before: bool,
     if ahrefs_checked:
         return "not_ranking"
     return "not_checked"
+
+
+def build_cannibalisation(snapshots: list[dict], course_names: dict[str, str]) -> dict:
+    """Queries where two or more tracked pages rank at the same time.
+
+    Search Console counts an impression per URL per search, but a searcher can
+    only click one of them. So when several of our own pages surface for one
+    query, impressions multiply while clicks cannot - which is a large part of
+    why this dashboard shows healthy impressions next to zero clicks.
+
+    The page carrying the MOST impressions is treated as the one that already
+    owns the query (ties broken by best position - the same "dominant page"
+    rule used elsewhere in this file). Position alone is a poor owner test: a
+    URL variant can sit at #1 on a single impression while the page doing the
+    real work ranks #8 on two hundred. Impressions on the non-owning pages are
+    reported as `trailing_impressions` - a description of where the impressions
+    went, not an estimate of clicks that were lost. No click is ever inferred.
+
+    `weeks_seen` counts how many of the recorded weeks show the same query
+    split across 2+ pages, so a persistent structural problem is
+    distinguishable from one noisy week.
+    """
+    if not snapshots:
+        return {"weeks_considered": 0, "queries": 0, "groups": []}
+
+    def split_by_query(snap: dict) -> dict[str, list[dict]]:
+        out: dict[str, list[dict]] = {}
+        for r in snap.get("rows", []):
+            if r["device"] != "all" or r.get("position") is None:
+                continue
+            out.setdefault(r["query"], []).append(r)
+        return out
+
+    # how many recorded weeks each query was split across 2+ pages
+    weeks_seen: dict[str, int] = {}
+    for snap in snapshots:
+        for query, rows in split_by_query(snap).items():
+            if len({r["page"] for r in rows}) >= 2:
+                weeks_seen[query] = weeks_seen.get(query, 0) + 1
+
+    groups = []
+    for query, rows in split_by_query(snapshots[-1]).items():
+        # one row per distinct URL; the same URL can appear once per course
+        by_page: dict[str, dict] = {}
+        for r in rows:
+            e = by_page.get(r["page"])
+            if e is None:
+                by_page[r["page"]] = {
+                    "page": r["page"],
+                    "course": r["course"],
+                    "course_name": course_names.get(r["course"], r["course"]),
+                    "position": r["position"],
+                    "impressions": r["impressions"],
+                    "clicks": r["clicks"],
+                }
+                continue
+            e["impressions"] += r["impressions"]
+            e["clicks"] += r["clicks"]
+            e["position"] = min(e["position"], r["position"])
+
+        pages = sorted(by_page.values(), key=lambda e: e["position"])
+        impressions = sum(e["impressions"] for e in pages)
+        if len(pages) < 2 or impressions < MIN_CANNIBAL_IMPRESSIONS:
+            continue
+
+        owner = max(pages, key=lambda e: (e["impressions"], -e["position"]))
+        for e in pages:
+            e["primary"] = e is owner
+
+        groups.append({
+            "query": query,
+            "pages": pages,
+            "page_count": len(pages),
+            "impressions": impressions,
+            "clicks": sum(e["clicks"] for e in pages),
+            "primary_page": owner["page"],
+            "primary_position": owner["position"],
+            "best_position": pages[0]["position"],
+            "worst_position": pages[-1]["position"],
+            "trailing_impressions": impressions - owner["impressions"],
+            "weeks_seen": weeks_seen.get(query, 1),
+        })
+
+    groups.sort(key=lambda g: (-g["trailing_impressions"], -g["impressions"], g["query"]))
+    return {
+        "weeks_considered": len(snapshots),
+        "queries": len(groups),
+        "trailing_impressions": sum(g["trailing_impressions"] for g in groups),
+        "impressions": sum(g["impressions"] for g in groups),
+        "min_impressions": MIN_CANNIBAL_IMPRESSIONS,
+        "groups": groups,
+    }
 
 
 def fmt_date_long(d: date) -> str:
@@ -408,6 +501,9 @@ def build_payload(config: dict, snapshots: list[dict], meta: dict, today: date,
             }
             if ahrefs_current
             else None
+        ),
+        "cannibalisation": build_cannibalisation(
+            snapshots, {c["code"]: c["name"] for c in config["courses"]}
         ),
         "courses": courses_out,
     }
