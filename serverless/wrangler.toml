@@ -1,0 +1,43 @@
+name = "equinet-live-rank"
+main = "live-rank-worker.js"
+compatibility_date = "2026-01-01"
+
+# Cache + budget counters live here. Create with:
+#   npx wrangler kv namespace create LIVE_RANK
+# then paste the printed id below.
+[[kv_namespaces]]
+binding = "LIVE_RANK"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+
+[vars]
+# Search settings - these are what make the result comparable to a manual
+# Google search done from Singapore. Change them only if you deliberately want
+# to measure a different market.
+GOOGLE_DOMAIN = "google.com.sg"
+COUNTRY = "sg"
+LANGUAGE = "en"
+LOCATION = "Singapore"
+TARGET_DOMAIN = "equinetacademy.com"
+
+# How deep to look before reporting "not in top N".
+DEPTH = "100"
+
+# COST CONTROLS -------------------------------------------------------------
+# A repeat view of the same keyword inside this window costs nothing.
+# 3600 = 1 hour. Raise it to cut cost, lower it for fresher numbers.
+CACHE_TTL_SECONDS = "3600"
+
+# Hard ceiling on billable searches per UTC day. Once hit, the worker keeps
+# serving cached values (flagged as such) and stops spending. This is the
+# backstop that makes "fetch on open" safe on a public page.
+DAILY_BUDGET = "500"
+
+RATE_LIMIT_PER_MIN = "60"
+MAX_KEYWORDS_PER_REQUEST = "100"
+
+# Lock the endpoint to your dashboard origins (comma separated).
+ALLOWED_ORIGINS = "https://mervsk30-cpu.github.io,https://claude.ai"
+
+# Secrets - set with `npx wrangler secret put NAME`, never in this file:
+#   SERP_API_KEY   (required)  your SerpAPI key
+#   SHARED_TOKEN   (optional)  extra guard; must match live_rank.token in the dashboard config

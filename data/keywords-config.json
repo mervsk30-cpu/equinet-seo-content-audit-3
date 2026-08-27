@@ -7,6 +7,13 @@
     "ahrefs_project_id": 369315,
     "ahrefs_project_note": "Ahrefs Rank Tracker project 'Equinet Academy Courses'. Supplies real SERP positions, search volume and keyword difficulty alongside Search Console's impressions/clicks/average position.",
     "ahrefs_location": "Singapore",
+    "live_rank": {
+      "endpoint": "",
+      "token": "",
+      "auto_fetch_on_open": true,
+      "device": "desktop",
+      "note": "URL of the live-rank Worker (see serverless/README.md). Empty = the Live Google Rank column stays inactive. The dashboard only requests live ranks for rows currently on screen; the Worker caches and enforces a daily budget cap."
+    },
     "country": "sgp",
     "country_note": "ISO-3166-1 alpha-3, lowercase, as required by the GSC API. Set to null to track worldwide positions.",
     "search_type": "web",

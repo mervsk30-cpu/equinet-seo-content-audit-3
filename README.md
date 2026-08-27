@@ -7,18 +7,38 @@ history.
 
 **Open `index.html`** (locally, or via GitHub Pages) to view the dashboard.
 
-## Two real data sources, kept separate
+## Three real data sources, kept separate
 
-| | Google Search Console | Ahrefs Rank Tracker |
-|---|---|---|
-| Position | **Average** position across impressions (a decimal, shown rounded) | **Actual** SERP position from a real search check (a whole number) |
-| Also provides | Impressions, clicks, CTR, desktop/mobile split | Search volume, keyword difficulty, the exact ranking URL |
-| Columns | Current, Previous, Change, Desktop, Mobile, Impr., Clicks, CTR | Ahrefs Rank, Volume, KD |
+| | Google Search Console | Ahrefs Rank Tracker | Live Google Rank |
+|---|---|---|---|
+| What it is | **Average** position across impressions (decimal, shown rounded) | **Actual** SERP position from a scheduled real search | **Actual** SERP position from a search run **right now** |
+| Freshness | 7-day window, 2–3 day lag | Re-checked weekly (Mondays) | The moment you open the page or hit refresh |
+| Also provides | Impressions, clicks, CTR, desktop/mobile | Volume, keyword difficulty, ranking URL | Ranking URL, exact check timestamp |
+| Columns | Current, Previous, Change, Desktop, Mobile, Impr., Clicks, CTR | Ahrefs Rank, Volume, KD | Live Google Rank |
+| Cost | Free | Free (0 API units) | Paid per search — capped, see below |
 
 They measure the same thing differently and are **never averaged or blended** —
-each keeps its own columns. A keyword can legitimately show GSC average 7.3 and
-Ahrefs #1: GSC averages every impression (including ones where the result sat
-lower), while Ahrefs reports where a checked search actually placed the page.
+each keeps its own columns. A keyword can legitimately show GSC average 7.3,
+Ahrefs #2 and Live #1: GSC averages every impression (including ones where the
+result sat lower), Ahrefs reports last Monday's check, and Live is Google right now.
+
+### Live Google Rank
+
+A real Google search, Singapore settings (`google.com.sg`, `gl=sg`, `hl=en`,
+location Singapore, chosen device, personalisation off), so it should line up
+with what you see searching manually. Each cell shows the position, the exact
+time it was checked, and a ↻ button to re-check; the toolbar above the table has
+a device switch and "Re-check visible rows".
+
+**Cost is bounded three ways** — only rows *currently on screen* are requested
+(batched into one call), repeat views inside the cache window are free, and the
+proxy enforces a hard daily ceiling after which it serves cached values instead
+of spending. Setup: [`serverless/README.md`](serverless/README.md).
+
+Two things to know: it reports **organic** position (ads, map packs and AI
+Overviews aren't counted, so your result may sit lower on the page than the
+number implies), and it works on the **GitHub Pages** dashboard, not the
+claude.ai artifact snapshot — that sandbox blocks outbound network calls.
 
 When Ahrefs reports a keyword ranking on a *different* page than the course
 you're viewing, the Ahrefs Rank cell shows a **↗ other page** flag — a useful

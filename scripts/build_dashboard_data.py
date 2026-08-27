@@ -341,6 +341,12 @@ def build_payload(config: dict, snapshots: list[dict], meta: dict, today: date,
         },
         "weeks": [s["run_date"] for s in snapshots],
         "type_order": TYPE_ORDER,
+        # Live Google rank is fetched by the browser from a Worker that holds the
+        # SERP API key; only the public endpoint travels in this payload.
+        "live_rank": {
+            k: v for k, v in (settings.get("live_rank") or {}).items()
+            if k in ("endpoint", "token", "auto_fetch_on_open", "device")
+        },
         "ahrefs": (
             {
                 "source": "Ahrefs Rank Tracker",

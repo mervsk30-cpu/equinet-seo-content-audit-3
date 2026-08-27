@@ -49,6 +49,11 @@ def main() -> None:
     html = (ROOT / "index.html").read_text()
     data = json.loads((ROOT / "data" / "dashboard-data.json").read_text())
 
+    # The claude.ai artifact sandbox blocks outbound network calls, so the live
+    # SERP lookup cannot run here. Disable it explicitly and say why, rather
+    # than letting every cell fail with a network error.
+    data["live_rank"] = {"endpoint": "", "blocked_reason": "artifact_sandbox"}
+
     style = re.search(r"<style>.*?</style>", html, re.S)
     body = re.search(r"<body>\n(.*)\n</body>", html, re.S)
     if not style or not body:

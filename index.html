@@ -85,6 +85,20 @@
   .tile .l { font-size: 12px; color: var(--ink-2); display: flex; align-items: center; gap: 6px; }
   .tile .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
 
+  /* Live Google rank: visually distinct from the stored GSC/Ahrefs columns so
+     nobody confuses a fetched-now number with a weekly one. */
+  .livebar { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center;
+    padding: 8px 10px; margin: 0 0 6px; border: 1px solid var(--border);
+    border-radius: 8px; background: var(--surface); font-size: 12px; color: var(--ink-2); }
+  .livebar label { font-size: 12px; }
+  .livebar select { padding: 3px 7px; font-size: 12px; }
+  .livenote { color: var(--muted); }
+  .livenote.err, .livebar b.err { color: var(--st-critical); }
+  .livenote code { background: var(--neutral-bg); padding: 1px 5px; border-radius: 4px; }
+  .live-pos { color: var(--series-1); }
+  .livespin { color: var(--muted); font-size: 12px; font-style: italic; }
+  .livebtn.refresh { padding: 1px 6px; margin-left: 5px; font-size: 12px; line-height: 1.2; }
+
   tr.typerow td { background: var(--neutral-bg); font-size: 11.5px; font-weight: 700;
     text-transform: uppercase; letter-spacing: .05em; color: var(--ink-2); padding: 6px 10px; }
   tr.typerow td .n { font-weight: 600; color: var(--muted); margin-left: 4px; }
@@ -348,6 +362,160 @@
   const ahDesk = r => (r.ahrefs && r.ahrefs.desktop) || null;
   const ahMob  = r => (r.ahrefs && r.ahrefs.mobile) || null;
 
+  /* ---------- live Google rank ----------
+     A real Google search run right now, through a Worker that holds the SERP
+     API key (a public static page cannot). Only the rows on screen are
+     requested, and the Worker caches + budget-caps, so opening the dashboard
+     cannot run up an unbounded bill. Results are never guessed: a keyword
+     outside the searched depth reports "not in top N".                     */
+  const LIVE_CFG = D.live_rank || {};
+  const liveEnabled = !!(LIVE_CFG.endpoint && String(LIVE_CFG.endpoint).trim());
+  const LIVE = new Map();            // keyword -> {position, url, checked_at, ...}
+  const liveInflight = new Set();    // keywords currently being fetched
+  let liveDevice = LIVE_CFG.device === "mobile" ? "mobile" : "desktop";
+  let liveMeta = null;               // last response envelope (settings, budget)
+  let liveError = null;
+
+  function liveKey(k) { return String(k).toLowerCase().replace(/\s+/g, " ").trim(); }
+
+  async function fetchLive(keywords, opts) {
+    opts = opts || {};
+    if (!liveEnabled) return;
+    const want = [...new Set(keywords.map(liveKey))].filter(k =>
+      k && !liveInflight.has(k) && (opts.force || !LIVE.has(k)));
+    if (!want.length) return;
+    want.forEach(k => liveInflight.add(k));
+    // mark as loading so cells can show a spinner rather than a stale blank
+    renderLiveCells(want, { loading: true });
+    try {
+      const headers = { "Content-Type": "application/json" };
+      if (LIVE_CFG.token) headers["X-Live-Rank-Token"] = LIVE_CFG.token;
+      const resp = await fetch(LIVE_CFG.endpoint, {
+        method: "POST", headers,
+        body: JSON.stringify({ keywords: want, device: liveDevice, force: !!opts.force }),
+      });
+      if (!resp.ok) throw new Error("Live rank service returned " + resp.status);
+      const data = await resp.json();
+      liveMeta = data;
+      liveError = null;
+      for (const [kw, val] of Object.entries(data.results || {})) LIVE.set(liveKey(kw), val);
+    } catch (err) {
+      liveError = String(err.message || err);
+    } finally {
+      want.forEach(k => liveInflight.delete(k));
+      renderLiveCells(want, {});
+      updateLiveStatus();
+    }
+  }
+
+  function fmtClock(iso) {
+    if (!iso) return "";
+    const d = new Date(iso);
+    if (isNaN(d)) return "";
+    const today = new Date();
+    const sameDay = d.toDateString() === today.toDateString();
+    const t = d.toLocaleTimeString("en-SG", { hour: "2-digit", minute: "2-digit", hour12: false });
+    return sameDay ? t : (d.getDate() + " " + MONTHS[d.getMonth()] + " " + t);
+  }
+
+  function liveCellHtml(keyword) {
+    if (LIVE_CFG.blocked_reason === "artifact_sandbox")
+      return '<span class="blank" title="Live checks need outbound network access, which the artifact sandbox blocks. Use the GitHub Pages dashboard.">—</span>';
+    if (!liveEnabled) return '<span class="blank" title="Live rank is not configured — see serverless/README.md">—</span>';
+    const k = liveKey(keyword);
+    if (liveInflight.has(k)) return '<span class="livespin" aria-live="polite">checking…</span>';
+    const v = LIVE.get(k);
+    if (!v) return '<button class="livebtn live-one" data-kw="' + esc(keyword) + '" title="Run a real Google search now">Check</button>';
+    if (v.error) return '<span class="delta down" title="' + esc(v.error) + '">error</span>';
+    const stamp = fmtClock(v.checked_at);
+    const flags = (v.mock ? ' <span class="tag" title="Mock data from the local test proxy — not a real Google result">MOCK</span>' : "") +
+                  (v.stale ? ' <span class="tag" title="Daily live-search budget reached; showing the last cached check">cached</span>' : "");
+    const body = v.position == null
+      ? '<span class="blank" title="Not found within the searched depth">not in top ' + ((liveMeta && liveMeta.settings && liveMeta.settings.depth) || 100) + "</span>"
+      : '<span class="pos live-pos">#' + v.position + "</span>";
+    return '<span class="devcell">' + body + flags +
+      '<button class="livebtn live-one refresh" data-kw="' + esc(keyword) + '" title="Re-check this keyword on Google now">↻</button>' +
+      (stamp ? '<div class="tag">' + esc(stamp) + "</div>" : "") + "</span>";
+  }
+
+  // Repaint only the live cells that changed - avoids re-rendering the table.
+  function renderLiveCells(keywords, opts) {
+    const set = new Set(keywords.map(liveKey));
+    for (const td of app.querySelectorAll("td[data-live-kw]")) {
+      const k = liveKey(td.dataset.liveKw);
+      if (!set.has(k)) continue;
+      td.innerHTML = liveCellHtml(td.dataset.liveKw);
+    }
+    wireLiveButtons();
+  }
+
+  function updateLiveStatus() {
+    const el = document.getElementById("liveStatus");
+    if (!el) return;
+    el.innerHTML = liveStatusHtml();
+    const btn = document.getElementById("liveRefreshAll");
+    if (btn) btn.onclick = () => {
+      const rows = visibleKeywords();
+      fetchLive(rows, { force: true });
+    };
+    const sel = document.getElementById("liveDeviceSel");
+    if (sel) sel.onchange = () => {
+      liveDevice = sel.value;
+      LIVE.clear();                       // positions are device-specific
+      fetchLive(visibleKeywords(), {});
+      render();
+    };
+  }
+
+  function liveStatusHtml() {
+    if (LIVE_CFG.blocked_reason === "artifact_sandbox") {
+      return '<span class="livenote">Live Google Rank is unavailable on this published snapshot — the ' +
+        "claude.ai artifact sandbox blocks outbound network calls. Open the GitHub Pages dashboard " +
+        "for live checks; the Search Console and Ahrefs columns here are unaffected.</span>";
+    }
+    if (!liveEnabled) {
+      return '<span class="livenote">Live Google Rank inactive — deploy the rank proxy and set ' +
+        '<code>live_rank.endpoint</code> (see serverless/README.md).</span>';
+    }
+    let s = '<label for="liveDeviceSel">Live device</label> <select id="liveDeviceSel">' +
+      '<option value="desktop"' + (liveDevice === "desktop" ? " selected" : "") + ">Desktop</option>" +
+      '<option value="mobile"' + (liveDevice === "mobile" ? " selected" : "") + ">Mobile</option></select> " +
+      '<button class="ghost" id="liveRefreshAll">↻ Re-check visible rows</button>';
+    if (liveError) {
+      s += '<span class="livenote err">Live check failed: ' + esc(liveError) + "</span>";
+    } else if (liveMeta) {
+      const st = liveMeta.settings || {};
+      s += '<span class="livenote">' +
+        (liveMeta.mock ? "<b>MOCK proxy</b> — not real Google data · " : "") +
+        "Google " + esc(st.google_domain || "") + " · " + esc(st.location || "") +
+        " · " + esc(st.language || "") + " · " + esc(liveDevice) +
+        (liveMeta.budget ? " · budget " + liveMeta.budget.used + "/" + liveMeta.budget.limit + " today" : "") +
+        (liveMeta.budget && liveMeta.budget.exceeded ? ' <b class="err">daily budget reached — showing cached</b>' : "") +
+        "</span>";
+    }
+    return s;
+  }
+
+  function visibleKeywords() {
+    return [...app.querySelectorAll("td[data-live-kw]")].map(td => td.dataset.liveKw);
+  }
+
+  function wireLiveButtons() {
+    for (const btn of app.querySelectorAll(".live-one")) {
+      btn.onclick = ev => {
+        ev.stopPropagation();
+        fetchLive([btn.dataset.kw], { force: btn.classList.contains("refresh") });
+      };
+    }
+  }
+
+  // Fetch live ranks for whatever is on screen, once the table is in the DOM.
+  function autoFetchVisible() {
+    if (!liveEnabled || LIVE_CFG.auto_fetch_on_open === false) return;
+    const kws = visibleKeywords();
+    if (kws.length) fetchLive(kws, {});
+  }
+
   const COLS = [
     { id: "course",   label: "Course",        sort: r => r.courseName || "", crossOnly: true },
     { id: "keyword",  label: "Keyword",       sort: r => r.keyword },
@@ -356,6 +524,7 @@
     { id: "current",  label: "Current",       num: true, sort: r => r.current ? rnd(r.current.position) : 9999 },
     { id: "previous", label: "Previous",      num: true, sort: r => r.previous ? rnd(r.previous.position) : 9999 },
     { id: "change",   label: "Change",        num: true, sort: r => r.change === null ? -9999 : r.change, desc: true },
+    { id: "live",     label: "Live Google Rank", num: true, sort: r => { const l = LIVE.get(r.keyword); return l && l.position != null ? l.position : 9999; } },
     { id: "ahrefs",   label: "Ahrefs Rank",   num: true, sort: r => { const d = ahDesk(r); return d && d.position != null ? d.position : 9999; } },
     { id: "volume",   label: "Volume",        num: true, sort: r => (r.ahrefs && r.ahrefs.volume != null) ? r.ahrefs.volume : -1, desc: true },
     { id: "kd",       label: "KD",            num: true, sort: r => (r.ahrefs && r.ahrefs.difficulty != null) ? r.ahrefs.difficulty : -1, desc: true },
@@ -586,6 +755,7 @@
         '<td class="num">' + posHtml(cur ? cur.position : null) + "</td>" +
         '<td class="num">' + posHtml(prev ? prev.position : null) + "</td>" +
         '<td class="num">' + deltaHtml(r.change) + "</td>" +
+        '<td class="num" data-live-kw="' + esc(r.keyword) + '">' + liveCellHtml(r.keyword) + "</td>" +
         '<td class="num">' + ahrefsHtml(r) + "</td>" +
         '<td class="num">' + (ah.volume != null ? fmtInt(ah.volume) : '<span class="blank">—</span>') + "</td>" +
         '<td class="num">' + (ah.difficulty != null ? ah.difficulty : '<span class="blank">—</span>') + "</td>" +
@@ -602,12 +772,14 @@
     }).join("");
 
     return '<div class="table-section">' +
+      '<div class="livebar" id="liveStatus">' + liveStatusHtml() + "</div>" +
       pagerHtml(rowsAll.length, state.page, totalPages) +
       '<div class="tablewrap"><table><thead><tr>' + head + "</tr></thead><tbody>" +
       (body || '<tr><td colspan="' + cols.length + '"><div class="empty">No keywords match the current filters.</div></td></tr>') +
       "</tbody></table></div>" +
       pagerHtml(rowsAll.length, state.page, totalPages) +
-      '<p class="note"><b>Current / Previous / Change / Desktop / Mobile / Impr. / Clicks / CTR</b> come from Google Search Console ' +
+      '<p class="note"><b>Live Google Rank</b> is a real Google search run at the moment shown, using Singapore settings (organic results only — ads, map packs and AI overviews are not counted, so your result may sit lower on the page than the number suggests). ' +
+      '<b>Current / Previous / Change / Desktop / Mobile / Impr. / Clicks / CTR</b> come from Google Search Console ' +
       "(average position across impressions, shown as whole numbers). " +
       "<b>Ahrefs Rank / Volume / KD</b> come from Ahrefs Rank Tracker" +
       (D.ahrefs ? " (" + esc(D.ahrefs.location) + ", checked " + esc(D.ahrefs.display) + ")" : "") +
@@ -791,6 +963,9 @@
     for (const btn of app.querySelectorAll(".pager-next")) {
       btn.onclick = () => { state.page += 1; rerenderTable(); };
     }
+    wireLiveButtons();
+    updateLiveStatus();
+    autoFetchVisible();
   }
 
   render();
