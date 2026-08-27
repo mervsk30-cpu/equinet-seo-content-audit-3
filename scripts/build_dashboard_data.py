@@ -30,6 +30,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG_PATH = ROOT / "data" / "keywords-config.json"
 SNAPSHOT_DIR = ROOT / "data" / "snapshots"
+AHREFS_SNAPSHOT_DIR = ROOT / "data" / "ahrefs-snapshots"
 META_PATH = ROOT / "data" / "meta.json"
 OUT_JS = ROOT / "data" / "dashboard-data.js"
 OUT_JSON = ROOT / "data" / "dashboard-data.json"
@@ -41,6 +42,10 @@ MIN_DISCOVERED_IMPRESSIONS = 5  # see discovered_totals below
 STATUS_ORDER = [
     "dropped", "lost", "improved", "newly_ranking", "stable", "no_baseline", "no_ranking_data",
 ]
+
+# Display order for keyword types. The UI groups by this order and skips any
+# type with no keywords for the selected course.
+TYPE_ORDER = ["primary", "secondary", "supporting", "discovered"]
 
 
 def rnd(pos: float | None) -> int | None:
@@ -57,6 +62,58 @@ def load_snapshots(snapshot_dir: Path) -> list[dict]:
             snaps.append(json.loads(path.read_text()))
     snaps.sort(key=lambda s: s["run_date"])
     return snaps
+
+
+def load_ahrefs_snapshots(snapshot_dir: Path) -> list[dict]:
+    snaps = []
+    for path in sorted(snapshot_dir.glob("ahrefs-*.json")):
+        if re.fullmatch(r"ahrefs-\d{4}-\d{2}-\d{2}\.json", path.name):
+            snaps.append(json.loads(path.read_text()))
+    snaps.sort(key=lambda s: s["run_date"])
+    return snaps
+
+
+def index_ahrefs(snap: dict) -> dict:
+    """(keyword, device) -> Ahrefs Rank Tracker row."""
+    out: dict[tuple, dict] = {}
+    for row in snap.get("rows", []):
+        out[(row["keyword"], row["device"])] = row
+    return out
+
+
+def ahrefs_cell(idx: dict, keyword: str, course_code: str) -> dict | None:
+    """Ahrefs view of one keyword: real SERP position, volume, difficulty.
+
+    Kept in its own field, never merged into the Search Console numbers -
+    GSC reports an average position across impressions, Ahrefs reports the
+    position an actual SERP check returned. Both are real; they are simply
+    different measurements.
+    """
+    desktop = idx.get((keyword, "desktop"))
+    mobile = idx.get((keyword, "mobile"))
+    if desktop is None and mobile is None:
+        return None
+    primary = desktop or mobile
+    cell: dict = {
+        "volume": primary.get("volume"),
+        "difficulty": primary.get("keyword_difficulty"),
+        "url": primary.get("url"),
+        # Ahrefs reports where the site actually ranks for this keyword. If that
+        # is not this course's page, the keyword is being served by other
+        # content - useful signal, so surface it rather than hiding it.
+        "on_this_course": primary.get("course") == course_code,
+        "ranking_course": primary.get("course"),
+    }
+    for label, row in (("desktop", desktop), ("mobile", mobile)):
+        if row is None:
+            continue
+        cur, prev = row.get("position"), row.get("position_prev")
+        entry = {"position": cur, "previous": prev}
+        if cur is not None and prev is not None:
+            # dashboard convention: positive = improved (moved up the SERP)
+            entry["change"] = prev - cur
+        cell[label] = entry
+    return cell
 
 
 def index_snapshot(snap: dict) -> dict:
@@ -128,7 +185,8 @@ def fmt_date_long(d: date) -> str:
     return d.strftime("%A, %d %b %Y")
 
 
-def build_payload(config: dict, snapshots: list[dict], meta: dict, today: date) -> dict:
+def build_payload(config: dict, snapshots: list[dict], meta: dict, today: date,
+                  ahrefs_snapshots: list[dict] | None = None) -> dict:
     settings = config["settings"]
 
     # last week each (course, query) ranked, over the FULL snapshot list, so a
@@ -146,6 +204,10 @@ def build_payload(config: dict, snapshots: list[dict], meta: dict, today: date) 
     idx_cur = index_snapshot(current) if current else {}
     idx_prev = index_snapshot(previous) if previous else {}
     all_indexes = [(s["run_date"], index_snapshot(s)) for s in snapshots]
+
+    ahrefs_snapshots = ahrefs_snapshots or []
+    ahrefs_current = ahrefs_snapshots[-1] if ahrefs_snapshots else None
+    ahrefs_idx = index_ahrefs(ahrefs_current) if ahrefs_current else {}
 
     # ---- global state -------------------------------------------------
     error = meta.get("last_error") if meta.get("last_run_status") == "error" else None
@@ -224,13 +286,26 @@ def build_payload(config: dict, snapshots: list[dict], meta: dict, today: date) 
                 row["lost_since"] = last_ranked
             if conf and conf.get("mapping_review"):
                 row["mapping_review"] = True
+            ah = ahrefs_cell(ahrefs_idx, kw, code) if ahrefs_idx else None
+            if ah:
+                row["ahrefs"] = ah
             rows.append(row)
+
+        # Primary > Secondary > Supporting > Discovered, then best position first.
+        rows.sort(key=lambda r: (
+            TYPE_ORDER.index(r["type"]) if r["type"] in TYPE_ORDER else len(TYPE_ORDER),
+            rnd(r["current"]["position"]) if r["current"] else 10_000,
+            r["keyword"],
+        ))
 
         summary = {s: 0 for s in STATUS_ORDER}
         for r in rows:
             summary[r["status"]] += 1
         summary["ranking"] = sum(1 for r in rows if r["current"] is not None)
         summary["total"] = len(rows)
+        # per-type counts drive the UI's type sections (empty types are skipped)
+        summary["by_type"] = {t: sum(1 for r in rows if r["type"] == t) for t in TYPE_ORDER}
+        summary["with_ahrefs"] = sum(1 for r in rows if r.get("ahrefs"))
 
         courses_out.append({
             "code": code,
@@ -265,6 +340,28 @@ def build_payload(config: dict, snapshots: list[dict], meta: dict, today: date) 
             "display": fmt_date_long(next_refresh),
         },
         "weeks": [s["run_date"] for s in snapshots],
+        "type_order": TYPE_ORDER,
+        "ahrefs": (
+            {
+                "source": "Ahrefs Rank Tracker",
+                "project_id": ahrefs_current.get("project_id"),
+                "location": ahrefs_current.get("location"),
+                "run_date": ahrefs_current["run_date"],
+                "display": fmt_date_long(date.fromisoformat(ahrefs_current["run_date"])),
+                "compared_to": ahrefs_current.get("compared_to"),
+                "collected_at": ahrefs_current.get("collected_at"),
+                "row_count": ahrefs_current.get("row_count"),
+                "note": (
+                    "Ahrefs reports the actual SERP position from a real search check "
+                    "(a whole number), plus search volume and keyword difficulty. Search "
+                    "Console reports average position across impressions, plus impressions, "
+                    "clicks and CTR. Both are real measurements and are shown side by side, "
+                    "never averaged together."
+                ),
+            }
+            if ahrefs_current
+            else None
+        ),
         "courses": courses_out,
     }
     return payload
@@ -274,7 +371,9 @@ def main() -> None:
     config = json.loads(CONFIG_PATH.read_text())
     meta = json.loads(META_PATH.read_text()) if META_PATH.exists() else {}
     snapshots = load_snapshots(SNAPSHOT_DIR)
-    payload = build_payload(config, snapshots, meta, datetime.now(timezone.utc).date())
+    ahrefs_snapshots = load_ahrefs_snapshots(AHREFS_SNAPSHOT_DIR)
+    payload = build_payload(config, snapshots, meta, datetime.now(timezone.utc).date(),
+                            ahrefs_snapshots=ahrefs_snapshots)
 
     body = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
     OUT_JS.write_text("window.DASHBOARD_DATA = " + body + ";\n")

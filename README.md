@@ -7,6 +7,23 @@ history.
 
 **Open `index.html`** (locally, or via GitHub Pages) to view the dashboard.
 
+## Two real data sources, kept separate
+
+| | Google Search Console | Ahrefs Rank Tracker |
+|---|---|---|
+| Position | **Average** position across impressions (a decimal, shown rounded) | **Actual** SERP position from a real search check (a whole number) |
+| Also provides | Impressions, clicks, CTR, desktop/mobile split | Search volume, keyword difficulty, the exact ranking URL |
+| Columns | Current, Previous, Change, Desktop, Mobile, Impr., Clicks, CTR | Ahrefs Rank, Volume, KD |
+
+They measure the same thing differently and are **never averaged or blended** —
+each keeps its own columns. A keyword can legitimately show GSC average 7.3 and
+Ahrefs #1: GSC averages every impression (including ones where the result sat
+lower), while Ahrefs reports where a checked search actually placed the page.
+
+When Ahrefs reports a keyword ranking on a *different* page than the course
+you're viewing, the Ahrefs Rank cell shows a **↗ other page** flag — a useful
+cannibalisation signal rather than a hidden mismatch.
+
 ## Data policy — no fabricated numbers, ever
 
 - Every ranking, impression, click and CTR figure comes from the Google Search
@@ -22,10 +39,12 @@ history.
 
 ```
 GitHub Actions (every Monday 08:15 SGT)
-  └─ scripts/collect_gsc.py      pulls query+page+device rows from the GSC API
-       └─ data/snapshots/gsc-YYYY-MM-DD.json   (immutable weekly snapshot)
+  └─ scripts/collect_gsc.py      query+page+device rows from the GSC API
+       └─ data/snapshots/gsc-YYYY-MM-DD.json          (immutable weekly snapshot)
+  └─ scripts/collect_ahrefs.py   SERP positions + volume/KD from Ahrefs Rank Tracker
+       └─ data/ahrefs-snapshots/ahrefs-YYYY-MM-DD.json (immutable weekly snapshot)
   └─ scripts/build_dashboard_data.py
-       └─ data/dashboard-data.js  (comparisons, statuses, history)
+       └─ data/dashboard-data.js  (comparisons, statuses, history, both sources)
   └─ commit + push
 index.html reads data/dashboard-data.js  →  the dashboard
 ```
@@ -80,6 +99,27 @@ property. This takes ~10 minutes:
    default branch root. The dashboard is a static page; `data/dashboard-data.js`
    keeps it working both on Pages and opened directly from disk.
 
+### Ahrefs Rank Tracker (for the Ahrefs Rank / Volume / KD columns)
+
+Add one more repository secret, **`AHREFS_API_KEY`** — an Ahrefs API key with
+read access to Rank Tracker project `369315` ("Equinet Academy Courses").
+Generate it at *Ahrefs → Account settings → API keys*.
+
+Notes:
+- **Never commit the key.** This repository is public; the key belongs only in
+  GitHub Actions secrets.
+- Rank Tracker calls did **not** consume API units on the current Ahrefs plan,
+  so the weekly pull is effectively free. (The Ahrefs workspace was over its
+  monthly unit limit when this was built and Rank Tracker still worked, while
+  unit-billed endpoints such as Site Explorer were refused.)
+- If the secret is absent the weekly job logs a warning and continues with
+  Search Console data only — the Ahrefs columns simply stay blank. A missing
+  or broken Ahrefs pull never fails the GSC refresh.
+- The API caps responses at 500 rows with no offset parameter, so
+  `scripts/collect_ahrefs.py` paginates by position range and **splits any
+  bucket that comes back full**, which stops coverage silently degrading as the
+  tracked keyword list grows.
+
 ## Configuration
 
 `data/keywords-config.json` is the single editable config:
@@ -87,8 +127,10 @@ property. This takes ~10 minutes:
 - `settings` — GSC property, country filter (`"sgp"` = Singapore positions, the
   market the team tracks; set to `null` for worldwide), refresh window rules.
 - `courses[]` — every course landing page (name, URL, legacy URL aliases) with
-  its keywords. Keyword `type` is `primary` / `secondary` / `related`
-  (see rules below). Queries found in GSC that aren't configured are added
+  its keywords. Keyword `type` is `primary` / `secondary` / `supporting`
+  (see rules below); the dashboard groups the table in the fixed order
+  **Primary → Secondary → Supporting → Discovered**, skipping any type a course
+  has none of. Queries found in GSC that aren't configured are added
   automatically as **discovered** — but only once they accumulate 5+ total
   impressions across recorded weeks (`MIN_DISCOVERED_IMPRESSIONS` in
   `scripts/build_dashboard_data.py`). Course pages naturally pick up dozens of
@@ -96,7 +138,7 @@ property. This takes ~10 minutes:
   real opportunities; this threshold is a *display* filter only — every raw
   GSC row stays in `data/snapshots/`, untouched, so lowering the threshold
   later re-surfaces the same real history rather than losing anything.
-  Configured (primary/secondary/related) keywords are always shown regardless
+  Configured (primary/secondary/supporting) keywords are always shown regardless
   of impressions. The dashboard also paginates each course's table at 100 rows
   to keep large courses fast to browse.
 - `unassigned_keywords` — tracked keywords with no current course page
@@ -108,7 +150,7 @@ The initial keyword classification was generated by
 Tracker list (`data/sources/ahrefs-tracked-keywords-2026-08-17.json` —
 keyword text and tags only, no ranking metrics). Rules: bottom-funnel keyword
 with course wording → `primary`; bottom-funnel without → `secondary`;
-top-funnel → `related`. Entries with `mapping_review: true` are mappings worth
+top-funnel → `supporting`. Entries with `mapping_review: true` are mappings worth
 a human check (Web Design → WordPress course, UI/UX → Landing Page Design).
 Course names and URLs were taken from the live site's course catalogue on
 2026-08-17.

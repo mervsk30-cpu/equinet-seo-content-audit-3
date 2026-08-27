@@ -76,10 +76,18 @@
   .banner code { background: var(--neutral-bg); padding: 1px 5px; border-radius: 4px; font-size: 12px; }
 
   .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin: 0 0 18px; }
-  .tile { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; }
-  .tile .v { font-size: 24px; font-weight: 650; }
+  .tile { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px;
+    font: inherit; color: inherit; text-align: left; cursor: pointer; display: block; width: 100%; }
+  .tile:hover { border-color: var(--series-1); background: var(--neutral-bg); }
+  .tile:focus-visible { outline: 2px solid var(--series-1); outline-offset: 2px; }
+  .tile[aria-pressed="true"] { border-color: var(--series-1); box-shadow: inset 0 0 0 1px var(--series-1); }
+  .tile .v { font-size: 24px; font-weight: 650; display: block; }
   .tile .l { font-size: 12px; color: var(--ink-2); display: flex; align-items: center; gap: 6px; }
   .tile .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+
+  tr.typerow td { background: var(--neutral-bg); font-size: 11.5px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .05em; color: var(--ink-2); padding: 6px 10px; }
+  tr.typerow td .n { font-weight: 600; color: var(--muted); margin-left: 4px; }
 
   .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 0 0 12px; }
   .controls label { font-size: 12px; color: var(--ink-2); }
@@ -198,7 +206,17 @@
     no_ranking_data:{ label: "No Ranking Data", cls: "b-nodata",  ic: "–" },
     no_baseline:   { label: "Ranking (first week)", cls: "b-nobase", ic: "·" },
   };
-  const TYPES = { primary: "Primary", secondary: "Secondary", related: "Related", discovered: "Discovered" };
+  const TYPES = {
+    primary:    { label: "Primary",    heading: "Primary Keywords" },
+    secondary:  { label: "Secondary",  heading: "Secondary Keywords" },
+    supporting: { label: "Supporting", heading: "Supporting Keywords" },
+    discovered: { label: "Discovered", heading: "Discovered Keywords" },
+  };
+  // Fixed display order. Types with no keywords for the selected course are
+  // skipped entirely rather than rendered as an empty section.
+  const TYPE_ORDER = (D.type_order && D.type_order.length)
+    ? D.type_order : ["primary", "secondary", "supporting", "discovered"];
+  const typeLabel = t => (TYPES[t] && TYPES[t].label) || t;
 
   function deltaHtml(change) {
     if (change === null || change === undefined) return '<span class="blank">–</span>';
@@ -278,6 +296,7 @@
     }
     parts.push("<b>Next Refresh:</b> " + esc(D.next_refresh.display));
     parts.push("<b>Source:</b> Google Search Console (" + esc(D.property) + ")");
+    if (D.ahrefs) parts.push("<b>+ Ahrefs Rank Tracker:</b> " + esc(D.ahrefs.display));
     if (D.country) parts.push("<b>Country:</b> " + (D.country === "sgp" ? "Singapore" : esc(D.country.toUpperCase())));
     return parts.join('<span class="sep">·</span>');
   }
@@ -289,16 +308,22 @@
     return t;
   }
   function tilesHtml(t) {
-    const tile = (v, label, color) =>
-      '<div class="tile"><div class="v">' + fmtInt(v) + '</div><div class="l">' +
-      (color ? '<span class="dot" style="background:' + color + '"></span>' : "") + label + "</div></div>";
+    const tile = (id, v) => {
+      const cfg = TILES[id];
+      const active = state.view === "tile" && state.tile === id;
+      return '<button class="tile" data-tile="' + id + '" aria-pressed="' + active + '" ' +
+        'title="Show these keywords across all courses">' +
+        '<span class="v">' + fmtInt(v) + "</span>" +
+        '<span class="l">' + (cfg.color ? '<span class="dot" style="background:' + cfg.color + '"></span>' : "") +
+        cfg.label + "</span></button>";
+    };
     return '<div class="tiles">' +
-      tile(t.total, "Tracked keywords") +
-      tile(t.ranking, "Currently ranking") +
-      tile(t.improved, "Improved", "var(--st-good)") +
-      tile(t.dropped, "Dropped", "var(--st-serious)") +
-      tile(t.newly_ranking, "Newly ranking", "var(--st-good)") +
-      tile(t.lost, "Lost", "var(--st-critical)") +
+      tile("total", t.total) +
+      tile("ranking", t.ranking) +
+      tile("improved", t.improved) +
+      tile("dropped", t.dropped) +
+      tile("newly_ranking", t.newly_ranking) +
+      tile("lost", t.lost) +
       "</div>";
   }
   function courseCardsHtml() {
@@ -320,13 +345,20 @@
   // the rendered rows per page keeps every course fast regardless of size.
   const PAGE_SIZE = 100;
 
+  const ahDesk = r => (r.ahrefs && r.ahrefs.desktop) || null;
+  const ahMob  = r => (r.ahrefs && r.ahrefs.mobile) || null;
+
   const COLS = [
+    { id: "course",   label: "Course",        sort: r => r.courseName || "", crossOnly: true },
     { id: "keyword",  label: "Keyword",       sort: r => r.keyword },
-    { id: "type",     label: "Type",          sort: r => r.type },
+    { id: "type",     label: "Type",          sort: r => TYPE_ORDER.indexOf(r.type) },
     { id: "status",   label: "Status",        sort: r => Object.keys(STATUS).indexOf(r.status) },
     { id: "current",  label: "Current",       num: true, sort: r => r.current ? rnd(r.current.position) : 9999 },
     { id: "previous", label: "Previous",      num: true, sort: r => r.previous ? rnd(r.previous.position) : 9999 },
     { id: "change",   label: "Change",        num: true, sort: r => r.change === null ? -9999 : r.change, desc: true },
+    { id: "ahrefs",   label: "Ahrefs Rank",   num: true, sort: r => { const d = ahDesk(r); return d && d.position != null ? d.position : 9999; } },
+    { id: "volume",   label: "Volume",        num: true, sort: r => (r.ahrefs && r.ahrefs.volume != null) ? r.ahrefs.volume : -1, desc: true },
+    { id: "kd",       label: "KD",            num: true, sort: r => (r.ahrefs && r.ahrefs.difficulty != null) ? r.ahrefs.difficulty : -1, desc: true },
     { id: "desktop",  label: "Desktop",       sort: r => r.desktop && r.desktop.position ? rnd(r.desktop.position) : 9999, num: true },
     { id: "mobile",   label: "Mobile",        sort: r => r.mobile && r.mobile.position ? rnd(r.mobile.position) : 9999, num: true },
     { id: "impr",     label: "Impr.",         num: true, sort: r => r.current ? r.current.impressions : -1, desc: true },
@@ -337,21 +369,75 @@
     { id: "live",     label: "Live",          nosort: true },
   ];
 
-  const state = { course: null, status: "all", type: "all", q: "", sortBy: "current", sortDesc: false, page: 1 };
+  // view: "overview" (course cards) | "course" (one course) | "tile" (all
+  // courses filtered by an overview tile). sortBy null = default grouping,
+  // which is Primary > Secondary > Supporting > Discovered then best position.
+  const state = {
+    view: "overview", course: null, tile: null,
+    status: "all", type: "all", q: "",
+    sortBy: null, sortDesc: false, page: 1,
+  };
 
   function currentCourse() { return D.courses.find(c => c.code === state.course) || null; }
 
-  function filteredRows(course) {
-    let rows = course.keywords;
+  // Tiles map to a predicate over keyword rows, evaluated across every course.
+  const TILES = {
+    total:         { label: "Tracked keywords", match: () => true },
+    ranking:       { label: "Currently ranking", match: r => !!r.current },
+    improved:      { label: "Improved",      match: r => r.status === "improved",      color: "var(--st-good)" },
+    dropped:       { label: "Dropped",       match: r => r.status === "dropped",       color: "var(--st-serious)" },
+    newly_ranking: { label: "Newly ranking", match: r => r.status === "newly_ranking", color: "var(--st-good)" },
+    lost:          { label: "Lost",          match: r => r.status === "lost",          color: "var(--st-critical)" },
+  };
+
+  // Flatten every course's keywords once, tagging each row with its course so
+  // the cross-course tile views can show where a keyword belongs.
+  let _allRows = null;
+  function allRows() {
+    if (_allRows) return _allRows;
+    _allRows = [];
+    for (const c of D.courses) {
+      for (const r of c.keywords) {
+        _allRows.push(Object.assign({}, r, { courseName: c.name, courseCode: c.code, courseUrl: c.url }));
+      }
+    }
+    return _allRows;
+  }
+
+  function isCrossView() { return state.view === "tile"; }
+  function activeCols() { return COLS.filter(c => !c.crossOnly || isCrossView()); }
+
+  function defaultSort(a, b) {
+    const ta = TYPE_ORDER.indexOf(a.type), tb = TYPE_ORDER.indexOf(b.type);
+    if (ta !== tb) return (ta < 0 ? 99 : ta) - (tb < 0 ? 99 : tb);
+    const pa = a.current ? rnd(a.current.position) : 10000;
+    const pb = b.current ? rnd(b.current.position) : 10000;
+    if (pa !== pb) return pa - pb;
+    return a.keyword < b.keyword ? -1 : a.keyword > b.keyword ? 1 : 0;
+  }
+
+  function baseRows() {
+    if (isCrossView()) {
+      const tile = TILES[state.tile] || TILES.total;
+      return allRows().filter(tile.match);
+    }
+    const course = currentCourse();
+    return course ? course.keywords : [];
+  }
+
+  function filteredRows() {
+    let rows = baseRows();
     if (state.status !== "all") rows = rows.filter(r => r.status === state.status);
     if (state.type !== "all") rows = rows.filter(r => r.type === state.type);
     if (state.q) { const q = state.q.toLowerCase(); rows = rows.filter(r => r.keyword.includes(q)); }
-    const col = COLS.find(c => c.id === state.sortBy);
+    const col = state.sortBy ? COLS.find(c => c.id === state.sortBy) : null;
     if (col && col.sort) {
       rows = rows.slice().sort((a, b) => {
         const va = col.sort(a), vb = col.sort(b);
         return (va < vb ? -1 : va > vb ? 1 : 0) * (state.sortDesc ? -1 : 1);
       });
+    } else {
+      rows = rows.slice().sort(defaultSort);
     }
     return rows;
   }
@@ -389,9 +475,31 @@
         "<td>" + (h.impressions === null ? "—" : fmtInt(h.impressions)) + "</td>" +
         "<td>" + (h.clicks === null ? "—" : fmtInt(h.clicks)) + "</td></tr>";
     }).join("");
+    const ah = r.ahrefs;
+    let ahBlock = "";
+    if (ah) {
+      const line = (label, cell) => {
+        if (!cell || cell.position == null) return "";
+        const chg = (cell.change === undefined || cell.change === null) ? ""
+          : " " + (cell.change > 0 ? '<span class="delta up">↑' + cell.change + "</span>"
+                 : cell.change < 0 ? '<span class="delta down">↓' + (-cell.change) + "</span>"
+                 : '<span class="delta zero">0</span>');
+        const prev = cell.previous != null ? "#" + cell.previous + " → " : "";
+        return "<tr><td>" + label + "</td><td>" + prev + "#" + cell.position + chg + "</td></tr>";
+      };
+      const rows2 = line("Desktop", ah.desktop) + line("Mobile", ah.mobile) +
+        (ah.volume != null ? "<tr><td>Search volume</td><td>" + fmtInt(ah.volume) + "/mo</td></tr>" : "") +
+        (ah.difficulty != null ? "<tr><td>Keyword difficulty</td><td>" + ah.difficulty + "/100</td></tr>" : "") +
+        (ah.url ? '<tr><td>Ranking page</td><td><a class="rurl" href="' + esc(ah.url) + '" target="_blank" rel="noopener">' + esc(pagePath(ah.url)) + "</a></td></tr>" : "");
+      if (rows2) {
+        ahBlock = '<div class="spark"><div class="cap">Ahrefs Rank Tracker' +
+          (D.ahrefs ? " · " + esc(D.ahrefs.location) + " · " + esc(D.ahrefs.display) : "") + "</div>" +
+          '<table class="hist-table"><tbody>' + rows2 + "</tbody></table></div>";
+      }
+    }
     return '<tr class="hist"><td colspan="' + colspan + '"><div class="hist-inner">' +
       '<table class="hist-table"><thead><tr><th>Week</th><th>Position</th><th>Impressions</th><th>Clicks</th></tr></thead>' +
-      "<tbody>" + cells + "</tbody></table>" + sparkSvg(r.history) +
+      "<tbody>" + cells + "</tbody></table>" + sparkSvg(r.history) + ahBlock +
       (r.lost_since ? '<div class="note">Last ranked in the week of ' + fmtShortY(r.lost_since) + ".</div>" : "") +
       "</div></td></tr>";
   }
@@ -407,31 +515,80 @@
       "</div>";
   }
 
-  function tableHtml(course) {
-    const allRows = filteredRows(course);
-    const totalPages = Math.max(1, Math.ceil(allRows.length / PAGE_SIZE));
+  // Ahrefs cell: a real SERP position from a search check, with its own
+  // week-over-week movement. Kept visually distinct from the Search Console
+  // average-position columns because they measure different things.
+  function ahrefsHtml(r) {
+    const d = ahDesk(r), m = ahMob(r);
+    const pos = d && d.position != null ? d.position : (m && m.position != null ? m.position : null);
+    if (pos === null) return '<span class="blank">—</span>';
+    const src = (d && d.position != null) ? d : m;
+    let s = '<span class="pos">#' + pos + "</span>";
+    if (src.change !== undefined && src.change !== null) {
+      s += " " + (src.change > 0 ? '<span class="delta up">↑' + src.change + "</span>"
+                : src.change < 0 ? '<span class="delta down">↓' + (-src.change) + "</span>"
+                : '<span class="delta zero">0</span>');
+    }
+    // Flag when the ranking page is not this course's page (another page of
+    // the site is winning the keyword) - real, actionable signal.
+    if (r.ahrefs && r.ahrefs.on_this_course === false && !isCrossView()) {
+      s += ' <span class="tag" title="Ahrefs reports this keyword ranking on a different page of the site">↗ other page</span>';
+    }
+    return '<span class="devcell">' + s + "</span>";
+  }
+
+  function typeHeaderRow(type, count, colspan) {
+    const heading = (TYPES[type] && TYPES[type].heading) || typeLabel(type);
+    return '<tr class="typerow"><td colspan="' + colspan + '">' +
+      esc(heading) + ' <span class="n">' + fmtInt(count) + "</span></td></tr>";
+  }
+
+  function tableHtml() {
+    const cols = activeCols();
+    const rowsAll = filteredRows();
+    const totalPages = Math.max(1, Math.ceil(rowsAll.length / PAGE_SIZE));
     if (state.page > totalPages) state.page = totalPages;
     if (state.page < 1) state.page = 1;
     const startIdx = (state.page - 1) * PAGE_SIZE;
-    const rows = allRows.slice(startIdx, startIdx + PAGE_SIZE);
+    const rows = rowsAll.slice(startIdx, startIdx + PAGE_SIZE);
     const luDate = D.last_updated ? fmtShortY(D.last_updated.run_date) : "";
-    const head = COLS.map(c =>
+    const head = cols.map(c =>
       "<th" + (c.num ? ' class="num"' : "") + (c.nosort ? ' class="nosort"' : ' data-sort="' + c.id + '"') + ">" +
       c.label + (state.sortBy === c.id ? ' <span class="arr">' + (state.sortDesc ? "▼" : "▲") + "</span>" : "") +
       "</th>").join("");
+
+    // Section headers only make sense while the rows are in type order, i.e.
+    // under the default sort. Any explicit column sort turns them off.
+    const grouped = !state.sortBy;
+    const typeCounts = {};
+    if (grouped) for (const r of rowsAll) typeCounts[r.type] = (typeCounts[r.type] || 0) + 1;
+
+    let lastType = null;
     const body = rows.map((r, localIdx) => {
-      const idx = startIdx + localIdx; // global index into allRows, matched by wireTable's click handler
+      const idx = startIdx + localIdx; // global index into rowsAll, matched by wireTable
       const st = STATUS[r.status] || STATUS.no_ranking_data;
       const cur = r.current, prev = r.previous;
-      return '<tr class="krow" data-i="' + idx + '">' +
+      const ah = r.ahrefs || {};
+      let out = "";
+      if (grouped && r.type !== lastType) {
+        lastType = r.type;
+        out += typeHeaderRow(r.type, typeCounts[r.type] || 0, cols.length);
+      }
+      out += '<tr class="krow" data-i="' + idx + '">' +
+        (isCrossView()
+          ? '<td><a class="rurl" href="' + esc(r.courseUrl) + '" target="_blank" rel="noopener">' + esc(r.courseName) + "</a></td>"
+          : "") +
         '<td><span class="kw">' + esc(r.keyword) + "</span>" +
           (r.team_tag ? '<div class="tag">' + esc(r.team_tag) + "</div>" : "") + "</td>" +
-        '<td><span class="type">' + (TYPES[r.type] || esc(r.type)) + "</span></td>" +
+        '<td><span class="type">' + esc(typeLabel(r.type)) + "</span></td>" +
         '<td><span class="badge ' + st.cls + '"><span class="ic">' + st.ic + "</span>" + st.label + "</span>" +
           (r.status === "lost" && r.lost_since ? '<div class="tag">since ' + fmtShort(r.lost_since) + "</div>" : "") + "</td>" +
         '<td class="num">' + posHtml(cur ? cur.position : null) + "</td>" +
         '<td class="num">' + posHtml(prev ? prev.position : null) + "</td>" +
         '<td class="num">' + deltaHtml(r.change) + "</td>" +
+        '<td class="num">' + ahrefsHtml(r) + "</td>" +
+        '<td class="num">' + (ah.volume != null ? fmtInt(ah.volume) : '<span class="blank">—</span>') + "</td>" +
+        '<td class="num">' + (ah.difficulty != null ? ah.difficulty : '<span class="blank">—</span>') + "</td>" +
         '<td class="num">' + devHtml(r.desktop) + "</td>" +
         '<td class="num">' + devHtml(r.mobile) + "</td>" +
         '<td class="num">' + (cur ? fmtInt(cur.impressions) : '<span class="blank">—</span>') + "</td>" +
@@ -441,17 +598,22 @@
         '<td class="num nowrap">' + (cur ? luDate : '<span class="blank">—</span>') + "</td>" +
         '<td><button class="livebtn" data-kw="' + esc(r.keyword) + '" title="Open a Google search for this keyword (Singapore, no personalisation) to verify the live position manually">Check live</button></td>' +
         "</tr>";
+      return out;
     }).join("");
+
     return '<div class="table-section">' +
-      pagerHtml(allRows.length, state.page, totalPages) +
+      pagerHtml(rowsAll.length, state.page, totalPages) +
       '<div class="tablewrap"><table><thead><tr>' + head + "</tr></thead><tbody>" +
-      (body || '<tr><td colspan="' + COLS.length + '"><div class="empty">No keywords match the current filters.</div></td></tr>') +
+      (body || '<tr><td colspan="' + cols.length + '"><div class="empty">No keywords match the current filters.</div></td></tr>') +
       "</tbody></table></div>" +
-      pagerHtml(allRows.length, state.page, totalPages) +
-      '<p class="note">Positions are Google Search Console average positions for the data window, shown as whole numbers. ' +
-      "Blank cells mean Search Console returned no data — nothing is estimated. " +
-      "Expand a row to see the weekly history. “Check live” opens a manual Google search (Singapore settings); " +
-      "the dashboard itself never scrapes live results. " +
+      pagerHtml(rowsAll.length, state.page, totalPages) +
+      '<p class="note"><b>Current / Previous / Change / Desktop / Mobile / Impr. / Clicks / CTR</b> come from Google Search Console ' +
+      "(average position across impressions, shown as whole numbers). " +
+      "<b>Ahrefs Rank / Volume / KD</b> come from Ahrefs Rank Tracker" +
+      (D.ahrefs ? " (" + esc(D.ahrefs.location) + ", checked " + esc(D.ahrefs.display) + ")" : "") +
+      " — an actual SERP position from a real search check. The two are different measurements and are never averaged together. " +
+      "Blank cells mean that source returned no data — nothing is estimated. " +
+      "Expand a row for weekly history. “Check live” opens a manual Google search. " +
       esc(D.discovered_keyword_policy || "") +
       "</p></div>";
   }
@@ -485,29 +647,39 @@
     html += bannerHtml();
     html += tilesHtml(t);
 
+    const showTable = state.view === "course" || state.view === "tile";
     html += '<div class="controls"><label for="courseSel">Course</label> ' +
       '<select id="courseSel"><option value="">All courses — overview</option>' +
-      D.courses.map(c => '<option value="' + esc(c.code) + '"' + (state.course === c.code ? " selected" : "") + ">" +
+      D.courses.map(c => '<option value="' + esc(c.code) + '"' + (state.view === "course" && state.course === c.code ? " selected" : "") + ">" +
         esc(c.name) + "</option>").join("") + "</select>";
-    if (course) {
+    if (showTable) {
       html += '<label for="typeSel">Type</label> <select id="typeSel">' +
         '<option value="all">All types</option>' +
-        Object.entries(TYPES).map(([v, l]) => '<option value="' + v + '"' + (state.type === v ? " selected" : "") + ">" + l + "</option>").join("") +
+        TYPE_ORDER.map(v => '<option value="' + v + '"' + (state.type === v ? " selected" : "") + ">" + esc(typeLabel(v)) + "</option>").join("") +
         "</select>" +
         '<input type="search" id="kwSearch" placeholder="Search keywords…" value="' + esc(state.q) + '">';
     }
     html += "</div>";
 
-    if (!course) {
-      html += courseCardsHtml();
-    } else {
+    if (state.view === "tile") {
+      const cfg = TILES[state.tile] || TILES.total;
+      const n = filteredRows().length;
+      html += '<div class="course-head"><h2>' + esc(cfg.label) + " — all courses</h2>" +
+        '<span class="sub">' + fmtInt(n) + " keyword" + (n === 1 ? "" : "s") + " across " +
+        fmtInt(new Set(filteredRows().map(r => r.courseCode)).size) + " courses</span>" +
+        '<button class="ghost" id="backBtn">← Back to overview</button></div>';
+      html += tableHtml();
+    } else if (state.view === "course" && course) {
       html += '<div class="course-head"><h2>' + esc(course.name) + "</h2>" +
         '<a href="' + esc(course.url) + '" target="_blank" rel="noopener">' + esc(course.url) + "</a></div>";
       html += chipsHtml(course);
-      html += tableHtml(course);
+      html += tableHtml();
+    } else {
+      html += courseCardsHtml();
     }
-    html += "<footer>Data source: Google Search Console API · Refreshed every Monday · " +
-      "Snapshots are immutable weekly records (see data/snapshots/) · " +
+    html += "<footer>Sources: Google Search Console API" +
+      (D.ahrefs ? " + Ahrefs Rank Tracker" : "") + " · Refreshed every Monday · " +
+      "Snapshots are immutable weekly records · " +
       esc(D.data_policy) + "</footer>";
     app.innerHTML = html;
     wire(course);
@@ -520,47 +692,82 @@
         (root.getAttribute("data-theme") !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
       root.setAttribute("data-theme", dark ? "light" : "dark");
     };
-    const sel = document.getElementById("courseSel");
-    if (sel) sel.onchange = () => { state.course = sel.value || null; state.status = "all"; state.q = ""; state.page = 1; render(); };
-    for (const card of app.querySelectorAll(".ccard")) {
-      card.onclick = () => { state.course = card.dataset.course; state.status = "all"; state.page = 1; render(); };
+    for (const tile of app.querySelectorAll(".tile[data-tile]")) {
+      tile.onclick = () => {
+        const id = tile.dataset.tile;
+        if (state.view === "tile" && state.tile === id) {   // click again to close
+          state.view = "overview"; state.tile = null;
+        } else {
+          state.view = "tile"; state.tile = id; state.course = null;
+        }
+        state.status = "all"; state.type = "all"; state.q = "";
+        state.sortBy = null; state.sortDesc = false; state.page = 1;
+        render();
+      };
     }
-    if (!course) return;
+    const back = document.getElementById("backBtn");
+    if (back) back.onclick = () => {
+      state.view = "overview"; state.tile = null; state.page = 1; render();
+    };
+    const sel = document.getElementById("courseSel");
+    if (sel) sel.onchange = () => {
+      state.course = sel.value || null;
+      state.view = state.course ? "course" : "overview";
+      state.tile = null; state.status = "all"; state.type = "all"; state.q = "";
+      state.sortBy = null; state.sortDesc = false; state.page = 1;
+      render();
+    };
+    for (const card of app.querySelectorAll(".ccard")) {
+      card.onclick = () => {
+        state.course = card.dataset.course; state.view = "course"; state.tile = null;
+        state.status = "all"; state.type = "all"; state.q = "";
+        state.sortBy = null; state.sortDesc = false; state.page = 1;
+        render();
+      };
+    }
+    if (state.view !== "course" && state.view !== "tile") return;
     const typeSel = document.getElementById("typeSel");
     if (typeSel) typeSel.onchange = () => { state.type = typeSel.value; state.page = 1; render(); };
     const search = document.getElementById("kwSearch");
     if (search) {
-      search.oninput = () => { state.q = search.value.trim().toLowerCase(); state.page = 1; rerenderTable(course); };
+      search.oninput = () => { state.q = search.value.trim().toLowerCase(); state.page = 1; rerenderTable(); };
     }
     for (const chip of app.querySelectorAll(".chip")) {
       chip.onclick = () => { state.status = chip.dataset.status; state.page = 1; render(); };
     }
-    wireTable(course);
+    wireTable();
   }
 
-  function rerenderTable(course) {
+  function rerenderTable() {
     const wrap = app.querySelector(".table-section");
     if (!wrap) return;
     const container = document.createElement("div");
-    container.innerHTML = tableHtml(course);
+    container.innerHTML = tableHtml();
     wrap.replaceWith(container.querySelector(".table-section"));
-    wireTable(course);
+    wireTable();
     const search = document.getElementById("kwSearch");
     if (search) search.focus();
   }
 
-  function wireTable(course) {
+  function wireTable() {
+    const colCount = activeCols().length;
     for (const th of app.querySelectorAll("thead th[data-sort]")) {
       th.onclick = () => {
         const id = th.dataset.sort;
         const col = COLS.find(c => c.id === id);
-        if (state.sortBy === id) state.sortDesc = !state.sortDesc;
-        else { state.sortBy = id; state.sortDesc = !!col.desc; }
+        // third click on the same column returns to the default type grouping
+        if (state.sortBy === id && state.sortDesc !== !!col.desc) {
+          state.sortBy = null; state.sortDesc = false;
+        } else if (state.sortBy === id) {
+          state.sortDesc = !state.sortDesc;
+        } else {
+          state.sortBy = id; state.sortDesc = !!col.desc;
+        }
         state.page = 1;
         render();
       };
     }
-    const rows = filteredRows(course);
+    const rows = filteredRows();
     for (const tr of app.querySelectorAll("tr.krow")) {
       tr.onclick = ev => {
         if (ev.target.closest("a") || ev.target.closest("button")) return;
@@ -569,7 +776,7 @@
         for (const h of app.querySelectorAll("tr.hist")) h.remove();
         const r = rows[Number(tr.dataset.i)];
         if (!r || !r.history || !r.history.length) return;
-        tr.insertAdjacentHTML("afterend", histRowHtml(r, COLS.length));
+        tr.insertAdjacentHTML("afterend", histRowHtml(r, colCount));
       };
     }
     for (const btn of app.querySelectorAll(".livebtn")) {
@@ -579,10 +786,10 @@
       };
     }
     for (const btn of app.querySelectorAll(".pager-prev")) {
-      btn.onclick = () => { state.page -= 1; rerenderTable(course); };
+      btn.onclick = () => { state.page -= 1; rerenderTable(); };
     }
     for (const btn of app.querySelectorAll(".pager-next")) {
-      btn.onclick = () => { state.page += 1; rerenderTable(course); };
+      btn.onclick = () => { state.page += 1; rerenderTable(); };
     }
   }
 

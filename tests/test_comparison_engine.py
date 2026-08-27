@@ -32,9 +32,9 @@ CONFIG = {
                 {"keyword": "testkw improved", "type": "primary"},
                 {"keyword": "testkw dropped", "type": "primary"},
                 {"keyword": "testkw stable", "type": "secondary"},
-                {"keyword": "testkw newly", "type": "related"},
+                {"keyword": "testkw newly", "type": "supporting"},
                 {"keyword": "testkw lost", "type": "primary"},
-                {"keyword": "testkw lost long ago", "type": "related"},
+                {"keyword": "testkw lost long ago", "type": "supporting"},
                 {"keyword": "testkw never", "type": "primary"},
             ],
         }
@@ -172,6 +172,87 @@ def test_low_impression_discovered_keywords_are_filtered():
     assert "testkw accumulates" in rows                        # 6 total >= 5
     # configured keywords are never filtered, regardless of impressions
     assert "testkw never" in rows
+
+
+def ahrefs_snap(run_date, rows):
+    return {
+        "schema_version": 1, "source": "ahrefs_rank_tracker_api", "project_id": 1,
+        "location": "Singapore", "run_date": run_date, "compared_to": "2026-08-17",
+        "collected_at": run_date + "T02:00:00+00:00", "row_count": len(rows), "rows": rows,
+    }
+
+
+def ah_row(keyword, device, position, position_prev=None, course="alpha",
+           url="https://www.example.com/course/alpha/", volume=100, kd=25):
+    return {
+        "keyword": keyword, "device": device, "position": position,
+        "position_prev": position_prev, "url": url, "course": course,
+        "volume": volume, "keyword_difficulty": kd, "tags": [], "serp_updated": None,
+    }
+
+
+def test_keyword_types_are_ordered_primary_secondary_supporting_discovered():
+    week1 = snap("2026-08-10", [row("testkw improved", 10.0)])
+    week2 = snap("2026-08-17", [
+        row("testkw improved", 7.0),          # primary
+        row("testkw stable", 3.0),            # secondary
+        row("testkw newly", 5.0),             # supporting
+        row("testkw found by gsc", 2.0),      # discovered (best position of all)
+    ])
+    payload = build([week1, week2])
+    types = [r["type"] for r in payload["courses"][0]["keywords"]]
+    order = payload["type_order"]
+    assert order == ["primary", "secondary", "supporting", "discovered"]
+    # type ranks must be non-decreasing: all primaries, then secondary, etc.
+    ranks = [order.index(t) for t in types]
+    assert ranks == sorted(ranks), types
+    # a discovered keyword at position #2 must still sort below every primary
+    assert types[0] == "primary"
+    assert types[-1] == "discovered"
+
+
+def test_ahrefs_merges_without_touching_gsc_numbers():
+    week1 = snap("2026-08-10", [row("testkw improved", 10.0)])
+    week2 = snap("2026-08-17", [row("testkw improved", 7.4)])
+    ah = ahrefs_snap("2026-08-17", [
+        ah_row("testkw improved", "desktop", 3, 6),
+        ah_row("testkw improved", "mobile", 5, 5),
+    ])
+    payload = build_payload(CONFIG, [week1, week2], {"last_run_status": "ok"},
+                            date(2026, 8, 18), ahrefs_snapshots=[ah])
+    r = course_rows(payload)["testkw improved"]
+    # GSC numbers untouched
+    assert r["current"]["position"] == 7.4
+    assert r["change"] == 3                       # 10 -> 7, from GSC
+    # Ahrefs kept separate, with its own change in dashboard convention
+    assert r["ahrefs"]["desktop"]["position"] == 3
+    assert r["ahrefs"]["desktop"]["previous"] == 6
+    assert r["ahrefs"]["desktop"]["change"] == 3  # 6 -> 3 = improved by 3
+    assert r["ahrefs"]["mobile"]["change"] == 0
+    assert r["ahrefs"]["volume"] == 100
+    assert r["ahrefs"]["difficulty"] == 25
+    assert r["ahrefs"]["on_this_course"] is True
+    assert payload["ahrefs"]["run_date"] == "2026-08-17"
+
+
+def test_ahrefs_flags_keyword_ranking_on_another_page():
+    week = snap("2026-08-17", [row("testkw improved", 7.0)])
+    ah = ahrefs_snap("2026-08-17", [
+        ah_row("testkw improved", "desktop", 4, 4, course="other",
+               url="https://www.example.com/blog/some-post/"),
+    ])
+    payload = build_payload(CONFIG, [week], {"last_run_status": "ok"},
+                            date(2026, 8, 18), ahrefs_snapshots=[ah])
+    r = course_rows(payload)["testkw improved"]
+    assert r["ahrefs"]["on_this_course"] is False
+    assert r["ahrefs"]["ranking_course"] == "other"
+
+
+def test_no_ahrefs_snapshot_leaves_rows_and_payload_clean():
+    week = snap("2026-08-17", [row("testkw improved", 7.0)])
+    payload = build_payload(CONFIG, [week], {"last_run_status": "ok"}, date(2026, 8, 18))
+    assert payload["ahrefs"] is None
+    assert "ahrefs" not in course_rows(payload)["testkw improved"]
 
 
 def test_dominant_page_and_metric_aggregation():

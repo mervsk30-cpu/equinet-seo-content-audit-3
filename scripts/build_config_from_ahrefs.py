@@ -13,9 +13,9 @@ generated config freely; the collector re-reads the config on every run.
 Keyword type rules (deterministic, documented in README):
   - tag "(Bottom Funnel)" + course-intent wording  -> primary
   - tag "(Bottom Funnel)" without course intent    -> secondary
-  - tag "(Top Funnel)"                             -> related
+  - tag "(Top Funnel)"                             -> supporting
   - bare tag + course-intent wording               -> primary
-  - bare tag without course intent                 -> related
+  - bare tag without course intent                 -> supporting
 A keyword tagged for several courses is listed under each of them.
 """
 
@@ -187,8 +187,8 @@ def classify(tag_funnel: str | None, keyword: str) -> str:
     if tag_funnel == "Bottom":
         return "primary" if has_intent else "secondary"
     if tag_funnel == "Top":
-        return "related"
-    return "primary" if has_intent else "related"
+        return "supporting"
+    return "primary" if has_intent else "supporting"
 
 
 def main() -> None:
@@ -245,7 +245,7 @@ def main() -> None:
             course_index[course_code]["keywords"].append(entry)
 
     for course in course_index.values():
-        course["keywords"].sort(key=lambda e: ({"primary": 0, "secondary": 1, "related": 2}[e["type"]], e["keyword"]))
+        course["keywords"].sort(key=lambda e: ({"primary": 0, "secondary": 1, "supporting": 2}[e["type"]], e["keyword"]))
 
     config = {
         "generated_at": "2026-08-17",
@@ -253,6 +253,9 @@ def main() -> None:
         "settings": {
             "gsc_property": "sc-domain:equinetacademy.com",
             "site": SITE,
+            "ahrefs_project_id": 369315,
+            "ahrefs_project_note": "Ahrefs Rank Tracker project 'Equinet Academy Courses'. Supplies real SERP positions, search volume and keyword difficulty alongside Search Console's impressions/clicks/average position.",
+            "ahrefs_location": "Singapore",
             "country": "sgp",
             "country_note": "ISO-3166-1 alpha-3, lowercase, as required by the GSC API. Set to null to track worldwide positions.",
             "search_type": "web",
@@ -265,7 +268,7 @@ def main() -> None:
         "keyword_type_rules": {
             "primary": "Bottom-funnel or course-intent keyword that names the course offering (e.g. 'seo course singapore').",
             "secondary": "Bottom-funnel commercial keyword without explicit course wording.",
-            "related": "Top-funnel / informational keyword relevant to the course topic.",
+            "supporting": "Top-funnel / informational keyword that supports the course topic.",
             "discovered": "Assigned automatically by the collector to real GSC queries not present in this config.",
         },
         "courses": list(course_index.values()),
