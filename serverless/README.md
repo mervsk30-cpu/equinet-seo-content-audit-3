@@ -19,11 +19,19 @@ team member, every keyword. Three brakes keep it bounded:
 | Brake | Default | Effect |
 |---|---|---|
 | `CACHE_TTL_SECONDS` | 3600 (1h) | Five people opening the same course in an hour = **1** search per keyword, not five |
-| `DAILY_BUDGET` | 500/day | Hard stop. Past it, cached values still serve (flagged `stale`); **nothing further is billed** |
-| `RATE_LIMIT_PER_MIN` | 60/IP | Stops the public endpoint being hammered |
+| `DAILY_BUDGET` | 500/day | Atomic hard stop. Past it, last-known values still serve (flagged `stale cache`); **nothing further is billed** |
+| `RATE_LIMIT_PER_MIN` | 60/IP | Strongly consistent per-IP limit stops the public endpoint being hammered |
+| `STALE_TTL_SECONDS` | 30 days | Keeps a last-known value available after the one-hour fresh cache expires |
 
 The dashboard also only requests live ranks for the **rows currently on screen**
-(100 max per page), never all 2,808 keywords.
+(100 max per page), never all 2,808 keywords. It sends them in 25-key batches:
+10 visible rows use one request; a full 100-row page uses four. The Worker runs
+at most five provider requests concurrently and stays below the Workers Free
+external-subrequest limit.
+
+Workers KV holds the result caches. A SQLite-backed Durable Object coordinates
+the daily budget and rate limit because KV counters are eventually consistent
+and cannot guarantee a hard ceiling under concurrent requests.
 
 Realistic weekly usage: a few team members reviewing a handful of courses ≈
 100–400 searches/week. Tune `DAILY_BUDGET` to whatever your SerpAPI plan allows.
@@ -40,18 +48,19 @@ Realistic weekly usage: a few team members reviewing a handful of courses ≈
    wrangler login
    ```
 
-3. **Create the KV namespace** (holds the cache and the budget counter):
+3. **Create the KV namespace** (holds only search-result caches):
    ```bash
    cd serverless
    npx wrangler kv namespace create LIVE_RANK
    ```
    Paste the printed `id` into `wrangler.toml` under `[[kv_namespaces]]`.
 
-4. **Set the secret** (never commit it):
+   The atomic coordinator is declared in `wrangler.toml` and is provisioned
+   automatically on the first deploy; there is no ID to paste for it.
+
+4. **Set the SerpAPI secret** (never commit it or place it in dashboard data):
    ```bash
    npx wrangler secret put SERP_API_KEY
-   # optional extra guard:
-   npx wrangler secret put SHARED_TOKEN
    ```
 
 5. **Deploy:**
@@ -92,7 +101,13 @@ of the dashboard is unaffected.
 ## Testing without spending
 
 ```bash
-node serverless/mock-live-rank.js      # serves fake results on :8787
+cd serverless
+npm test                               # Worker contract and cost-control tests
+node mock-live-rank.js                 # fake UI results on :8787
 ```
 Point `live_rank.endpoint` at `http://localhost:8787` to exercise the UI with no
 API spend. Mock values are obviously fake and clearly flagged.
+
+The automated tests cover success, not-in-top-100, fresh cache, stale cache,
+concurrent hard-cap enforcement, rate limiting, provider errors, origin checks,
+and malformed requests without making any external calls.

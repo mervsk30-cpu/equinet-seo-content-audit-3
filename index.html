@@ -261,7 +261,7 @@
     return '<span class="devcell">' + s + "</span>";
   }
   function liveRankUrl(kw) {
-    return "https://www.google.com/search?q=" + encodeURIComponent(kw) + "&hl=en&gl=sg&pws=0&num=30";
+    return "https://www.google.com.sg/search?q=" + encodeURIComponent(kw) + "&hl=en&gl=sg&pws=0&filter=0&num=100";
   }
   function pagePath(url) { try { return new URL(url).pathname; } catch (e) { return url; } }
 
@@ -370,41 +370,91 @@
      outside the searched depth reports "not in top N".                     */
   const LIVE_CFG = D.live_rank || {};
   const liveEnabled = !!(LIVE_CFG.endpoint && String(LIVE_CFG.endpoint).trim());
-  const LIVE = new Map();            // keyword -> {position, url, checked_at, ...}
-  const liveInflight = new Set();    // keywords currently being fetched
+  const LIVE_BATCH_SIZE = 25;        // stays below the free Worker subrequest cap
+  const LIVE = new Map();            // device + keyword -> {position, url, checked_at, ...}
+  const liveInflight = new Set();    // device + keyword requests currently in flight
   let liveDevice = LIVE_CFG.device === "mobile" ? "mobile" : "desktop";
-  let liveMeta = null;               // last response envelope (settings, budget)
-  let liveError = null;
+  const liveMetaByDevice = new Map();
+  const liveErrorByDevice = new Map();
 
   function liveKey(k) { return String(k).toLowerCase().replace(/\s+/g, " ").trim(); }
+  function liveStoreKey(k, device) { return (device || liveDevice) + "\n" + liveKey(k); }
+  function liveEntryFresh(entry) {
+    if (!entry) return false;
+    // Normal results expire from their exact Google check time. Deliberately
+    // stale/daily-limit responses use receipt time so they remain visible but
+    // are retried after the same one-hour client window.
+    const basis = entry.stale || entry.unavailable
+      ? Number(entry._received_at)
+      : Date.parse(entry.checked_at || "");
+    const ttlMs = Math.max(60, Number(entry._cache_ttl_seconds) || 3600) * 1000;
+    return Number.isFinite(basis) && Date.now() - basis < ttlMs;
+  }
 
   async function fetchLive(keywords, opts) {
     opts = opts || {};
     if (!liveEnabled) return;
-    const want = [...new Set(keywords.map(liveKey))].filter(k =>
-      k && !liveInflight.has(k) && (opts.force || !LIVE.has(k)));
+    const requestDevice = liveDevice; // device may change while fetch is running
+    const want = [...new Set(keywords.map(liveKey))].filter(k => {
+      const storeKey = liveStoreKey(k, requestDevice);
+      const entry = LIVE.get(storeKey);
+      if (entry && !liveEntryFresh(entry)) LIVE.delete(storeKey);
+      return k && !liveInflight.has(storeKey) && (opts.force || !liveEntryFresh(entry));
+    });
     if (!want.length) return;
-    want.forEach(k => liveInflight.add(k));
+    want.forEach(k => liveInflight.add(liveStoreKey(k, requestDevice)));
     // mark as loading so cells can show a spinner rather than a stale blank
-    renderLiveCells(want, { loading: true });
+    if (requestDevice === liveDevice) renderLiveCells(want, { loading: true });
     try {
-      const headers = { "Content-Type": "application/json" };
-      if (LIVE_CFG.token) headers["X-Live-Rank-Token"] = LIVE_CFG.token;
-      const resp = await fetch(LIVE_CFG.endpoint, {
-        method: "POST", headers,
-        body: JSON.stringify({ keywords: want, device: liveDevice, force: !!opts.force }),
-      });
-      if (!resp.ok) throw new Error("Live rank service returned " + resp.status);
-      const data = await resp.json();
-      liveMeta = data;
-      liveError = null;
-      for (const [kw, val] of Object.entries(data.results || {})) LIVE.set(liveKey(kw), val);
+      const batches = [];
+      for (let i = 0; i < want.length; i += LIVE_BATCH_SIZE)
+        batches.push(want.slice(i, i + LIVE_BATCH_SIZE));
+      const settled = await Promise.allSettled(batches.map(async batch => {
+        const headers = { "Content-Type": "application/json" };
+        if (LIVE_CFG.token) headers["X-Live-Rank-Token"] = LIVE_CFG.token;
+        const resp = await fetch(LIVE_CFG.endpoint, {
+          method: "POST", headers,
+          body: JSON.stringify({ keywords: batch, device: requestDevice, force: !!opts.force }),
+        });
+        if (!resp.ok) {
+          let detail = null;
+          try { detail = await resp.json(); } catch (_) {}
+          throw new Error((detail && detail.error) || ("Live rank service returned " + resp.status));
+        }
+        return resp.json();
+      }));
+
+      const payloads = settled.filter(r => r.status === "fulfilled").map(r => r.value);
+      const failures = settled.filter(r => r.status === "rejected").map(r => r.reason);
+      for (const data of payloads) {
+        const receivedAt = Date.now();
+        const cacheTtl = Number(data.cache_ttl_seconds) || 3600;
+        for (const [kw, val] of Object.entries(data.results || {})) {
+          LIVE.set(liveStoreKey(kw, requestDevice), {
+            ...val,
+            _received_at: receivedAt,
+            _cache_ttl_seconds: cacheTtl,
+          });
+        }
+      }
+      if (payloads.length) {
+        let liveMeta = payloads.reduce((latest, data) =>
+          ((data.budget && data.budget.used) || 0) >= ((latest.budget && latest.budget.used) || 0)
+            ? data : latest, payloads[0]);
+        if (payloads.some(data => data.budget && data.budget.exceeded))
+          liveMeta = { ...liveMeta, budget: { ...liveMeta.budget, exceeded: true } };
+        liveMetaByDevice.set(requestDevice, liveMeta);
+      }
+      liveErrorByDevice.set(requestDevice,
+        failures.length ? String(failures[0].message || failures[0]) : null);
     } catch (err) {
-      liveError = String(err.message || err);
+      liveErrorByDevice.set(requestDevice, String(err.message || err));
     } finally {
-      want.forEach(k => liveInflight.delete(k));
-      renderLiveCells(want, {});
-      updateLiveStatus();
+      want.forEach(k => liveInflight.delete(liveStoreKey(k, requestDevice)));
+      if (requestDevice === liveDevice) {
+        renderLiveCells(want, {});
+        updateLiveStatus();
+      }
     }
   }
 
@@ -423,13 +473,20 @@
       return '<span class="blank" title="Live checks need outbound network access, which the artifact sandbox blocks. Use the GitHub Pages dashboard.">—</span>';
     if (!liveEnabled) return '<span class="blank" title="Live rank is not configured — see serverless/README.md">—</span>';
     const k = liveKey(keyword);
-    if (liveInflight.has(k)) return '<span class="livespin" aria-live="polite">checking…</span>';
-    const v = LIVE.get(k);
+    const storeKey = liveStoreKey(k);
+    if (liveInflight.has(storeKey)) return '<span class="livespin" aria-live="polite">checking…</span>';
+    const v = LIVE.get(storeKey);
     if (!v) return '<button class="livebtn live-one" data-kw="' + esc(keyword) + '" title="Run a real Google search now">Check</button>';
-    if (v.error) return '<span class="delta down" title="' + esc(v.error) + '">error</span>';
+    const liveMeta = liveMetaByDevice.get(liveDevice) || null;
     const stamp = fmtClock(v.checked_at);
+    if (v.error) return '<span class="devcell"><span class="delta down" title="' + esc(v.error) + '">error</span>' +
+      '<button class="livebtn live-one refresh" data-kw="' + esc(keyword) + '" title="Try this live check again">↻</button>' +
+      (stamp ? '<div class="tag">' + esc(stamp) + "</div>" : "") + "</span>";
+    if (v.unavailable && v.budget_exceeded) return '<span class="devcell"><span class="blank" title="Daily search budget reached and no earlier result is cached">daily limit</span>' +
+      '<button class="livebtn live-one refresh" data-kw="' + esc(keyword) + '" title="Try again after the daily budget resets">↻</button></span>';
     const flags = (v.mock ? ' <span class="tag" title="Mock data from the local test proxy — not a real Google result">MOCK</span>' : "") +
-                  (v.stale ? ' <span class="tag" title="Daily live-search budget reached; showing the last cached check">cached</span>' : "");
+                  (v.stale ? ' <span class="tag" title="Daily live-search budget reached; showing the last cached check">stale cache</span>' :
+                    (v.cached ? ' <span class="tag" title="Served from the one-hour Worker cache; timestamp is the original check time">cached</span>' : ""));
     const body = v.position == null
       ? '<span class="blank" title="Not found within the searched depth">not in top ' + ((liveMeta && liveMeta.settings && liveMeta.settings.depth) || 100) + "</span>"
       : '<span class="pos live-pos">#' + v.position + "</span>";
@@ -461,7 +518,6 @@
     const sel = document.getElementById("liveDeviceSel");
     if (sel) sel.onchange = () => {
       liveDevice = sel.value;
-      LIVE.clear();                       // positions are device-specific
       fetchLive(visibleKeywords(), {});
       render();
     };
@@ -477,6 +533,8 @@
       return '<span class="livenote">Live Google Rank inactive — deploy the rank proxy and set ' +
         '<code>live_rank.endpoint</code> (see serverless/README.md).</span>';
     }
+    const liveMeta = liveMetaByDevice.get(liveDevice) || null;
+    const liveError = liveErrorByDevice.get(liveDevice) || null;
     let s = '<label for="liveDeviceSel">Live device</label> <select id="liveDeviceSel">' +
       '<option value="desktop"' + (liveDevice === "desktop" ? " selected" : "") + ">Desktop</option>" +
       '<option value="mobile"' + (liveDevice === "mobile" ? " selected" : "") + ">Mobile</option></select> " +
@@ -489,6 +547,7 @@
         (liveMeta.mock ? "<b>MOCK proxy</b> — not real Google data · " : "") +
         "Google " + esc(st.google_domain || "") + " · " + esc(st.location || "") +
         " · " + esc(st.language || "") + " · " + esc(liveDevice) +
+        " · personalisation off · organic top " + esc(st.depth || 100) +
         (liveMeta.budget ? " · budget " + liveMeta.budget.used + "/" + liveMeta.budget.limit + " today" : "") +
         (liveMeta.budget && liveMeta.budget.exceeded ? ' <b class="err">daily budget reached — showing cached</b>' : "") +
         "</span>";
@@ -524,7 +583,7 @@
     { id: "current",  label: "Current",       num: true, sort: r => r.current ? rnd(r.current.position) : 9999 },
     { id: "previous", label: "Previous",      num: true, sort: r => r.previous ? rnd(r.previous.position) : 9999 },
     { id: "change",   label: "Change",        num: true, sort: r => r.change === null ? -9999 : r.change, desc: true },
-    { id: "live",     label: "Live Google Rank", num: true, sort: r => { const l = LIVE.get(r.keyword); return l && l.position != null ? l.position : 9999; } },
+    { id: "live",     label: "Live Google Rank", num: true, sort: r => { const l = LIVE.get(liveStoreKey(r.keyword)); return l && liveEntryFresh(l) && l.position != null ? l.position : 9999; } },
     { id: "ahrefs",   label: "Ahrefs Rank",   num: true, sort: r => { const d = ahDesk(r); return d && d.position != null ? d.position : 9999; } },
     { id: "volume",   label: "Volume",        num: true, sort: r => (r.ahrefs && r.ahrefs.volume != null) ? r.ahrefs.volume : -1, desc: true },
     { id: "kd",       label: "KD",            num: true, sort: r => (r.ahrefs && r.ahrefs.difficulty != null) ? r.ahrefs.difficulty : -1, desc: true },

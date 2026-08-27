@@ -1,13 +1,25 @@
 name = "equinet-live-rank"
 main = "live-rank-worker.js"
 compatibility_date = "2026-01-01"
+workers_dev = true
+preview_urls = false
 
-# Cache + budget counters live here. Create with:
+# Search-result caches live here. Create with:
 #   npx wrangler kv namespace create LIVE_RANK
 # then paste the printed id below.
 [[kv_namespaces]]
 binding = "LIVE_RANK"
-id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+id = "5cc1fc03171144e3bf895223f0c439a3"
+
+# The coordinator makes the daily ceiling and per-IP rate limit atomic even
+# when requests arrive concurrently from different Cloudflare locations.
+[[durable_objects.bindings]]
+name = "LIVE_RANK_COORDINATOR"
+class_name = "LiveRankCoordinator"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["LiveRankCoordinator"]
 
 [vars]
 # Search settings - these are what make the result comparable to a manual
@@ -27,17 +39,23 @@ DEPTH = "100"
 # 3600 = 1 hour. Raise it to cut cost, lower it for fresher numbers.
 CACHE_TTL_SECONDS = "3600"
 
+# Keep a last-known value so the dashboard can still show a clearly labelled
+# stale result after the fresh cache expires and the daily ceiling is reached.
+STALE_TTL_SECONDS = "2592000"
+
 # Hard ceiling on billable searches per UTC day. Once hit, the worker keeps
 # serving cached values (flagged as such) and stops spending. This is the
 # backstop that makes "fetch on open" safe on a public page.
 DAILY_BUDGET = "500"
 
 RATE_LIMIT_PER_MIN = "60"
-MAX_KEYWORDS_PER_REQUEST = "100"
+MAX_KEYWORDS_PER_REQUEST = "25"
+SEARCH_CONCURRENCY = "5"
 
 # Lock the endpoint to your dashboard origins (comma separated).
 ALLOWED_ORIGINS = "https://mervsk30-cpu.github.io,https://claude.ai"
 
 # Secrets - set with `npx wrangler secret put NAME`, never in this file:
 #   SERP_API_KEY   (required)  your SerpAPI key
-#   SHARED_TOKEN   (optional)  extra guard; must match live_rank.token in the dashboard config
+#   SHARED_TOKEN   (optional)  request token; note that a token copied into this
+#                              public dashboard is not itself confidential

@@ -1,0 +1,8 @@
+{
+  "name": "equinet-live-rank-worker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test live-rank-worker.test.js"
+  }
+}

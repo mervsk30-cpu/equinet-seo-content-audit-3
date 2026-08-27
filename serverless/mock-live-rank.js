@@ -13,7 +13,7 @@
  *
  *   node serverless/mock-live-rank.js [port]
  */
-const http = require("http");
+import http from "node:http";
 
 const PORT = parseInt(process.argv[2] || "8787", 10);
 const norm = k => k.toLowerCase().replace(/\s+/g, " ").trim();
@@ -40,7 +40,7 @@ http.createServer((req, res) => {
     let body = {};
     try { body = JSON.parse(raw); } catch {}
     const device = body.device === "mobile" ? "mobile" : "desktop";
-    const keywords = [...new Set((body.keywords || []).map(norm))].slice(0, 100);
+    const keywords = [...new Set((body.keywords || []).map(norm))].slice(0, 25);
     const now = new Date().toISOString();
     const results = {};
     for (const kw of keywords) {
@@ -55,7 +55,7 @@ http.createServer((req, res) => {
     res.writeHead(200, { ...cors, "Content-Type": "application/json" });
     res.end(JSON.stringify({
       checked_at: now, device, mock: true,
-      settings: { google_domain: "google.com.sg", country: "sg", language: "en", location: "Singapore", depth: 100 },
+      settings: { google_domain: "google.com.sg", country: "sg", language: "en", location: "Singapore", depth: 100, personalization: "off", result_type: "organic" },
       cache_ttl_seconds: 3600,
       budget: { used: keywords.length, limit: 500, remaining: 500 - keywords.length, exceeded: false },
       results,

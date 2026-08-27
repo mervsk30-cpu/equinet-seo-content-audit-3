@@ -8,7 +8,7 @@
     "ahrefs_project_note": "Ahrefs Rank Tracker project 'Equinet Academy Courses'. Supplies real SERP positions, search volume and keyword difficulty alongside Search Console's impressions/clicks/average position.",
     "ahrefs_location": "Singapore",
     "live_rank": {
-      "endpoint": "",
+      "endpoint": "https://equinet-live-rank.mervsk30.workers.dev",
       "token": "",
       "auto_fetch_on_open": true,
       "device": "desktop",
