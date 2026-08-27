@@ -26,14 +26,21 @@ result sat lower), Ahrefs reports last Monday's check, and Live is Google right 
 
 A real Google search, Singapore settings (`google.com.sg`, `gl=sg`, `hl=en`,
 location Singapore, chosen device, personalisation off), so it should line up
-with what you see searching manually. Each cell shows the position, the exact
-time it was checked, and a ↻ button to re-check; the toolbar above the table has
-a device switch and "Re-check visible rows".
+with what you see searching manually. Each cell shows the position and the exact
+time it was checked.
 
-**Cost is bounded three ways** — only rows *currently on screen* are requested
-(batched into one call), repeat views inside the cache window are free, and the
-proxy enforces a hard daily ceiling after which it serves cached values instead
-of spending. Setup: [`serverless/README.md`](serverless/README.md).
+**Every live check is on demand. Nothing searches by itself.** A cell starts as
+a **Check** button; clicking it (or ↻ to re-check) runs one Google search for
+that one keyword. Opening the dashboard, reloading it, filtering, searching,
+paging, switching course or tab, and changing the live device all render from
+data already loaded and cost nothing. The Ahrefs Rank column — the weekly
+position — is what you see by default.
+
+The toolbar's **↻ Re-check visible rows** is the only bulk path, and it names
+the exact number of searches and asks for confirmation before spending. Behind
+that, the proxy caches each result for an hour and enforces a hard daily
+ceiling, after which it serves cached values instead of spending. Setup:
+[`serverless/README.md`](serverless/README.md).
 
 Two things to know: it reports **organic** position (ads, map packs and AI
 Overviews aren't counted, so your result may sit lower on the page than the

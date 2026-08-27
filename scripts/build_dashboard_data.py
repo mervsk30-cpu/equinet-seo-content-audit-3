@@ -479,7 +479,9 @@ def build_payload(config: dict, snapshots: list[dict], meta: dict, today: date,
         # SERP API key; only the public endpoint travels in this payload.
         "live_rank": {
             k: v for k, v in (settings.get("live_rank") or {}).items()
-            if k in ("endpoint", "token", "auto_fetch_on_open", "device")
+            # No auto-fetch flag: live checks are on-demand only, by design.
+            # Every one costs a SERP API credit, so the click is the trigger.
+            if k in ("endpoint", "token", "device")
         },
         "ahrefs": (
             {

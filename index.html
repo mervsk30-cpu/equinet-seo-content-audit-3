@@ -396,10 +396,18 @@
 
   /* ---------- live Google rank ----------
      A real Google search run right now, through a Worker that holds the SERP
-     API key (a public static page cannot). Only the rows on screen are
-     requested, and the Worker caches + budget-caps, so opening the dashboard
-     cannot run up an unbounded bill. Results are never guessed: a keyword
-     outside the searched depth reports "not in top N".                     */
+     API key (a public static page cannot).
+
+     ON DEMAND ONLY. Every paid search costs a SERP API credit, so nothing here
+     fires by itself. Opening the dashboard, reloading it, paging, filtering,
+     searching, switching course or tab, and changing the live device all
+     render from data already in memory and issue ZERO requests. A request is
+     made only when someone clicks "Check" or the per-keyword ↻, or confirms
+     the bulk re-check (which names the exact number of searches first).
+     If you add a caller, keep it behind a click.
+
+     Results are never guessed: a keyword outside the searched depth reports
+     "not in top N".                                                        */
   const LIVE_CFG = D.live_rank || {};
   const liveEnabled = !!(LIVE_CFG.endpoint && String(LIVE_CFG.endpoint).trim());
   const LIVE_BATCH_SIZE = 25;        // stays below the free Worker subrequest cap
@@ -545,12 +553,22 @@
     const btn = document.getElementById("liveRefreshAll");
     if (btn) btn.onclick = () => {
       const rows = visibleKeywords();
-      fetchLive(rows, { force: true });
+      if (!rows.length) return;
+      // One click here can bill a search per visible row, so it never runs
+      // without the person seeing the number first.
+      const ok = window.confirm(
+        "Run " + rows.length + " live Google search" + (rows.length === 1 ? "" : "es") +
+        " now?\n\nThis uses " + rows.length + " SERP API credit" +
+        (rows.length === 1 ? "" : "s") + ". Checking a single keyword with its ↻ " +
+        "button costs 1.");
+      if (ok) fetchLive(rows, { force: true });
     };
     const sel = document.getElementById("liveDeviceSel");
     if (sel) sel.onchange = () => {
+      // Switching device only changes which set of already-checked results is
+      // shown. Rows never checked on this device fall back to "Check" rather
+      // than silently spending a credit each.
       liveDevice = sel.value;
-      fetchLive(visibleKeywords(), {});
       render();
     };
   }
@@ -570,10 +588,16 @@
     let s = '<label for="liveDeviceSel">Live device</label> <select id="liveDeviceSel">' +
       '<option value="desktop"' + (liveDevice === "desktop" ? " selected" : "") + ">Desktop</option>" +
       '<option value="mobile"' + (liveDevice === "mobile" ? " selected" : "") + ">Mobile</option></select> " +
-      '<button class="ghost" id="liveRefreshAll">↻ Re-check visible rows</button>';
+      '<button class="ghost" id="liveRefreshAll" title="Runs one paid Google search per visible row. Asks for confirmation first.">↻ Re-check visible rows</button>';
     if (liveError) {
       s += '<span class="livenote err">Live check failed: ' + esc(liveError) + "</span>";
-    } else if (liveMeta) {
+    } else if (!liveMeta) {
+      s += '<span class="livenote">Live checks run <b>only when you ask</b> — click ' +
+        "<b>Check</b> or ↻ on a keyword to search Google for it now. Nothing is searched " +
+        "when the dashboard is opened, reloaded, filtered or paged, so no SERP API credit " +
+        "is spent until you click. The Ahrefs Rank column is the weekly position and is " +
+        "always shown.</span>";
+    } else {
       const st = liveMeta.settings || {};
       s += '<span class="livenote">' +
         (liveMeta.mock ? "<b>MOCK proxy</b> — not real Google data · " : "") +
@@ -598,13 +622,6 @@
         fetchLive([btn.dataset.kw], { force: btn.classList.contains("refresh") });
       };
     }
-  }
-
-  // Fetch live ranks for whatever is on screen, once the table is in the DOM.
-  function autoFetchVisible() {
-    if (!liveEnabled || LIVE_CFG.auto_fetch_on_open === false) return;
-    const kws = visibleKeywords();
-    if (kws.length) fetchLive(kws, {});
   }
 
   const COLS = [
@@ -1174,7 +1191,6 @@
     }
     wireLiveButtons();
     updateLiveStatus();
-    autoFetchVisible();
   }
 
   render();

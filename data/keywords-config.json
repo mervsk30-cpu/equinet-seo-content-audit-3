@@ -10,9 +10,8 @@
     "live_rank": {
       "endpoint": "https://equinet-live-rank.mervsk30.workers.dev",
       "token": "",
-      "auto_fetch_on_open": true,
       "device": "desktop",
-      "note": "URL of the live-rank Worker (see serverless/README.md). Empty = the Live Google Rank column stays inactive. The dashboard only requests live ranks for rows currently on screen; the Worker caches and enforces a daily budget cap."
+      "note": "URL of the live-rank Worker (see serverless/README.md). Empty = the Live Google Rank column stays inactive. Live checks are ON DEMAND ONLY: the dashboard never searches on open, reload, filter, paging or navigation. A SERP API credit is spent only when someone clicks Check / the per-keyword refresh icon, or confirms the bulk re-check. The Worker also caches results for an hour and enforces a hard daily budget cap."
     },
     "country": "sgp",
     "country_note": "ISO-3166-1 alpha-3, lowercase, as required by the GSC API. Set to null to track worldwide positions.",

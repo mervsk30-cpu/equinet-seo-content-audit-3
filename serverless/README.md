@@ -75,13 +75,17 @@ Realistic weekly usage: a few team members reviewing a handful of courses ≈
      "live_rank": {
        "endpoint": "https://equinet-live-rank.<subdomain>.workers.dev",
        "token": "",
-       "auto_fetch_on_open": true,
        "device": "desktop"
      }
    }
    ```
    Then `python scripts/build_dashboard_data.py`, commit and push. The Live
    Google Rank column activates automatically.
+
+   There is deliberately no auto-fetch setting. Live checks are on demand only:
+   the dashboard never searches on open, reload, filter, paging or navigation,
+   so a credit is spent only when someone clicks Check / ↻ on a keyword, or
+   confirms the bulk re-check.
 
 Until step 6 is done the column simply shows a "not configured" note — the rest
 of the dashboard is unaffected.
