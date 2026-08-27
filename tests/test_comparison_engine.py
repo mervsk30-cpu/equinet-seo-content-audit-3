@@ -97,7 +97,9 @@ def test_statuses_across_two_weeks():
     assert rows["testkw lost"]["status"] == "lost"
     assert rows["testkw lost"]["current"] is None
     assert rows["testkw lost"]["lost_since"] == "2026-08-10"
-    assert rows["testkw never"]["status"] == "no_ranking_data"
+    # no GSC data and no Ahrefs check => "not_checked" (unknown), never a
+    # claim that the keyword is absent from Google
+    assert rows["testkw never"]["status"] == "not_checked"
     assert rows["testkw never"]["current"] is None
     assert rows["testkw never"]["previous"] is None
 
@@ -117,7 +119,7 @@ def test_single_snapshot_has_no_baseline_not_newly_ranking():
     rows = course_rows(build([only]))
     assert rows["testkw improved"]["status"] == "no_baseline"
     assert rows["testkw improved"]["change"] is None
-    assert rows["testkw never"]["status"] == "no_ranking_data"
+    assert rows["testkw never"]["status"] == "not_checked"
 
 
 def test_no_snapshots_is_no_data_yet_with_all_blank():
@@ -126,7 +128,7 @@ def test_no_snapshots_is_no_data_yet_with_all_blank():
     rows = course_rows(payload)
     for r in rows.values():
         assert r["current"] is None and r["previous"] is None
-        assert r["status"] == "no_ranking_data"
+        assert r["status"] == "not_checked"
 
 
 def test_device_split_and_discovered_keywords():
@@ -233,6 +235,32 @@ def test_ahrefs_merges_without_touching_gsc_numbers():
     assert r["ahrefs"]["difficulty"] == 25
     assert r["ahrefs"]["on_this_course"] is True
     assert payload["ahrefs"]["run_date"] == "2026-08-17"
+
+
+def test_ranking_keyword_with_no_gsc_impressions_is_not_called_no_data():
+    """A #1 ranking on a low-volume keyword produces no GSC impressions.
+
+    Reported by the team as noise: 565 real rankings (many at #1) were being
+    labelled "No Ranking Data" because status came from Search Console alone.
+    """
+    week = snap("2026-08-17", [row("testkw improved", 5.0)])
+    ah = ahrefs_snap("2026-08-17", [
+        ah_row("testkw never", "desktop", 1, 1, volume=20),   # ranks #1, zero impressions
+        ah_row("testkw lost", "desktop", None, None),         # Ahrefs checked: absent
+    ])
+    payload = build_payload(CONFIG, [week], {"last_run_status": "ok"},
+                            date(2026, 8, 18), ahrefs_snapshots=[ah])
+    rows = course_rows(payload)
+    # ranks in Google despite no Search Console row
+    assert rows["testkw never"]["status"] == "ranking_no_impressions"
+    # Ahrefs actively checked and found nothing
+    assert rows["testkw lost"]["status"] == "not_ranking"
+    # never checked by either source => unknown, not "absent"
+    assert rows["testkw dropped"]["status"] == "not_checked"
+    # the summary's "ranking" count must include the no-impressions rankings
+    s = payload["courses"][0]["summary"]
+    assert s["ranking"] >= 2                      # improved + ranking_no_impressions
+    assert s["ranking"] > s["ranking_gsc"]        # Ahrefs adds rankings GSC cannot see
 
 
 def test_ahrefs_flags_keyword_ranking_on_another_page():

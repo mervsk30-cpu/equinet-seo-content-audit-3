@@ -11,8 +11,15 @@ Comparison rules (positions rounded to whole numbers, lower = better):
   stable          ranked both weeks, same rounded position
   newly_ranking   ranked this week, not last week (a previous week exists)
   lost            ranked before (last week or earlier), no rank this week
-  no_ranking_data never appeared in any snapshot
   no_baseline     ranked in the only snapshot we have (no previous week yet)
+
+Absence of GSC data is not evidence of absence from the SERP - GSC only reports
+a query once it has been seen, so a #1 page for a low-volume term never shows
+up. Ahrefs Rank Tracker is consulted as a second source before we call anything
+non-ranking:
+  ranking_no_impressions  no GSC rows, but Ahrefs has a real SERP position
+  not_ranking             Ahrefs checked it and found no position
+  not_checked             neither source has data for it
 
 No fabrication: every number comes from a snapshot row the GSC API returned.
 Keywords without API rows stay blank. When collection failed or data is
@@ -40,8 +47,15 @@ STALE_AFTER_DAYS = 8  # a weekly cadence means anything older than this is stale
 MIN_DISCOVERED_IMPRESSIONS = 5  # see discovered_totals below
 
 STATUS_ORDER = [
-    "dropped", "lost", "improved", "newly_ranking", "stable", "no_baseline", "no_ranking_data",
+    "dropped", "lost", "improved", "newly_ranking", "stable", "no_baseline",
+    "ranking_no_impressions", "not_ranking", "not_checked",
 ]
+
+# Statuses that mean "this keyword is currently in Google's results".
+RANKING_STATUSES = {
+    "improved", "dropped", "stable", "newly_ranking", "no_baseline",
+    "ranking_no_impressions",
+}
 
 # Display order for keyword types. The UI groups by this order and skips any
 # type with no keywords for the selected course.
@@ -166,7 +180,18 @@ def device_cell(idx_cur: dict, idx_prev: dict | None, course: str, query: str, d
     return cell
 
 
-def status_for(cur, prev, has_prev_snapshot: bool, ever_ranked_before: bool):
+def status_for(cur, prev, has_prev_snapshot: bool, ever_ranked_before: bool,
+               ahrefs_position=None, ahrefs_checked: bool = False):
+    """Classify a keyword using BOTH sources.
+
+    Search Console only reports a query that received at least one impression,
+    so "no GSC row" does NOT mean "not ranking" - a keyword can sit at #1 with
+    10 searches a month and still be invisible to GSC in a 7-day window. Ahrefs
+    performs an actual SERP check, so it can tell "ranking but no impressions"
+    apart from "genuinely absent from the SERP" and from "never checked".
+    Collapsing those three into one bucket previously mislabelled hundreds of
+    real #1 rankings as "No Ranking Data".
+    """
     if cur is not None and prev is not None:
         c, p = rnd(cur["position"]), rnd(prev["position"])
         if c < p:
@@ -178,7 +203,13 @@ def status_for(cur, prev, has_prev_snapshot: bool, ever_ranked_before: bool):
         return "newly_ranking" if has_prev_snapshot else "no_baseline"
     if prev is not None or ever_ranked_before:
         return "lost"
-    return "no_ranking_data"
+    # No Search Console activity at all - let Ahrefs decide which of the three
+    # genuinely different situations this is.
+    if ahrefs_position is not None:
+        return "ranking_no_impressions"
+    if ahrefs_checked:
+        return "not_ranking"
+    return "not_checked"
 
 
 def fmt_date_long(d: date) -> str:
@@ -268,7 +299,16 @@ def build_payload(config: dict, snapshots: list[dict], meta: dict, today: date,
 
             last_ranked = last_ranked_week.get((code, kw))
             ever_before = last_ranked is not None and (current is None or last_ranked < current["run_date"])
-            status = status_for(cur, prev, previous is not None, ever_before)
+            ah_desktop = ahrefs_idx.get((kw, "desktop"))
+            ah_mobile = ahrefs_idx.get((kw, "mobile"))
+            ah_pos = None
+            for _cand in (ah_desktop, ah_mobile):
+                if _cand and _cand.get("position") is not None:
+                    ah_pos = _cand["position"]
+                    break
+            status = status_for(cur, prev, previous is not None, ever_before,
+                                ahrefs_position=ah_pos,
+                                ahrefs_checked=(ah_desktop is not None or ah_mobile is not None))
 
             row = {
                 "keyword": kw,
@@ -301,7 +341,8 @@ def build_payload(config: dict, snapshots: list[dict], meta: dict, today: date,
         summary = {s: 0 for s in STATUS_ORDER}
         for r in rows:
             summary[r["status"]] += 1
-        summary["ranking"] = sum(1 for r in rows if r["current"] is not None)
+        summary["ranking"] = sum(1 for r in rows if r["status"] in RANKING_STATUSES)
+        summary["ranking_gsc"] = sum(1 for r in rows if r["current"] is not None)
         summary["total"] = len(rows)
         # per-type counts drive the UI's type sections (empty types are skipped)
         summary["by_type"] = {t: sum(1 for r in rows if r["type"] == t) for t in TYPE_ORDER}

@@ -48,8 +48,14 @@ cannibalisation signal rather than a hidden mismatch.
 
 - Every ranking, impression, click and CTR figure comes from the Google Search
   Console API. Nothing is estimated, interpolated, or demo data.
-- If Search Console has no data for a keyword, the cell is **blank** and the
-  keyword is marked **No Ranking Data**.
+- If Search Console has no data for a keyword, the cell is **blank**. It is
+  never filled in from another source or guessed at.
+- "No impressions in Search Console" is **not** the same as "not ranking".
+  Search Console only reports a keyword once somebody has actually seen it in
+  the results, so a page can sit at #1 for a low-volume term and still be
+  absent from GSC. The dashboard therefore checks Ahrefs Rank Tracker as a
+  second source before deciding a keyword is not ranking (see the status table
+  below), and says plainly when neither source has checked it.
 - If a weekly refresh fails, the dashboard shows an **explicit error banner**
   and labels the last successful week — it never presents old data as current.
 - Weekly snapshots are **immutable**: the collector refuses to overwrite an
@@ -82,12 +88,20 @@ on Monday 24 Aug 2026 covers Sat 15 – Fri 21 Aug.
 | Stable | Same rounded position both weeks |
 | Newly Ranking | Has a position this week, none last week |
 | Lost | Ranked in a previous week (shown with "since"), no position this week |
-| No Ranking Data | Target keyword with no GSC data in any recorded week |
 | Ranking (first week) | Only one snapshot exists, so there is no baseline yet |
+| Ranking · no impressions | No GSC data, but Ahrefs Rank Tracker has a real SERP position — it ranks, nobody has searched it yet |
+| Not Ranking | Ahrefs checked this keyword and found no position — genuinely not ranking |
+| Not Checked | Neither GSC nor Ahrefs has data. Usually a target keyword that isn't in the Rank Tracker project yet |
 
 Positions are GSC average positions displayed as whole numbers (e.g. `#7`,
 never `7.3`). Desktop and mobile are shown separately as `10 → 7 (↑3)` where
 device data exists.
+
+The first six statuses all mean **currently ranking**, and the dashboard opens
+filtered to exactly those. Not-Ranking and Not-Checked keywords are hidden by
+default to keep the table focused, but they are still tracked and one chip
+click away — the Primary and Secondary keywords sitting in there are the
+optimisation backlog, which is why they are hidden rather than deleted.
 
 ## One-time setup (required before the first data pull)
 

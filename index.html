@@ -217,7 +217,9 @@
     newly_ranking: { label: "Newly Ranking",   cls: "b-newly",    ic: "＋" },
     lost:          { label: "Lost",            cls: "b-lost",     ic: "✕" },
     stable:        { label: "Stable",          cls: "b-stable",   ic: "＝" },
-    no_ranking_data:{ label: "No Ranking Data", cls: "b-nodata",  ic: "–" },
+    ranking_no_impressions: { label: "Ranking · no impressions", cls: "b-nobase", ic: "◐" },
+    not_ranking:   { label: "Not Ranking",     cls: "b-nodata",   ic: "–" },
+    not_checked:   { label: "Not Checked",     cls: "b-nodata",   ic: "?" },
     no_baseline:   { label: "Ranking (first week)", cls: "b-nobase", ic: "·" },
   };
   const TYPES = {
@@ -231,6 +233,14 @@
   const TYPE_ORDER = (D.type_order && D.type_order.length)
     ? D.type_order : ["primary", "secondary", "supporting", "discovered"];
   const typeLabel = t => (TYPES[t] && TYPES[t].label) || t;
+
+  // A keyword is "ranking" if EITHER source places it in Google's results.
+  // Search Console alone is not enough: it only reports keywords that received
+  // impressions, so a genuine #1 on a low-volume term looks absent there.
+  const RANKING_STATUSES = new Set([
+    "improved", "dropped", "stable", "newly_ranking", "no_baseline", "ranking_no_impressions",
+  ]);
+  const isRanking = r => RANKING_STATUSES.has(r.status);
 
   function deltaHtml(change) {
     if (change === null || change === undefined) return '<span class="blank">–</span>';
@@ -317,7 +327,8 @@
 
   /* ---------- overview tiles + course cards ---------- */
   function totals() {
-    const t = { total: 0, ranking: 0, improved: 0, dropped: 0, newly_ranking: 0, lost: 0, stable: 0, no_ranking_data: 0, no_baseline: 0 };
+    const t = { total: 0, ranking: 0, improved: 0, dropped: 0, newly_ranking: 0, lost: 0, stable: 0,
+                ranking_no_impressions: 0, not_ranking: 0, not_checked: 0, no_baseline: 0 };
     for (const c of D.courses) for (const k in t) t[k] += c.summary[k] || 0;
     return t;
   }
@@ -594,7 +605,7 @@
     { id: "ctr",      label: "CTR",           num: true, sort: r => r.current ? r.current.ctr : -1, desc: true },
     { id: "url",      label: "Ranking URL",   sort: r => r.current ? r.current.page : "" },
     { id: "updated",  label: "Updated",       nosort: true },
-    { id: "live",     label: "Live",          nosort: true },
+    { id: "verify",   label: "Verify",        nosort: true },
   ];
 
   // view: "overview" (course cards) | "course" (one course) | "tile" (all
@@ -602,7 +613,7 @@
   // which is Primary > Secondary > Supporting > Discovered then best position.
   const state = {
     view: "overview", course: null, tile: null,
-    status: "all", type: "all", q: "",
+    status: "ranking", type: "all", q: "",
     sortBy: null, sortDesc: false, page: 1,
   };
 
@@ -611,7 +622,8 @@
   // Tiles map to a predicate over keyword rows, evaluated across every course.
   const TILES = {
     total:         { label: "Tracked keywords", match: () => true },
-    ranking:       { label: "Currently ranking", match: r => !!r.current },
+    ranking:       { label: "Currently ranking", match: isRanking },
+    not_ranking:   { label: "Not ranking",   match: r => r.status === "not_ranking" || r.status === "not_checked", color: "var(--muted)" },
     improved:      { label: "Improved",      match: r => r.status === "improved",      color: "var(--st-good)" },
     dropped:       { label: "Dropped",       match: r => r.status === "dropped",       color: "var(--st-serious)" },
     newly_ranking: { label: "Newly ranking", match: r => r.status === "newly_ranking", color: "var(--st-good)" },
@@ -655,7 +667,8 @@
 
   function filteredRows() {
     let rows = baseRows();
-    if (state.status !== "all") rows = rows.filter(r => r.status === state.status);
+    if (state.status === "ranking") rows = rows.filter(isRanking);
+    else if (state.status !== "all") rows = rows.filter(r => r.status === state.status);
     if (state.type !== "all") rows = rows.filter(r => r.type === state.type);
     if (state.q) { const q = state.q.toLowerCase(); rows = rows.filter(r => r.keyword.includes(q)); }
     const col = state.sortBy ? COLS.find(c => c.id === state.sortBy) : null;
@@ -794,7 +807,7 @@
     let lastType = null;
     const body = rows.map((r, localIdx) => {
       const idx = startIdx + localIdx; // global index into rowsAll, matched by wireTable
-      const st = STATUS[r.status] || STATUS.no_ranking_data;
+      const st = STATUS[r.status] || STATUS.not_checked;
       const cur = r.current, prev = r.previous;
       const ah = r.ahrefs || {};
       let out = "";
@@ -851,19 +864,33 @@
 
   function chipsHtml(course) {
     const s = course.summary;
-    const chip = (id, label, n) =>
-      '<button class="chip" data-status="' + id + '" aria-pressed="' + (state.status === id) + '">' +
-      label + ' <span class="n">' + n + "</span></button>";
+    const chip = (id, label, n, title) =>
+      '<button class="chip" data-status="' + id + '" aria-pressed="' + (state.status === id) + '"' +
+      (title ? ' title="' + esc(title) + '"' : "") + ">" +
+      label + ' <span class="n">' + fmtInt(n) + "</span></button>";
+    const offRank = (s.not_ranking || 0) + (s.not_checked || 0);
     return '<div class="chips">' +
-      chip("all", "All", s.total) +
+      chip("ranking", "● Ranking", s.ranking,
+        "Keywords Google currently ranks, per Search Console or Ahrefs. This is the default view.") +
       chip("improved", "↑ Improved", s.improved) +
       chip("dropped", "↓ Dropped", s.dropped) +
       chip("newly_ranking", "＋ Newly Ranking", s.newly_ranking) +
       chip("lost", "✕ Lost", s.lost) +
       chip("stable", "＝ Stable", s.stable) +
-      chip("no_ranking_data", "– No Ranking Data", s.no_ranking_data) +
+      (s.ranking_no_impressions ? chip("ranking_no_impressions", "◐ Ranking · no impressions", s.ranking_no_impressions,
+        "Ahrefs finds these in Google, but Search Console logged no impressions — usually very low search volume. They ARE ranking.") : "") +
+      (s.not_ranking ? chip("not_ranking", "– Not Ranking", s.not_ranking,
+        "Ahrefs checked and found no position. Hidden by default; these are optimisation targets.") : "") +
+      (s.not_checked ? chip("not_checked", "? Not Checked", s.not_checked,
+        "Neither source has data — not tracked in Ahrefs and no Search Console impressions. Unknown, not confirmed absent.") : "") +
       (s.no_baseline ? chip("no_baseline", "· First week", s.no_baseline) : "") +
-      "</div>";
+      chip("all", "All", s.total, "Everything, including keywords that are not ranking.") +
+      "</div>" +
+      (state.status === "ranking" && offRank
+        ? '<p class="note">Showing keywords that are currently ranking. ' + fmtInt(offRank) +
+          " not-ranking or unchecked keyword" + (offRank === 1 ? " is" : "s are") +
+          " hidden — use the “Not Ranking” / “Not Checked” chips to work on them.</p>"
+        : "");
   }
 
   /* ---------- render ---------- */
@@ -931,7 +958,7 @@
         } else {
           state.view = "tile"; state.tile = id; state.course = null;
         }
-        state.status = "all"; state.type = "all"; state.q = "";
+        state.status = "ranking"; state.type = "all"; state.q = "";
         state.sortBy = null; state.sortDesc = false; state.page = 1;
         render();
       };
@@ -944,14 +971,14 @@
     if (sel) sel.onchange = () => {
       state.course = sel.value || null;
       state.view = state.course ? "course" : "overview";
-      state.tile = null; state.status = "all"; state.type = "all"; state.q = "";
+      state.tile = null; state.status = "ranking"; state.type = "all"; state.q = "";
       state.sortBy = null; state.sortDesc = false; state.page = 1;
       render();
     };
     for (const card of app.querySelectorAll(".ccard")) {
       card.onclick = () => {
         state.course = card.dataset.course; state.view = "course"; state.tile = null;
-        state.status = "all"; state.type = "all"; state.q = "";
+        state.status = "ranking"; state.type = "all"; state.q = "";
         state.sortBy = null; state.sortDesc = false; state.page = 1;
         render();
       };
