@@ -1,10 +1,10 @@
 {
-  "last_run_status": "ok",
+  "last_run_status": "error",
   "note": "No data pull has run yet. The weekly collector overwrites this file.",
-  "last_run_at": "2026-10-12T06:01:50+00:00",
+  "last_run_at": "2026-10-19T04:43:45+00:00",
   "last_success_at": "2026-10-12T06:01:50+00:00",
   "last_success_run_date": "2026-10-12",
-  "last_error": null,
+  "last_error": "RuntimeError: GSC API error 403 for sc-domain:equinetacademy.com: {\n  \"error\": {\n    \"code\": 403,\n    \"message\": \"User does not have sufficient permission for site 'sc-domain:equinetacademy.com'. See also: https://support.google.com/webmasters/answer/2451999.\",\n    \"errors\": [\n      {\n        \"message\": \"User does not have sufficient permission for site 'sc-domain:equinetacademy.com'. See also: https://support.google.com/webmasters/answer/2451999.\",\n        \"domain\": \"global\",\n        \"reason\": \"forbidden\"\n      }\n    ]\n  }\n}\n",
   "property": "sc-domain:equinetacademy.com",
   "country": "sgp"
 }
